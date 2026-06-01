@@ -1,0 +1,157 @@
+{
+  "overallCoordinators": [
+    {
+      "name": "Vishal Singh",
+      "role": "Overall Coordinator",
+      "image": "/images/team/vishal.jpeg",
+      "linkedin": "https://www.linkedin.com/in/vishal",
+      "email": "vishal_2401cb62@iitp.ac.in"
+    }
+  ],
+  "strategicLead": [
+    {
+      "name": "Parth Bhagwat",
+      "role": "Strategic Lead",
+      "image": "/images/team/parth_bhagwat.png",
+      "linkedin": "https://www.linkedin.com/in/bhagwat",
+      "email": "bhagwat_2401ce31@iitp.ac.in"
+    }
+  ],
+  "heads": [
+    {
+      "departmentName": "Events & Planning",
+      "members": [
+        {
+          "name": "Mohit Joshi",
+          "role": "Head — Events & Planning",
+          "image": "/images/team/mohit.jpg",
+          "linkedin": "https://linkedin.com/in/mohit-joshi-iitp",
+          "email": "mohit_2401es08@iitp.ac.in"
+        },
+        {
+          "name": "Mayur Prakash Rathi",
+          "role": "Head — Events & Planning",
+          "image": "/images/team/mayur.jpg",
+          "linkedin": "https://www.linkedin.com/in/mayur-prakash-rathi-a70a75310",
+          "email": "mayur_2401ct01@iitp.ac.in"
+        },
+        {
+          "name": "Mayank",
+          "role": "Head — Events & Planning",
+          "image": "/images/team/mayank.jpg",
+          "linkedin": "https://www.linkedin.com/in/mayank-9a64053b1",
+          "email": "mayank_2402gt08@iitp.ac.in"
+        }
+      ]
+    },
+    {
+      "departmentName": "Public Relations",
+      "members": [
+        {
+          "name": "Saksham Thakur",
+          "role": "Head — Public Relations",
+          "image": "/images/team/saksham.jpg",
+          "linkedin": "https://www.linkedin.com/in/saksham-thakur-192826321?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+          "email": "saksham_2401cb56@iitp.ac.in"
+        },
+        {
+          "name": "Bhavika Mulchandani",
+          "role": "Head — Public Relations",
+          "image": "/images/team/bhavika.jpg",
+          "linkedin": "https://www.linkedin.com/in/bhavika-mulchandani-b99564321?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+          "email": "bhavika_2403me12@iitp.ac.in"
+        },
+        {
+          "name": "Devanarayanan J",
+          "role": "Head — Public Relations",
+          "image": "/images/team/devanarayanan.jpg",
+          "linkedin": "http://www.linkedin.com/in/devanarayanan-j-691014324",
+          "email": "devanarayanan_2403mm02@iitp.ac.in"
+        }
+      ]
+    },
+    {
+      "departmentName": "Startup Relations",
+      "members": [
+        {
+          "name": "Sahil",
+          "role": "Head — Startup Relations",
+          "image": "/images/team/sahil.png",
+          "linkedin": "https://www.linkedin.com/in/sahil-72019a360?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+          "email": "sahil_2401ee16@iitp.ac.in"
+        },
+        {
+          "name": "Aditya Kailash Kuranjekar",
+          "role": "Head — Startup Relations",
+          "image": "/images/team/aditya.jpg",
+          "linkedin": "https://www.linkedin.com/in/aditya-kuranjekar-ba572130b?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+          "email": "aditya_2403cs01@iitp.ac.in"
+        }
+      ]
+    },
+    {
+      "departmentName": "Marketing & Sponsorship",
+      "members": [
+        {
+          "name": "Parth Dwivedi",
+          "role": "Head — Marketing & Sponsorship",
+          "image": "/images/team/parth_dwivedi.jpeg",
+          "linkedin": "https://www.linkedin.com/in/parth-dwivedi-6713082a8",
+          "email": "parth_2401me65@iitp.ac.in"
+        },
+        {
+          "name": "Abhishek Kumar",
+          "role": "Head — Marketing & Sponsorship",
+          "image": "/images/team/abhishek.jpeg",
+          "linkedin": "https://www.linkedin.com/in/abhishek-kumar-0b0720285",
+          "email": "abhishek_2401cb06@iitp.ac.in"
+        },
+        {
+          "name": "Sneha Sinha",
+          "role": "Head — Marketing & Sponsorship",
+          "image": "/images/team/sneha.jpeg",
+          "linkedin": "https://www.linkedin.com/in/sneha-sinha-568b37319?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+          "email": "sneha_2401cb40@iitp.ac.in"
+        }
+      ]
+    },
+    {
+      "departmentName": "Production",
+      "members": [
+        {
+          "name": "Krishna Teja Degala",
+          "role": "Head — Production",
+          "image": "/images/team/teja.jpeg",
+          "linkedin": "http://www.linkedin.com/in/krishnatejaiitp",
+          "email": "krishna_2401ec29@iitp.ac.in"
+        },
+        {
+          "name": "Ayush Sen",
+          "role": "Head — Production",
+          "image": "/images/team/ayush.jpg",
+          "linkedin": "https://www.linkedin.com/in/ayush-sen-b96870326?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+          "email": "ayush_2401ct04@iitp.ac.in"
+        }
+      ]
+    },
+    {
+      "departmentName": "Web Development",
+      "members": [
+        {
+          "name": "Krish Goyal",
+          "role": "Head — Web Development",
+          "image": "/images/team/krish.jpeg",
+          "linkedin": "https://www.linkedin.com/in/krish-goyal-6a5362315/",
+          "email": "krish_2401ec13@iitp.ac.in"
+        },
+        {
+          "name": "Prashant Raj",
+          "role": "Head — Web Development",
+          "image": "/images/team/prashant.png",
+          "linkedin": "https://www.linkedin.com/in/prashant-raj-710845318?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+          "email": "prashant_2401cs04@iitp.ac.in"
+        }
+      ]
+    }
+  ]
+}
