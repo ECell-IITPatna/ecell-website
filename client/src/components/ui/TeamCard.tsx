@@ -31,9 +31,9 @@ interface MemberProps {
 
 export default function TeamCard({ member }: { member: MemberProps }) {
   return (
-    <div className="w-full max-w-66.5 bg-[#0F172A] rounded-xl overflow-hidden border border-slate-800 flex flex-col transition-all duration-300 ease-out transform hover:-translate-y-2 hover:border-cyan-500/40 hover:shadow-[0_0_30px_rgba(34,211,238,0.6)] group">
+    <div className="w-full max-w-70.5 bg-[#0F172A] rounded-xl overflow-hidden border border-slate-800 flex flex-col transition-all duration-300 ease-out transform hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(34,211,238,0.6)] group">
       
-      <div className="w-full h-59 overflow-hidden relative bg-slate-900">
+      <div className="w-full h-61 overflow-hidden relative bg-slate-900">
         <img 
           src={member.image || "/images/team/placeholder.jpg"} 
           alt={member.name}
@@ -44,7 +44,6 @@ export default function TeamCard({ member }: { member: MemberProps }) {
 
       <div className="p-4 flex flex-col justify-between flex-grow text-left">
         
-        {/* Text Details */}
         <div>
           <h3 className="text-base font-bold text-slate-100 tracking-tight">
             {member.name}

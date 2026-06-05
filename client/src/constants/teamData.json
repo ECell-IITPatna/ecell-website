@@ -6,6 +6,13 @@
       "image": "/images/team/vishal.jpeg",
       "linkedin": "https://www.linkedin.com/in/vishal",
       "email": "vishal_2401cb62@iitp.ac.in"
+    },
+    {
+      "name": "Srijan Sharma",
+      "role": "Overall Coordinator",
+      "image": "/images/team/srijan.jpg",
+      "linkedin": "https://www.linkedin.com/in/srijan-sharma-818232321",
+      "email": "srijan_2401cb44@iitp.ac.in"
     }
   ],
   "strategicLead": [
@@ -67,6 +74,13 @@
           "image": "/images/team/devanarayanan.jpg",
           "linkedin": "http://www.linkedin.com/in/devanarayanan-j-691014324",
           "email": "devanarayanan_2403mm02@iitp.ac.in"
+        },
+        {
+          "name": "Tanushkumar Yadav",
+          "role": "Head — Public Relations",
+          "image": "/images/team/tanush.jpg",
+          "linkedin": "http://www.linkedin.com/in/tanushkumar-yadav-9126812b8",
+          "email": "tanushkumar_2401ph25@iitp.ac.in"
         }
       ]
     },
@@ -86,6 +100,13 @@
           "image": "/images/team/aditya.jpg",
           "linkedin": "https://www.linkedin.com/in/aditya-kuranjekar-ba572130b?utm_source=share_via&utm_content=profile&utm_medium=member_android",
           "email": "aditya_2403cs01@iitp.ac.in"
+        },
+        {
+          "name": "Pratichi Maheshwari",
+          "role": "Head — Startup Relations",
+          "image": "/images/team/pratichi.jpeg",
+          "linkedin": "http://www.linkedin.com/in/pratichi-maheshwari",
+          "email": "pratichi_2401me07@iitp.ac.in"
         }
       ]
     },
