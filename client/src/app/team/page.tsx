@@ -81,14 +81,14 @@ export default function TeamPage() {
 
         {/* 1. OVERALL COORDINATORS SECTION */}
         <div className="mb-28 flex flex-col items-center">
-          <div className="w-full flex items-center justify-center gap-6 mb-14 max-w-4xl">
-            <div className="h-[1px] flex-grow bg-gradient-to-r from-transparent to-slate-800/80" />
+          <div className="w-full flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mb-10 md:mb-14 max-w-4xl px-4 mx-auto">
+            <div className="hidden md:block h-[1px] flex-grow bg-gradient-to-r from-transparent to-slate-800/80" />
 
-            <h2 className={`${headingFont} text-3xl md:text-3xl text-slate-200 tracking-wider uppercase text-center whitespace-nowrap`}>
+            <h2 className={`${headingFont} text-3xl md:text-3xl text-slate-200 tracking-wider uppercase text-center`}>
               Overall Coordinators
             </h2>
 
-            <div className="h-[1px] flex-grow bg-gradient-to-l from-transparent to-slate-800/80" />
+            <div className="hidden md:block h-[1px] flex-grow bg-gradient-to-l from-transparent to-slate-800/80" />
           </div>
 
           <div className="w-full max-w-6xl mx-auto flex flex-wrap justify-center gap-12">
@@ -102,14 +102,14 @@ export default function TeamPage() {
 
         {/* 2. STRATEGIC LEAD SECTION */}
         <div className="mb-28 flex flex-col items-center">
-          <div className="w-full flex items-center justify-center gap-6 mb-14 max-w-4xl">
-            <div className="h-[1px] flex-grow bg-gradient-to-r from-transparent to-slate-800/80" />
+          <div className="w-full flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mb-10 md:mb-14 max-w-4xl px-4 mx-auto">
+            <div className="hidden md:block h-[1px] flex-grow bg-gradient-to-r from-transparent to-slate-800/80" />
 
-            <h2 className={`${headingFont} text-3xl md:text-3xl text-slate-200 tracking-wider uppercase text-center whitespace-nowrap`}>
+            <h2 className={`${headingFont} text-3xl md:text-3xl text-slate-200 tracking-wider uppercase text-center`}>
               Strategic Lead
             </h2>
 
-            <div className="h-[1px] flex-grow bg-gradient-to-l from-transparent to-slate-800/80" />
+            <div className="hidden md:block h-[1px] flex-grow bg-gradient-to-l from-transparent to-slate-800/80" />
           </div>
 
           <div className="w-full max-w-6xl mx-auto flex flex-wrap justify-center gap-12">
@@ -123,13 +123,14 @@ export default function TeamPage() {
 
         {/* 3. HEADS OF COMMITTEES */}
         <div className="mt-28 flex flex-col items-center">
+          <div className="w-full flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mb-10 md:mb-14 max-w-4xl px-4 mx-auto">
+            <div className="hidden md:block h-[1px] flex-grow bg-gradient-to-r from-transparent to-slate-800/80" />
 
-          <div className="w-full flex items-center justify-center gap-6 mb-20 max-w-4xl">
-            <div className="h-[1px] flex-grow bg-gradient-to-r from-transparent to-slate-800/80" />
-            <h2 className={`${headingFont} text-3xl md:text-3xl text-slate-200 tracking-wider uppercase text-center whitespace-nowrap`}>
+            <h2 className={`${headingFont} text-3xl md:text-3xl text-slate-200 tracking-wider uppercase text-center`}>
               Heads
             </h2>
-            <div className="h-[1px] flex-grow bg-gradient-to-l from-transparent to-slate-800/80" />
+
+            <div className="hidden md:block h-[1px] flex-grow bg-gradient-to-l from-transparent to-slate-800/80" />
           </div>
 
           {teamData.heads.map((dept, deptIdx) => (
