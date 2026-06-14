@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -102,8 +102,6 @@ function generateShootingStars(count: number) {
   }));
 }
 
-const STARS = generateStars(160);
-const SHOOTING_STARS = generateShootingStars(6);
 
 // ─── Hooks ───────────────────────────────────────────────────────────────────
 
@@ -148,6 +146,7 @@ function useAnimationFrame(callback: (time: number) => void, running = true) {
 // ─── Nebula Vortex Canvas ─────────────────────────────────────────────────────
 
 function NebulaCanvas({ mouse }: { mouse: { x: number; y: number } }) {
+  const stars = useMemo(() => generateStars(160), []);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const timeRef = useRef(0);
   const mouseRef = useRef(mouse);
@@ -169,7 +168,7 @@ function NebulaCanvas({ mouse }: { mouse: { x: number; y: number } }) {
     const my = mouseRef.current.y;
 
     // Draw orbiting star particles in 3D layers
-    STARS.forEach((star) => {
+    stars.forEach((star) => {
       const orbitX = Math.cos(time * star.orbitSpeed + star.orbitPhase) * star.orbitRadius * W;
       const orbitY = Math.sin(time * star.orbitSpeed * 0.7 + star.orbitPhase) * star.orbitRadius * H;
 
@@ -263,9 +262,14 @@ function NebulaCanvas({ mouse }: { mouse: { x: number; y: number } }) {
 // ─── Shooting Stars ───────────────────────────────────────────────────────────
 
 function ShootingStars() {
+  const [stars, setStars] = useState<ReturnType<typeof generateShootingStars>>([]);
+  useEffect(() => {
+    setStars(generateShootingStars(6));
+  }, []);
+
   return (
     <div style={{ position: "fixed", inset: 0, zIndex: 1, pointerEvents: "none", overflow: "hidden" }}>
-      {SHOOTING_STARS.map((s) => (
+      {stars.map((s) => (
         <div
           key={s.id}
           style={{
