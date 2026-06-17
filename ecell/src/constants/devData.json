@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Devaansh Jaiswal",
+    "role": "Manager",
+    "image": "/images/devs/devaansh.jpeg",
+    "linkedin": "https://www.linkedin.com/in/devaansh-jaiswal-57a964218",
+    "email": "devaansh_2503ec04@iitp.ac.in"
+  },
+  {
+    "name": "Aayush Raj",
+    "role": "Manager",
+    "image": "/images/devs/aayush.jpeg",
+    "linkedin": "www.linkedin.com/in/aayush-raj-a8b828310",
+    "email": "aayush_2501cs07@iitp.ac.in"
+  },
+  {
+    "name": "Aman Rao",
+    "role": "Manager",
+    "image": "/images/devs/aman.jpeg",
+    "linkedin": "https://www.linkedin.com/in/amanraoj",
+    "email": "joginapally_2501ee41@iitp.ac.in"
+  }
+]
