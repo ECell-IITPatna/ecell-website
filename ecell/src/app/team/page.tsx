@@ -32,7 +32,7 @@ export default function TeamPage() {
   const headingFont = syne.className;
 
   return (
-    <main className="min-h-screen bg-[#030712] py-20 px-4 sm:px-6 lg:px-8 relative overflow-x-hidden">
+    <main className="min-h-screen bg-[#030712] pt-36 py-20 px-4 sm:px-6 lg:px-8 relative overflow-x-hidden">
 
       {/* GRID LAYER */}
       {/* <div
@@ -91,9 +91,12 @@ export default function TeamPage() {
             <div className="hidden md:block h-[1px] flex-grow bg-gradient-to-l from-transparent to-slate-800/80" />
           </div>
 
-          <div className="w-full max-w-6xl mx-auto flex flex-wrap justify-center gap-12">
+          <div className="w-full max-w-6xl mx-auto flex flex-wrap justify-center gap-14 md:gap-16 py-4">
             {teamData.overallCoordinators.map((member, idx) => (
-              <div key={idx} className="w-full sm:w-[calc(50%-1.25rem)] md:w-[calc(33.333%-1.5rem)] lg:w-[calc(25%-1.5rem)] max-w-[250px]">
+              <div 
+                key={idx} 
+                className="w-full sm:w-[calc(50%-1.25rem)] md:w-[calc(33.333%-1.5rem)] lg:w-[calc(25%-1.5rem)] max-w-[280px] transform scale-105 transition-transform duration-300"
+              >
                 <TeamCard member={member} />
               </div>
             ))}
