@@ -1,0 +1,58 @@
+[
+  {
+    "id": "01",
+    "year": "2025",
+    "title": "THE RENAISSANCE KEYNOTE",
+    "category": "E-SUMMIT Mainstage",
+    "src": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&auto=format&fit=crop&q=80",
+    "description": "Charting unconventional growth paths for Tier-2 ecosystem frameworks with standard-setting panels."
+  },
+  {
+    "id": "02",
+    "year": "2025",
+    "title": "VALUATION WARROOM",
+    "category": "Pitch Deck Arena",
+    "src": "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=800&auto=format&fit=crop&q=80",
+    "description": "Early-stage founders pitching live equity metrics to frontline investment funds."
+  },
+  {
+    "id": "03",
+    "year": "2025",
+    "title": "CAPITAL CONNECT",
+    "category": "Investor Mixer",
+    "src": "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&auto=format&fit=crop&q=80",
+    "description": "An invite-only evening pairing seed-stage teams with angel networks across the region."
+  },
+  {
+    "id": "04",
+    "year": "2024",
+    "title": "DISRUPTIVE MATRIX",
+    "category": "Hackathon Hackfest",
+    "src": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&auto=format&fit=crop&q=80",
+    "description": "36 hours of pure unadulterated engineering, deploying scalable Web3/AI automation tools."
+  },
+  {
+    "id": "05",
+    "year": "2024",
+    "title": "FOUNDER FIELD NOTES",
+    "category": "Speaker Series",
+    "src": "https://images.unsplash.com/photo-1556761175-4b46a572b786?w=800&auto=format&fit=crop&q=80",
+    "description": "Three founders, three failures, and the operating lessons that came out of them."
+  },
+  {
+    "id": "06",
+    "year": "2024",
+    "title": "THE BOOTSTRAP CIRCUIT",
+    "category": "Workshop Series",
+    "src": "https://images.unsplash.com/photo-1531497865144-0464ef8fb9a9?w=800&auto=format&fit=crop&q=80",
+    "description": "A six-week sprint teaching first-time builders to launch on a near-zero budget."
+  },
+  {
+    "id": "07",
+    "year": "2024",
+    "title": "CAMPUS TO COMPANY",
+    "category": "Incubation Cell",
+    "src": "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&auto=format&fit=crop&q=80",
+    "description": "Tracking five student ventures from whiteboard sketch to registered company."
+  }
+]
