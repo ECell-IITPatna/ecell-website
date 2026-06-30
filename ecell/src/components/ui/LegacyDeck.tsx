@@ -117,13 +117,13 @@ export default function LegacyDeck({ items }: LegacyDeckProps) {
     }
 
     const triggerComet = () => {
-      const speed = Math.random() * 4 + 4.5; 
+      const speed = Math.random() * 1 + 1.5; 
       comets.push({
-        x: Math.random() * (width * 0.5),
+        x: Math.random() * window.innerWidth,
         y: -100, 
         speed: speed,
-        dx: speed,
-        dy: speed * 0.52,
+        dx: speed * 3,
+        dy: speed * 1.5,
         active: true
       });
     };
@@ -156,22 +156,21 @@ export default function LegacyDeck({ items }: LegacyDeckProps) {
         c.x += c.dx;
         c.y += c.dy;
 
+        const tailLength = 20.0;
         const gradient = ctx.createLinearGradient(
           c.x, c.y, 
-          c.x - c.dx * 14.0, c.y - c.dy * 14.0
+          c.x - c.dx * tailLength, c.y - c.dy * tailLength
         );
-        gradient.addColorStop(0, 'rgba(255, 255, 255, 1.0)');         // Intense white star head
-        gradient.addColorStop(0.04, 'rgba(56, 189, 248, 0.85)');     // Sharp bright blue core boundary
-        gradient.addColorStop(0.2, 'rgba(14, 165, 233, 0.3)');       // Super long smooth glowing tail stretch
-        gradient.addColorStop(1, 'rgba(3, 7, 18, 0)');                // Seamless dissipation into the background
+        gradient.addColorStop(0, 'rgba(255, 255, 255, 1.0)');
+        gradient.addColorStop(1, 'rgba(14, 165, 233, 0)');            // Seamless dissipation into the background
 
         ctx.strokeStyle = gradient;
-        ctx.lineWidth = 1.8;
+        ctx.lineWidth = 2.0;
         ctx.beginPath();
         ctx.moveTo(c.x, c.y);
         
         // Match the trace vector to the extended 14.0 gradient multiplier
-        ctx.lineTo(c.x - c.dx * 13.5, c.y - c.dy * 13.5);
+        ctx.lineTo(c.x - c.dx * tailLength, c.y - c.dy * tailLength);
         ctx.stroke();
 
         if (c.x > width + 400 || c.y > height + 400) {
@@ -208,7 +207,7 @@ export default function LegacyDeck({ items }: LegacyDeckProps) {
       
       {/* Bg Star Layer */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
+        <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-0" />
       </div>
 
       <div className="relative z-10 space-y-16 sm:space-y-24 max-w-7xl mx-auto">
