@@ -15,14 +15,14 @@ const HeroAnimation = ({children}: {children: React.ReactNode}) => {
        tl.from(split_heading.chars,{
           y:100,
           opacity:0,
-          duration:1,
+          duration:0.5,
           delay:0.5,
-          stagger:0.05,
+          stagger:0.03,
        });
        tl.from(split_para.words,{
           opacity:0,
-          duration:1,
-          stagger:0.05,
+          duration:0.5,
+          stagger:0.03,
        });   
     },containerref);
 
