@@ -77,6 +77,7 @@ export default function TeamPage() {
     ];
 
     function drawBackground() {
+      if (!ctx) return;
       const bg = ctx.createRadialGradient(W * 0.5, H * 0.3, 0, W * 0.5, H * 0.6, W * 0.95);
       bg.addColorStop(0,   '#0a0e1a');
       bg.addColorStop(0.5, '#04080f');
@@ -87,6 +88,7 @@ export default function TeamPage() {
 
     function drawNebulae() {
       nebulae.forEach(n => {
+        if (!ctx) return;
         ctx.save();
         ctx.translate(n.cx * W, n.cy * H);
         ctx.rotate(n.angle);
@@ -105,6 +107,7 @@ export default function TeamPage() {
 
     function drawDustMotes() {
       dustMotes.forEach(d => {
+        if (!ctx) return;
         d.x += d.drift;
         if (d.x > W + 10) d.x = -10;
         if (d.x < -10) d.x = W + 10;
@@ -117,6 +120,7 @@ export default function TeamPage() {
 
     function drawStars() {
       stars.forEach(s => {
+        if (!ctx) return;
         s.a += s.s;
         if (s.a > 1 || s.a < 0) s.s = -s.s;
         const alpha = Math.max(0.1, s.a * 0.6) * (s.layer === 0 ? 1 : 0.45);
