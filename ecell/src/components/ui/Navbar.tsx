@@ -1,7 +1,7 @@
 'use client';
 import Link from "next/link";
 import Image from "next/image";
-import { navbarDetails,sidebarDetails } from "@/constants/navbarDetails";
+import { navbarDetails, sidebarDetails } from "@/constants/navbarDetails";
 import gsap from "gsap/all";
 import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
@@ -14,7 +14,7 @@ export function Navbar() {
     const timelineref2 = useRef<gsap.core.Timeline | null>(null);
     useGSAP(() => {
         const tl = gsap.timeline({ paused: true });
-        const tl2 = gsap.timeline({paused: true,reversed: true});
+        const tl2 = gsap.timeline({ paused: true });
         tl.to(".navbar", {
             yPercent: -200,
             duration: 0.5,
@@ -32,9 +32,9 @@ export function Navbar() {
         });
 
         tl2.to(sidebarRef.current, {
-            xPercent: 100,
-            duration: 0.5,
-            ease: "back.in",
+            right: 0,
+            duration: 1,
+            ease: "power3.inOut",
         });
 
         timelineref.current = tl;
@@ -60,7 +60,7 @@ export function Navbar() {
             />
 
             {/*Desktop Navigation*/}
-            <nav className="navbar max-md:hidden z-50 fixed top-5 left-1/2 transform -translate-x-1/2 lg:w-[90%] w-[95%] flex items-center justify-around px-6 bg-[#0F172A] rounded-xl">
+            <nav className="navbar max-md:hidden z-50 fixed top-5 left-1/2 transform -translate-x-1/2 lg:w-[90%] w-[95%] flex items-center justify-around px-6 bg-[rgb(0,0,0)] backdrop-blur-md border border-white/10 rounded-xl">
                 {
                     navbarDetails.map((item, index) => {
                         if (item.name === "Logo") {
@@ -94,7 +94,7 @@ export function Navbar() {
             </nav>
 
             {/* Mobile Navigation */}
-            <nav className="navbar max-md:flex z-50 fixed top-5 left-1/2 transform -translate-x-1/2 lg:w-[90%] w-[95%] flex items-center justify-between px-6 bg-[#0F172A] rounded-xl hidden">
+            <nav className="navbar max-md:flex z-50 fixed top-5 left-1/2 transform -translate-x-1/2 lg:w-[90%] w-[95%] items-center justify-between px-6 bg-[rgb(0,0,0)] backdrop-blur-md border border-white/10 rounded-xl hidden">
                 <Image
                     src="/images/logo.png"
                     alt="Logo"
@@ -111,40 +111,37 @@ export function Navbar() {
                     }}
                 />
                 <button><Menu onClick={() => {
-                    if (timelineref2.current?.reversed()) {
+                    if (timelineref2.current?.progress() === 0) {
                         timelineref2.current?.play();
-                    } else {
-                        timelineref2.current?.reverse();
                     }
-                 }} /></button>
-
-                <div className="flex flex-col gap-4 absolute h-screen top-0 right-[-100%] w-full bg-black p-4 " ref={sidebarRef}>
-                    <div className="flex justify-end p-2">
-                        <X className=" border border-white-40 rounded-full"
-                            size={30}
-                            onClick={() => {
-                                if (timelineref2.current?.reversed()) {
-                                    timelineref2.current?.play();
-                                } else {
-                                    timelineref2.current?.reverse();
-                                }
-                            }}
-                        />
-                    </div>
-                    <div className="flex flex-col gap-4">
-                        {sidebarDetails.map((item, index) => {
-                            return (
-                                <div key={index}>
-                                    <span className="text-white-30 text-lg font-extrabold">{index+1 +"  "}</span>
-                                    <Link key={index} href={item.href} className="text-white text-2xl font-bold font-clash links border-t-2 border-b-2 border-transparent hover:border-white hover:text-3xl transition duration-300">
-                                        {item.name}
-                                    </Link>
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
+                }} /></button>
             </nav>
+
+            {/* Sidebar for Mobile Navigation */}
+            <div className="z-50 max-md:flex flex-col gap-4 fixed h-screen top-0 -right-full w-screen bg-black p-4 hidden" ref={sidebarRef}>
+                <div className="flex justify-end p-2">
+                    <X className=" border border-white-40 rounded-full"
+                        size={30}
+                        onClick={() => {
+                            if (timelineref2.current?.progress() === 1) {
+                                timelineref2.current?.reverse();
+                            }
+                        }}
+                    />
+                </div>
+                <div className="flex flex-col gap-4">
+                    {sidebarDetails.map((item, index) => {
+                        return (
+                            <div key={index}>
+                                <span className="text-[#5f5f5fa2] text-lg font-extrabold">{index + 1 + "  "}</span>
+                                <Link key={index} href={item.href} className="text-white text-2xl font-bold font-clash links border-t-2 border-b-2 border-transparent hover:border-white hover:text-3xl transition duration-300 px-2">
+                                    {item.name}
+                                </Link>
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
         </div>
     );
 }

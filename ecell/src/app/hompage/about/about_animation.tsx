@@ -50,6 +50,17 @@ const AboutAnimation = ({ children }: { children: React.ReactNode }) => {
       "-=0.8"
     );
 
+    textTimeline.to(".rocket",{
+      xPercent: -30,
+      ease:"power3.inOut",
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top 70%",
+        end: "bottom 30%",
+        scrub: true,
+      },
+    })
+
   }, { scope: containerRef });
 
   return (
