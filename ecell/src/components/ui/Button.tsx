@@ -1,11 +1,11 @@
 'use client'
 import React from 'react'
 
-const Button = ({ content, css}: { content: string; css: string }) => {
-
-  const onHoverPlayAudio = ()=>{
+const Button = ({ content, css }: { content: string; css: string }) => {
+  const [buttonContent, setButtonContent] = React.useState(content);
+  const onHoverPlayAudio = () => {
     const hover_audio = new Audio("/audio/hover.wav");
-    hover_audio.preload="auto";
+    hover_audio.preload = "auto";
     hover_audio.currentTime = 0;
     hover_audio.volume = 0.5;
     hover_audio.play().catch((error) => {
@@ -13,9 +13,9 @@ const Button = ({ content, css}: { content: string; css: string }) => {
     });
   }
 
-  const onClickPlayAudio = ()=>{
+  const onClickPlayAudio = () => {
     const click_audio = new Audio("/audio/click.wav");
-    click_audio.preload="auto";
+    click_audio.preload = "auto";
     click_audio.currentTime = 0;
     click_audio.volume = 0.5;
     click_audio.play().catch((error) => {
@@ -35,9 +35,28 @@ const Button = ({ content, css}: { content: string; css: string }) => {
         onClick={() => {
           onClickPlayAudio();
         }}
-        onMouseEnter={onHoverPlayAudio}
+        onMouseEnter={() => {
+          const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456@#$%^&*';
+          const originalText = content;
+          const substring = originalText.substring(1);
+          let iterations = 0;
+          const interval = setInterval(() => {
+            setButtonContent(originalText[0] + substring.split('').map((_, index) => {
+              if (index < iterations) {
+                return substring[index];
+              }
+              return letters[Math.floor(Math.random() * letters.length)];
+            }).join(''));
+            if (iterations >= substring.length) {
+              clearInterval(interval);
+              setButtonContent(originalText);
+            }
+            iterations += 1 / 3;
+          }, 30);
+          onHoverPlayAudio();
+        }}
       >
-        {content}
+        {buttonContent}
       </button>
     </div>
   )
