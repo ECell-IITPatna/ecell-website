@@ -1,5 +1,5 @@
 import React from 'react'
-import achievements from "@/constants/achievements";
+//import achievements from "@/constants/achievements";
 const Achievements = () => {
     return (
         <>
