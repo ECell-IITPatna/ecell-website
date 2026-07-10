@@ -1,9 +1,11 @@
-import Contact from "@/components/ui/Contact";
 import Hero from "./hompage/hero/hero";
-import Footer from "@/components/ui/Footer";
+import Achievements from "./hompage/achievement/acheivements";
+import About from "./hompage/about/about";
+
 import HeroAnimation from "./hompage/hero/hero_animation";
 import AboutAnimation from "./hompage/about/about_animation";
-import About from "./hompage/about/about";
+import AchievementsAnimation from "./hompage/achievement/achievements_animation";
+
 export default function Home() {
   return (
     <main>
@@ -15,8 +17,9 @@ export default function Home() {
         <About />
       </AboutAnimation>
 
-      {/* <Contact/>
-      <Footer/> */}
+      <AchievementsAnimation>
+        <Achievements />
+      </AchievementsAnimation>
     </main>
   );
 } 
