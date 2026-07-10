@@ -159,9 +159,23 @@ export default function TeamPage() {
       {/* Developer floating options panel toggle */}
       <button
         onClick={() => setIsDevOpen(true)}
-        className="fixed bottom-8 left-8 z-40 w-16 h-16 bg-slate-900/80 hover:bg-slate-800 border border-slate-700/50 rounded-full flex items-center justify-center text-slate-300 hover:text-emerald-400 shadow-2xl backdrop-blur-md cursor-pointer transition-all duration-300 hover:scale-110"
+        className="fixed bottom-8 left-8 z-40 w-16 h-16 md:w-19 md:h-19 bg-slate-950/90 rounded-full flex items-center justify-center text-slate-300 hover:text-emerald-400 shadow-[0_0_20px_rgba(16,185,129,0.15)] hover:shadow-[0_0_35px_rgba(52,211,153,0.5)] cursor-pointer group transition-all duration-500 overflow-hidden"
       >
-        <span className={`${syne.className} text-xl font-bold`}>&lt;/&gt;</span>
+        <div 
+          className="absolute inset-0 rounded-full animate-spin [animation-duration:2.5s] pointer-events-none mix-blend-screen" 
+          style={{
+            background: 'conic-gradient(from 0deg, transparent 180deg, rgba(52,211,153,0.1) 240deg, rgba(52,211,153,0.4) 300deg, #10b981 360deg)'
+          }}
+        />
+        
+        <div className="absolute inset-[4px] bg-[#070a13] rounded-full z-0 group-hover:bg-[#0b1120] transition-colors duration-500" />
+
+        <div className="absolute w-10 h-10 bg-emerald-500/10 rounded-full blur-md animate-ping [animation-duration:3s] pointer-events-none opacity-50 group-hover:opacity-90" />
+
+        {/* Floating Bracket Symbol */}
+        <span className={`${syne.className} text-xl font-bold relative z-10 tracking-tighter transition-transform duration-500 group-hover:scale-110`}>
+          &lt;/&gt;
+        </span>
       </button>
 
       <DevSidebar isOpen={isDevOpen} onClose={() => setIsDevOpen(false)} />

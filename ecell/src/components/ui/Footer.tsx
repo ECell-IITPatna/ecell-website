@@ -44,7 +44,7 @@ function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-[#000000] text-slate-300 py-12 px-6 md:px-16 lg:px-24 border-t border-slate-900/60 relative z-20 font-sans select-none">
+    <footer className="w-full bg-[#000000] text-slate-300 pt-20 pb-6 px-6 md:px-16 lg:px-24 border-t border-slate-900/60 relative z-20 font-clash select-none">
       
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-start pb-10">
         
@@ -58,7 +58,7 @@ export default function Footer() {
             />
           </div>
           
-          <p className="text-sm font-medium text-slate-300 tracking-wide">
+          <p className="text-m font-medium text-slate-300 tracking-wide">
             Where Innovation Begins
           </p>
           
@@ -68,12 +68,13 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="md:col-span-7 grid grid-cols-3 gap-8 w-full text-left">
+        {/* Right Area containing Links & The "Made with love" credit */}
+        <div className="md:col-span-7 grid grid-cols-3 gap-8 w-full text-center md:text-left">
           
           {/* Column 1: E-Cell */}
-          <div className="flex flex-col space-y-3">
+          <div className="flex flex-col items-center md:items-start space-y-3">
             <h4 className="text-white text-base font-semibold tracking-wide">E-Cell</h4>
-            <div className="flex flex-col space-y-1.5 text-sm text-slate-400 font-medium">
+            <div className="flex flex-col items-center md:items-start space-y-1.5 text-sm text-slate-400 font-medium">
               <Link href="/" className="hover:text-white transition-colors">Home</Link>
               <Link href="/about" className="hover:text-white transition-colors">About Us</Link>
               <Link href="/team" className="hover:text-white transition-colors">Team</Link>
@@ -85,29 +86,35 @@ export default function Footer() {
           </div>
 
           {/* Column 2: E-Summit */}
-          <div className="flex flex-col space-y-3">
+          <div className="flex flex-col items-center md:items-start space-y-3">
             <h4 className="text-white text-base font-semibold tracking-wide">E-Summit</h4>
-            <div className="flex flex-col space-y-1.5 text-sm text-slate-400 font-medium">
+            <div className="flex flex-col items-center md:items-start space-y-1.5 text-sm text-slate-400 font-medium">
               <Link href="#" className="hover:text-white transition-colors">Home</Link>
             </div>
           </div>
 
           {/* Column 3: Initiatives */}
-          <div className="flex flex-col space-y-3">
+          <div className="flex flex-col items-center md:items-start space-y-3">
             <h4 className="text-white text-base font-semibold tracking-wide">Initiatives</h4>
-            <div className="flex flex-col space-y-1.5 text-sm text-slate-400 font-medium">
+            <div className="flex flex-col items-center md:items-start space-y-1.5 text-sm text-slate-400 font-medium">
               <Link href="#" className="hover:text-white transition-colors">Startin</Link>
               <Link href="#" className="hover:text-white transition-colors">Xplore</Link>
             </div>
           </div>
 
+          {/* Credit Section*/}
+          <div className="col-span-3 flex justify-center md:justify-end items-end pt-6 md:pt-4">
+            <p className="text-sm font-medium text-slate-500">
+              Made with 🤍 by Web Dev Wing E-Cell IIT Patna
+            </p>
+          </div>
+
         </div>
       </div>
 
-      {/* Footer Base */}
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-xm text-slate-500 pt-6 border-t border-slate-900/60">
-        <p className="order-2 md:order-1 mt-4 md:mt-0">2026 E-Cell IIT Patna . All Rights Reserved</p>
-        <p className="order-1 md:order-2">Made with 🤍 by Web Dev Wing E-Cell IIT Patna</p>
+      {/* Footer Base*/}
+      <div className="max-w-7xl mx-auto flex justify-center items-center text-sm text-slate-400 pt-6 border-t border-slate-900/60">
+        <p>© 2026 E-Cell IIT Patna. All Rights Reserved</p>
       </div>
     </footer>
   );
