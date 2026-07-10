@@ -7,7 +7,7 @@ export function AnimatedTitle({ text, visible, delay = 0 }: { text: string; visi
   return (
     <h1
       style={{
-        fontSize: "clamp(44px, 8vw, 72px)",
+        fontSize: "clamp(32px, 8vw, 72px)",
         fontWeight: 900,
         letterSpacing: -2,
         lineHeight: 1.05,

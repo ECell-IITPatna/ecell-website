@@ -39,7 +39,7 @@ export function FeaturedCard() {
           background: "linear-gradient(135deg, #0f2027 0%, #1a2a3a 40%, #0d1f2e 100%)",
           border: `1px solid rgba(100,160,200,${hovered ? 0.35 : 0.18})`,
           borderRadius: 16,
-          padding: "32px 36px",
+          padding: "clamp(20px, 5vw, 32px) clamp(20px, 5vw, 36px)",
           position: "relative",
           backdropFilter: "blur(12px)",
           boxShadow: hovered
@@ -110,9 +110,9 @@ export function FeaturedCard() {
           {FEATURED.tag}
         </div>
 
-        <div style={{ display: "flex", gap: 40, flexWrap: "wrap" }}>
+        <div className="featured-card-content" style={{ display: "flex", gap: "clamp(24px, 5vw, 40px)", flexWrap: "wrap" }}>
           {/* Left */}
-          <div style={{ flex: "1 1 320px" }}>
+          <div style={{ flex: "1 1 240px" }}>
             <div style={{
               width: 48, height: 48, borderRadius: 12,
               background: "rgba(60,130,200,0.25)",
@@ -124,15 +124,15 @@ export function FeaturedCard() {
             }}>
               {FEATURED.icon}
             </div>
-            <h2 style={{ fontSize: 28, fontWeight: 700, color: "#e8f4ff", margin: "0 0 12px" }}>
+            <h2 style={{ fontSize: "clamp(22px, 5vw, 28px)", fontWeight: 700, color: "#e8f4ff", margin: "0 0 12px" }}>
               {FEATURED.title}
             </h2>
             <p style={{ fontSize: 14, color: "#8aabb8", lineHeight: 1.7, margin: 0 }}>
               {FEATURED.description}
             </p>
-            <div style={{ display: "flex", gap: 0, marginTop: 32 }}>
+            <div className="featured-stats-container" style={{ display: "flex", gap: 0, marginTop: 32 }}>
               {FEATURED.stats.map((s, i) => (
-                <div key={i} style={{
+                <div key={i} className="featured-stat-item" style={{
                   flex: 1,
                   borderLeft: i > 0 ? "1px solid rgba(255,255,255,0.1)" : "none",
                   paddingLeft: i > 0 ? 24 : 0,
@@ -149,7 +149,7 @@ export function FeaturedCard() {
           </div>
 
           {/* Right */}
-          <div style={{ flex: "0 0 auto", minWidth: 180 }}>
+          <div style={{ flex: "1 1 180px", minWidth: 180 }}>
             <div style={{ fontSize: 13, fontWeight: 600, color: "#c0d8e8", marginBottom: 14 }}>
               Key Highlights
             </div>

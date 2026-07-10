@@ -54,7 +54,7 @@ export default function EndeavoursPage() {
       <FloatingOrbs />
 
       {/* Content */}
-      <div style={{ position: "relative", zIndex: 2, maxWidth: 900, margin: "0 auto", padding: "60px 28px 80px" }}>
+      <div className="endeavours-content-container" style={{ position: "relative", zIndex: 2, maxWidth: 900, margin: "0 auto", padding: "clamp(40px, 8vw, 60px) clamp(16px, 4vw, 28px) clamp(40px, 8vw, 80px)" }}>
 
         {/* ── HERO ─────────────────────────────────────── */}
         <div>
@@ -107,8 +107,8 @@ export default function EndeavoursPage() {
 
           <div style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(360px, 1fr))",
-            gap: 20,
+            gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 340px), 1fr))",
+            gap: "clamp(16px, 4vw, 20px)",
           }}>
             {CARDS.map((card, i) => (
               <QuickGlanceCard key={card.id} card={card} index={i} />
@@ -178,6 +178,32 @@ export default function EndeavoursPage() {
           *, *::before, *::after {
             animation-duration: 0.01ms !important;
             transition-duration: 0.01ms !important;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .featured-card-content { gap: 24px !important; }
+          .featured-stats-container { flex-wrap: wrap; }
+          .featured-stat-item {
+            flex: 1 1 calc(50% - 16px) !important;
+            margin-bottom: 16px;
+          }
+          .featured-stat-item:nth-child(odd) {
+            border-left: none !important;
+            padding-left: 0 !important;
+          }
+          .featured-stat-item:nth-child(even) {
+            border-left: 1px solid rgba(255,255,255,0.1) !important;
+            padding-left: 16px !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .featured-stat-item {
+            flex: 1 1 100% !important;
+            border-left: none !important;
+            padding-left: 0 !important;
+            margin-bottom: 20px;
           }
         }
       `}</style>
