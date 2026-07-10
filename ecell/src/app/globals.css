@@ -33,3 +33,6 @@ body {
 .font-aldrich {
   font-family: 'Aldrich', sans-serif;
 }
+.font-gugi{
+  font-family: var(--font-gugi);
+}
