@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 13, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/amanr/OneDrive/Desktop/Projects/ecell-website/client/src/app/favicon.ico.mjs%20%28structured%20image%20object%29"],"sourcesContent":["import src from \"IMAGE\";\nexport default { src, width: 256, height: 256 }\n"],"names":["src","width","height"],"mappings":";;;;AAAA;;uCACe;IAAEA,KAAAA,2MAAG;IAAEC,OAAO;IAAKC,QAAQ;AAAI"}},
-    {"offset": {"line": 28, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/amanr/OneDrive/Desktop/Projects/ecell-website/client/src/app/page.tsx"],"sourcesContent":["export default function Home() {\r\n  return (\r\n    <main style={{ \r\n      display: 'flex', \r\n      justifyContent: 'center', \r\n      alignItems: 'center', \r\n      minHeight: '100vh',\r\n      fontFamily: 'sans-serif' \r\n    }}>\r\n      <div style={{ textAlign: 'center' }}>\r\n        <h1>Welcome to the Home Page</h1>\r\n      </div>\r\n    </main>\r\n  );\r\n}"],"names":["Home","style","display","justifyContent","alignItems","minHeight","fontFamily","textAlign"],"mappings":";;;;;;AAAe,SAASA;IACtB,qBACE,+SAAC;QAAKC,OAAO;YACXC,SAAS;YACTC,gBAAgB;YAChBC,YAAY;YACZC,WAAW;YACXC,YAAY;QACd;kBACE,cAAA,+SAAC;YAAIL,OAAO;gBAAEM,WAAW;YAAS;sBAChC,cAAA,+SAAC;0BAAG;;;;;;;;;;;;;;;;AAIZ"}}]
-}
