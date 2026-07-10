@@ -1,5 +1,5 @@
 import Hero from "./hompage/hero/hero";
-import Achievements from "./hompage/achievement/acheivements";
+import Achievements from "./hompage/achievement/achievements";
 import About from "./hompage/about/about";
 
 import HeroAnimation from "./hompage/hero/hero_animation";

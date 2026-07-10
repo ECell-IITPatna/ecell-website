@@ -10,6 +10,8 @@ const AchievementsAnimation = ({ children }: { children: React.ReactNode }) => {
   useGSAP(() => {
     const header = new SplitText(".header", { type: "words" });
     const para = new SplitText(".para", { type: "words" });
+    const achievementsSection3 = new SplitText(".achievement-section-3", { type: "words" });
+
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: ".achievement-section-1",
@@ -30,6 +32,16 @@ const AchievementsAnimation = ({ children }: { children: React.ReactNode }) => {
       opacity:0,
       stagger:0.07,
     })
+
+    gsap.from(achievementsSection3.words, {
+      scrollTrigger: {
+        trigger: ".achievement-section-3",
+        start: "top center",
+      },
+      opacity: 0,
+      stagger: 0.07,
+      duration: 1,
+    });
   }, []);
   return (
     <div>

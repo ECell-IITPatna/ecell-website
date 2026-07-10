@@ -134,7 +134,14 @@ export function Navbar() {
                         return (
                             <div key={index}>
                                 <span className="text-[#5f5f5fa2] text-lg font-extrabold">{index + 1 + "  "}</span>
-                                <Link key={index} href={item.href} className="text-white text-2xl font-bold font-clash links border-t-2 border-b-2 border-transparent hover:border-white hover:text-3xl transition duration-300 px-2">
+                                <Link key={index} href={item.href}
+                                    className="text-white text-2xl font-bold font-clash links border-t-2 border-b-2 border-transparent hover:border-white hover:text-3xl transition duration-300 px-2"
+                                    onClick={() => {
+                                        if (timelineref2.current?.progress() === 1) {
+                                            timelineref2.current?.reverse();
+                                        }
+                                    }}
+                                >
                                     {item.name}
                                 </Link>
                             </div>
