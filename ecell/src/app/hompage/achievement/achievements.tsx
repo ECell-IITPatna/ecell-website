@@ -1,6 +1,6 @@
 import React from 'react'
-import AchievementCards from '@/components/ui/AchievementCards';
 import AchievementDesktopContent from './achievement_desktop_content';
+import AchievementMobileContent from './achievement_mobile_content';
 const Achievements = () => {
     return (
         <>
@@ -13,11 +13,9 @@ const Achievements = () => {
             <AchievementDesktopContent/>
 
             {/*Mobile View*/}
-            <section className="hidden max-md:block">
+            <AchievementMobileContent/>
 
-            </section>
-
-            <section className="py-20 w-full h-full achievement-section-3 font-gugi bg-black text-white text-center text-md md:text-lg lg:text-xl achievement-section-3">
+            <section className="py-20 w-full h-full achievement-section-3 font-gugi bg-black text-white text-center text-[3vw] md:text-lg lg:text-xl achievement-section-3">
                 Driven By Efforts . Fueled By Ambition . Defined By Impact
             </section>
         </>

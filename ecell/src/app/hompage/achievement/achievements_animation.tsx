@@ -20,9 +20,6 @@ const AchievementsAnimation = ({ children }: { children: React.ReactNode }) => {
   const achievementDescription = useRef<HTMLDivElement>(null);
   const achievementQuote = useRef<HTMLDivElement>(null);
   const achievementQuoteAuthor = useRef<HTMLDivElement>(null);
-
-
-
   useGSAP(() => {
     const header = new SplitText(".header", { type: "words" });
     const para = new SplitText(".para", { type: "words" });
@@ -54,6 +51,7 @@ const AchievementsAnimation = ({ children }: { children: React.ReactNode }) => {
       stagger: 0.07,
     })
 
+    //Desktop Animations
     gsap.from(achievementsSection3.words, {
       scrollTrigger: {
         trigger: ".achievement-section-3",
@@ -119,6 +117,7 @@ const AchievementsAnimation = ({ children }: { children: React.ReactNode }) => {
       })
     });
 
+    //Mobile Animations
 
   }, []);
 
