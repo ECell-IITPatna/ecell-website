@@ -42,7 +42,7 @@ export function QuickGlanceCard({ card, index }: { card: (typeof CARDS)[0]; inde
             : "linear-gradient(135deg, #0a1a26 0%, #111e2a 100%)",
           border: `1px solid ${hovered ? "rgba(100,180,255,0.3)" : "rgba(60,100,130,0.2)"}`,
           borderRadius: 14,
-          padding: "24px 24px 20px",
+          padding: "clamp(16px, 4vw, 24px) clamp(16px, 4vw, 24px) clamp(16px, 4vw, 20px)",
           cursor: "pointer",
           position: "relative",
           overflow: "hidden",
