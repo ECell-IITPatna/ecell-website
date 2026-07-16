@@ -5,8 +5,8 @@ import About from "./hompage/about/about";
 import HeroAnimation from "./hompage/hero/hero_animation";
 import AboutAnimation from "./hompage/about/about_animation";
 import AchievementsAnimation from "./hompage/achievement/achievements_animation";
-import AluminiAnimation from "./hompage/alumini/alumini_animation";
-import Alumini from "./hompage/alumini/alumini";
+import AlumniAnimation from "./hompage/alumni/alumni_animation";
+import Alumni from "./hompage/alumni/alumni";
 
 export default function Home() {
   return (
@@ -23,9 +23,9 @@ export default function Home() {
         <Achievements />
       </AchievementsAnimation>
 
-      <AluminiAnimation>
-        <Alumini />
-      </AluminiAnimation>
+      <AlumniAnimation>
+        <Alumni />
+      </AlumniAnimation>
     </main>
   );
 } 
