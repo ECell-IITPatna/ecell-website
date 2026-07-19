@@ -36,3 +36,6 @@ body {
 .font-gugi{
   font-family: var(--font-gugi);
 }
+.font-micro{
+  font-family: var(--font-micro);
+}

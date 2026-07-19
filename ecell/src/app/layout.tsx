@@ -27,6 +27,12 @@ const gugi = localFont({
   display: "swap",
 });
 
+const micro = localFont({
+  src: "../../public/fonts/Micro5-Regular.ttf",
+  variable: "--font-micro",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "E-Cell IIT Patna",
   description: "E-Cell IIT Patna is the Entrepreneurship Cell of the Indian Institute of Technology Patna, dedicated to fostering innovation and entrepreneurship among students. We organize various events, workshops, and competitions to encourage and support aspiring entrepreneurs in their journey towards building successful startups.",
@@ -40,7 +46,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${clash.variable} ${gugi.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${clash.variable} ${gugi.variable} ${micro.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <Navbar />

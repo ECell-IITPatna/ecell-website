@@ -23,11 +23,7 @@ const Button = ({ content, css }: { content: string; css: string }) => {
     });
   }
   return (
-    <div className="p-[1px] bg-white/10 rounded-sm"
-      style={{
-        clipPath:
-          "polygon(0 0, calc(100% - 20px) 0, 100% 50%, 100% 100%, 20px 100%, 0 50%)",
-      }}>
+    <div className="p-[1px] rounded-sm">
       <button className={`py-3 px-7 tracking-[0.2em] rounded-sm ${css}`}
         style={{
           clipPath: "polygon(0 0, calc(100% - 20px) 0, 100% 50%, 100% 100%, 20px 100%, 0 50%)"
@@ -36,7 +32,7 @@ const Button = ({ content, css }: { content: string; css: string }) => {
           onClickPlayAudio();
         }}
         onMouseEnter={() => {
-          const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456@#$%^&*';
+          const letters = 'ABCDEFGHIJKL3456@#$%^&*';
           const originalText = content;
           const substring = originalText.substring(1);
           let iterations = 0;
