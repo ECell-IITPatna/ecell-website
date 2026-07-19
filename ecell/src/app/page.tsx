@@ -7,6 +7,8 @@ import AboutAnimation from "./hompage/about/about_animation";
 import AchievementsAnimation from "./hompage/achievement/achievements_animation";
 import AlumniAnimation from "./hompage/alumni/alumni_animation";
 import Alumni from "./hompage/alumni/alumni";
+import Speaker from "./hompage/speaker/speaker";
+import SpeakerAnimation from "./hompage/speaker/speaker_animation";
 
 export default function Home() {
   return (
@@ -23,9 +25,14 @@ export default function Home() {
         <Achievements />
       </AchievementsAnimation>
 
+      <SpeakerAnimation>
+        <Speaker />
+      </SpeakerAnimation>
+
       <AlumniAnimation>
         <Alumni />
       </AlumniAnimation>
+
     </main>
   );
 } 

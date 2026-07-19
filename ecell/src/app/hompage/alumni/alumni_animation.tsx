@@ -23,7 +23,7 @@ const AlumniAnimation = ({ children }: { children: React.ReactNode }) => {
       scrollTrigger: {
         trigger: '.main-section',
         start: 'top 15%',
-        end: `+=${cards.length * 500}`,
+        end: `+=${cards.length * 400}`,
         scrub: 2,
         pin: true,
       }
