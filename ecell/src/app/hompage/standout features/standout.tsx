@@ -9,7 +9,7 @@ const Standout = () => {
                 <h1 className="text-5xl font-gugi mx-auto standout-heading p-2">What Makes Us Stand Out <span className="text-blue-500">?</span></h1>
 
                 <div className="reactor-wrapper absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/3">
-                    <Image src="/images/arc-reactor.png" alt="arc-reactor" fill className="object reactor" />
+                    <Image src="/images/arc-reactor.png" alt="arc-reactor" fill className="scale-1.5 reactor" />
                     <div className="glow bg-[radial-gradient(circle,rgba(255,255,255,1)_0%,rgba(160,240,255,0.8)_20%,rgba(120,220,255,0.35)_40%,rgba(120,220,255,0)_75%)] w-[320px] h-[320px] scale-[0.5] z-10 opacity-40"/>
                 </div>
 

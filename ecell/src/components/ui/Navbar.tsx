@@ -6,12 +6,30 @@ import gsap from "gsap/all";
 import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
 import { Menu, X } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+
 export function Navbar() {
+    const pathname = usePathname();
+    const router = useRouter();
+
     const logo1 = useRef<HTMLImageElement>(null);
     const logo2 = useRef<HTMLImageElement>(null);
     const timelineref = useRef<gsap.core.Timeline | null>(null);
     const sidebarRef = useRef<HTMLDivElement>(null);
     const timelineref2 = useRef<gsap.core.Timeline | null>(null);
+
+    const handleClick = (id:string,url:string) => {
+        if (pathname === "/") {
+            document.getElementById(id)?.scrollIntoView({
+                behavior: "smooth",
+            });
+
+            window.history.replaceState(null, "", `#${id}`);
+        } else {
+            router.push(url);
+        }
+    };
+
     useGSAP(() => {
         const tl = gsap.timeline({ paused: true });
         const tl2 = gsap.timeline({ paused: true });
@@ -39,6 +57,7 @@ export function Navbar() {
 
         timelineref.current = tl;
         timelineref2.current = tl2;
+
     }, []);
     return (
         <div>
@@ -85,8 +104,10 @@ export function Navbar() {
                             );
                         }
                         return (
-                            <Link key={index} href={item.href} className="text-white md:text-md font-bold font-clash links">
-                                {item.name}
+                            <Link key={index} href={item.href} className="text-white md:text-md font-bold font-clash links"
+                                  onClick={() => { handleClick(item.id || "", item.href) }} 
+                            >
+                                {item.name}                                      
                             </Link>
                         );
                     })
