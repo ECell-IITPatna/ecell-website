@@ -9,6 +9,8 @@ import AlumniAnimation from "./hompage/alumni/alumni_animation";
 import Alumni from "./hompage/alumni/alumni";
 import Speaker from "./hompage/speaker/speaker";
 import SpeakerAnimation from "./hompage/speaker/speaker_animation";
+import StandoutAnimation from "./hompage/standout features/standout_animation";
+import Standout from "./hompage/standout features/standout";
 
 export default function Home() {
   return (
@@ -20,6 +22,10 @@ export default function Home() {
       <AboutAnimation>
         <About />
       </AboutAnimation>
+
+      <StandoutAnimation>
+        <Standout />
+      </StandoutAnimation>
 
       <AchievementsAnimation>
         <Achievements />

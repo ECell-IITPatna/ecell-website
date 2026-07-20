@@ -1,8 +1,8 @@
 export const navbarDetails = [
     { name: "Home", href: "/" },
-    { name: "About", href: "/" },
+    { name: "About", href: "/#about" , id: "about" },
     { name: "Legacy", href: "/legacy" },
-    { name: "Our Alumini", href: "/" },
+    { name: "Our Alumini", href: "/#alumni", id: "alumni" },
     { name: "Logo", href: "/" },
     { name: "Endeavours", href: "/endeavours" },
     { name: "Team", href: "/team" },
@@ -12,9 +12,9 @@ export const navbarDetails = [
 
 export const sidebarDetails = [
     { name: "Home", href: "/" },
-    { name: "About", href: "/" },
+    { name: "About", href: "/#about" , id: "about"},
     { name: "Legacy", href: "/legacy" },
-    { name: "Our Alumini", href: "/" },
+    { name: "Our Alumini", href: "/#alumni", id: "alumni" },
     { name: "Endeavours", href: "/endeavours" },
     { name: "Team", href: "/team" },
     { name: "Contact", href: "/" },

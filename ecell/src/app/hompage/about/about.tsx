@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const About = () => {
   return (
-    <>
+    <div id="about">
       <section className="relative about-section w-full py-10 bg-[#070B14] overflow-hidden">
         <div
           className="
@@ -133,10 +133,7 @@ const About = () => {
           </div>
         </div>
       </section>
-      <section className="">
-
-      </section>
-    </>
+    </div>
   );
 };
 
