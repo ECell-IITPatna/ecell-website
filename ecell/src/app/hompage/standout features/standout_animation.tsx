@@ -10,7 +10,7 @@ const StandoutAnimation = ({ children }: { children: React.ReactNode }) => {
         //Desktop Version
         const tl = gsap.timeline();
 
-        tl.fromTo(".standout-cards",
+        tl.fromTo(".standout-cards-desktop",
             {
                 opacity: 0,
                 y: 50
@@ -22,7 +22,7 @@ const StandoutAnimation = ({ children }: { children: React.ReactNode }) => {
                 stagger: 0.5
             }
         );
-        tl.fromTo(".standout-cards",
+        tl.fromTo(".standout-cards-desktop",
             {
                 opacity: 1,
             },
@@ -62,7 +62,7 @@ const StandoutAnimation = ({ children }: { children: React.ReactNode }) => {
             pin: true,
         });
 
-        document.querySelectorAll(".standout-cards").forEach((card) => {
+        document.querySelectorAll(".standout-cards-desktop").forEach((card) => {
             card.addEventListener("mouseenter", () => {
                 gsap.to(card, {
                     scale: 2,
@@ -79,6 +79,25 @@ const StandoutAnimation = ({ children }: { children: React.ReactNode }) => {
             });
         });
         //Mobile Version
+        const tlMobile = gsap.timeline({
+            scrollTrigger: {
+                trigger: ".standout-mobile-container",
+                start: "top top",
+            }
+        });
+        tlMobile.fromTo(".standout-cards-mobile",
+            {
+                opacity: 0,
+                y: 50
+            },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 1.2,
+                stagger: 0.5
+            }
+        );
+
     }, []);
     return (
         <div>

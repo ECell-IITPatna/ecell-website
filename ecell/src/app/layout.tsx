@@ -4,6 +4,8 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { Navbar } from "@/components/ui/Navbar";
 import Footer from "@/components/ui/Footer";
+import SmoothScroller from "./SmoothScroller";
+import "lenis/dist/lenis.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -49,6 +51,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${clash.variable} ${gugi.variable} ${micro.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <SmoothScroller />
         <Navbar />
         <div className="flex-grow">
           {children}
