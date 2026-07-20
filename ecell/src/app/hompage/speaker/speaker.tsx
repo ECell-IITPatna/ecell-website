@@ -12,8 +12,7 @@ const Speaker = () => {
   return (
     <>
       {/* Desktop Version */}
-      <section className="relative bg-black h-screen w-full overflow-hidden hidden lg:grid xl:grid-cols-2 lg:grid-cols-[2fr_1fr] p-5">
-        <Image src="/images/arc-reactor.png" alt="" fill sizes='(max-width: 1024px) 100vw, 50vw' className="absolute top-0 left-0 transform -translate-x-3/5 w-full object-cover z-0 opacity-20 arc-reactor" />
+      <section className="relative bg-black h-screen w-full overflow-hidden hidden lg:grid xl:grid-cols-2 lg:grid-cols-[2fr_1fr] p-5 bg-[url('/images/speaker-bg.png')] bg-cover bg-center bg-no-repeat speaker-details-container z-1 ">
         <div className="overflow-hidden relative z-1">
           <div className="overflow-hidden speaker-names-container relative -left-[100%] w-[300%] h-full">
             {speakers.map((speaker, index) => (
