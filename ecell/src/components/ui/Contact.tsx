@@ -92,7 +92,16 @@ export default function Contact() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-32">
           
           {/* Left Column: Form */}
-          <div ref={formRef} className="flex flex-col space-y-12 bg-white/5 p-8 sm:p-12 rounded-3xl border border-white/10 backdrop-blur-md shadow-2xl hover:border-blue-500/30 transition-colors duration-500">
+          <form 
+            ref={formRef as any} 
+            onSubmit={(e) => {
+              e.preventDefault();
+              const subject = encodeURIComponent(`Contact Form Submission from ${formData.name}`);
+              const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`);
+              window.location.href = `mailto:ecell_iitp@gmail.com?subject=${subject}&body=${body}`;
+            }}
+            className="flex flex-col space-y-12 bg-white/5 p-8 sm:p-12 rounded-3xl border border-white/10 backdrop-blur-md shadow-2xl hover:border-blue-500/30 transition-colors duration-500"
+          >
             
             <div className="flex flex-col sm:flex-row gap-12 sm:gap-8">
               {/* Name Input */}
@@ -102,6 +111,7 @@ export default function Contact() {
                   name="name" 
                   id="name"
                   placeholder=" "
+                  required
                   value={formData.name}
                   onChange={handleChange}
                   className="peer w-full bg-transparent border-b-2 border-[#1E293B] py-3 text-white focus:outline-none focus:border-blue-500 transition-colors duration-300 relative z-10"
@@ -122,6 +132,7 @@ export default function Contact() {
                   name="email" 
                   id="email"
                   placeholder=" "
+                  required
                   value={formData.email}
                   onChange={handleChange}
                   className="peer w-full bg-transparent border-b-2 border-[#1E293B] py-3 text-white focus:outline-none focus:border-blue-500 transition-colors duration-300 relative z-10"
@@ -142,6 +153,7 @@ export default function Contact() {
                 name="message" 
                 id="message"
                 placeholder=" "
+                required
                 rows={1}
                 value={formData.message}
                 onChange={handleChange}
@@ -162,7 +174,10 @@ export default function Contact() {
             </div>
 
             <div className="pt-8">
-              <button className="relative px-10 py-4 rounded-full border border-blue-500/50 bg-[#0F172A] text-white font-semibold uppercase tracking-wider overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-[#070B14] group w-full sm:w-auto">
+              <button 
+                type="submit"
+                className="relative px-10 py-4 rounded-full border border-blue-500/50 bg-[#0F172A] text-white font-semibold uppercase tracking-wider overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-[#070B14] group w-full sm:w-auto"
+              >
                 <span className="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-blue-600"></span>
                 <span className="relative z-10 flex items-center justify-center gap-3 group-hover:text-blue-300 transition-colors duration-300">
                   Send Message
@@ -172,7 +187,7 @@ export default function Contact() {
               </button>
             </div>
             
-          </div>
+          </form>
 
           {/* Right Column: Contact Info */}
           <div ref={infoRef} className="flex flex-col space-y-12 lg:pl-10 justify-center bg-white/5 p-8 sm:p-12 rounded-3xl border border-white/10 backdrop-blur-md shadow-2xl hover:border-white/20 transition-colors duration-500">
