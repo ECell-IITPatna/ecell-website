@@ -7,6 +7,7 @@ import { useInView } from "./hooks";
 export function QuickGlanceCard({ card, index }: { card: (typeof CARDS)[0]; index: number }) {
   const { ref, inView } = useInView(0.08);
   const [hovered, setHovered] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -33,14 +34,17 @@ export function QuickGlanceCard({ card, index }: { card: (typeof CARDS)[0]; inde
     >
       <div
         ref={cardRef}
+        onClick={() => setIsExpanded(!isExpanded)}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => { setHovered(false); setMousePos({ x: 0.5, y: 0.5 }); }}
         onMouseMove={handleMouseMove}
         style={{
           background: hovered
             ? "linear-gradient(135deg, #0e2030 0%, #172533 100%)"
+            : isExpanded
+            ? "linear-gradient(135deg, #0c1e2c 0%, #132230 100%)"
             : "linear-gradient(135deg, #0a1a26 0%, #111e2a 100%)",
-          border: `1px solid ${hovered ? "rgba(100,180,255,0.3)" : "rgba(60,100,130,0.2)"}`,
+          border: `1px solid ${hovered ? "rgba(100,180,255,0.3)" : isExpanded ? "rgba(100,180,255,0.25)" : "rgba(60,100,130,0.2)"}`,
           borderRadius: 14,
           padding: "clamp(16px, 4vw, 24px) clamp(16px, 4vw, 24px) clamp(16px, 4vw, 20px)",
           cursor: "pointer",
@@ -48,6 +52,8 @@ export function QuickGlanceCard({ card, index }: { card: (typeof CARDS)[0]; inde
           overflow: "hidden",
           boxShadow: hovered
             ? "0 20px 50px rgba(0,50,120,0.4), 0 0 0 1px rgba(100,180,255,0.12)"
+            : isExpanded
+            ? "0 10px 30px rgba(0,30,80,0.3), 0 0 0 1px rgba(100,180,255,0.08)"
             : "0 4px 20px rgba(0,0,0,0.3)",
           opacity: inView ? 1 : 0,
           transform: inView
@@ -115,10 +121,11 @@ export function QuickGlanceCard({ card, index }: { card: (typeof CARDS)[0]; inde
         <p style={{
           fontSize: 13, color: "#6a8fa8", lineHeight: 1.65,
           margin: "0 0 16px",
-          display: "-webkit-box",
-          WebkitLineClamp: 3,
-          WebkitBoxOrient: "vertical" as const,
-          overflow: "hidden",
+          display: isExpanded ? "block" : "-webkit-box",
+          WebkitLineClamp: isExpanded ? undefined : 3,
+          WebkitBoxOrient: isExpanded ? undefined : ("vertical" as const),
+          overflow: isExpanded ? "visible" : "hidden",
+          transition: "color 0.3s ease",
         }}>
           {card.description}
         </p>
@@ -137,12 +144,17 @@ export function QuickGlanceCard({ card, index }: { card: (typeof CARDS)[0]; inde
             ))}
           </div>
           <span style={{
-            color: hovered ? "#5ab0e0" : "#3a607a",
+            color: hovered || isExpanded ? "#5ab0e0" : "#3a607a",
             fontSize: 16,
+            fontWeight: 700,
             transition: "color 0.3s, transform 0.3s",
-            transform: hovered ? "translateX(4px) translateZ(8px)" : "translateX(0)",
+            transform: hovered
+              ? isExpanded
+                ? "translateY(2px) translateZ(8px)"
+                : "translateX(4px) translateZ(8px)"
+              : "translate(0, 0)",
           }}>
-            {card.expanded ? "▾" : "›"}
+            {isExpanded ? "▾" : "›"}
           </span>
         </div>
       </div>
