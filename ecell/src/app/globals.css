@@ -30,3 +30,12 @@ body {
 .font-inter {
   font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
+.font-aldrich {
+  font-family: 'Aldrich', sans-serif;
+}
+.font-gugi{
+  font-family: var(--font-gugi);
+}
+.font-micro{
+  font-family: var(--font-micro);
+}

@@ -6,12 +6,30 @@ import gsap from "gsap/all";
 import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
 import { Menu, X } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+
 export function Navbar() {
+    const pathname = usePathname();
+    const router = useRouter();
+
     const logo1 = useRef<HTMLImageElement>(null);
     const logo2 = useRef<HTMLImageElement>(null);
     const timelineref = useRef<gsap.core.Timeline | null>(null);
     const sidebarRef = useRef<HTMLDivElement>(null);
     const timelineref2 = useRef<gsap.core.Timeline | null>(null);
+
+    const handleClick = (id:string,url:string) => {
+        if (pathname === "/") {
+            document.getElementById(id)?.scrollIntoView({
+                behavior: "smooth",
+            });
+
+            window.history.replaceState(null, "", `#${id}`);
+        } else {
+            router.push(url);
+        }
+    };
+
     useGSAP(() => {
         const tl = gsap.timeline({ paused: true });
         const tl2 = gsap.timeline({ paused: true });
@@ -39,6 +57,7 @@ export function Navbar() {
 
         timelineref.current = tl;
         timelineref2.current = tl2;
+
     }, []);
     return (
         <div>
@@ -60,7 +79,7 @@ export function Navbar() {
             />
 
             {/*Desktop Navigation*/}
-            <nav className="navbar max-md:hidden z-50 fixed top-5 left-1/2 transform -translate-x-1/2 lg:w-[90%] w-[95%] flex items-center justify-around px-6 bg-[rgb(0,0,0)] backdrop-blur-md border border-white/10 rounded-xl">
+            <nav className="navbar max-md:hidden z-50 fixed top-2 left-1/2 transform -translate-x-1/2 lg:w-[90%] w-[95%] flex items-center justify-around px-6 bg-[rgb(0,0,0)] backdrop-blur-md border border-white/10 rounded-xl">
                 {
                     navbarDetails.map((item, index) => {
                         if (item.name === "Logo") {
@@ -85,8 +104,10 @@ export function Navbar() {
                             );
                         }
                         return (
-                            <Link key={index} href={item.href} className="text-white md:text-md font-bold font-clash links">
-                                {item.name}
+                            <Link key={index} href={item.href} className="text-white md:text-md font-bold font-clash links"
+                                  onClick={() => { handleClick(item.id || "", item.href) }} 
+                            >
+                                {item.name}                                      
                             </Link>
                         );
                     })
@@ -134,7 +155,14 @@ export function Navbar() {
                         return (
                             <div key={index}>
                                 <span className="text-[#5f5f5fa2] text-lg font-extrabold">{index + 1 + "  "}</span>
-                                <Link key={index} href={item.href} className="text-white text-2xl font-bold font-clash links border-t-2 border-b-2 border-transparent hover:border-white hover:text-3xl transition duration-300 px-2">
+                                <Link key={index} href={item.href}
+                                    className="text-white text-2xl font-bold font-clash links border-t-2 border-b-2 border-transparent hover:border-white hover:text-3xl transition duration-300 px-2"
+                                    onClick={() => {
+                                        if (timelineref2.current?.progress() === 1) {
+                                            timelineref2.current?.reverse();
+                                        }
+                                    }}
+                                >
                                     {item.name}
                                 </Link>
                             </div>
