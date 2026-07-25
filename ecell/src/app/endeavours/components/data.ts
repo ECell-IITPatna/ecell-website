@@ -26,7 +26,7 @@ export const CARDS = [
     badgeColor: "#c0440a",
     title: "Startup Expo",
     description:
-      "The Startup Expo at E-Summit IIT Patna is a curated showcase where startups can exhibit their products, ideas, and traction before investors, mentors, and fellow entrepreneurs. The Expo fosters visibility, validation,",
+      "The Startup Expo at E-Summit IIT Patna is a curated showcase where startups can exhibit their products, ideas, and traction before investors, mentors, and fellow entrepreneurs. The Expo fosters visibility, validation, and networking opportunities to accelerate growth.",
     tags: ["#8yr Celebration", "#Founding"],
   },
   {
@@ -59,9 +59,8 @@ export const CARDS = [
     badgeColor: "#0a3d6e",
     title: "Xplore",
     description:
-      "Xplore is the freshers' introduction to E-Cell IIT Patna. Here the seed to innovate and create jobs is planted. This is the new student initiative to find, challenge, engage, and grow with the entrepreneurial ecosystem of",
+      "Xplore is the freshers' introduction to E-Cell IIT Patna. Here the seed to innovate and create jobs is planted. This is the new student initiative to find, challenge, engage, and grow with the entrepreneurial ecosystem of the institute.",
     tags: ["#Freshers", "#Foundation"],
-    expanded: true,
   },
 ];
 

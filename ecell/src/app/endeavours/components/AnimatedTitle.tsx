@@ -13,6 +13,7 @@ export function AnimatedTitle({ text, visible, delay = 0 }: { text: string; visi
         lineHeight: 1.05,
         margin: "0 0 18px",
         color: "#f0f8ff",
+        textAlign: "center",
         perspective: 800,
         perspectiveOrigin: "50% 50%",
       }}

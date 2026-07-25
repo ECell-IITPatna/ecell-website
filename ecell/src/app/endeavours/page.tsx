@@ -57,10 +57,10 @@ export default function EndeavoursPage() {
       <div className="endeavours-content-container" style={{ position: "relative", zIndex: 2, maxWidth: 900, margin: "0 auto", padding: "clamp(40px, 8vw, 60px) clamp(16px, 4vw, 28px) clamp(40px, 8vw, 80px)" }}>
 
         {/* ── HERO ─────────────────────────────────────── */}
-        <div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
           {/* E-CELL label */}
           <div style={{
-            display: "flex", alignItems: "center", gap: 10, marginBottom: 20,
+            display: "flex", alignItems: "center", justifyContent: "center", gap: 10, marginBottom: 20,
             opacity: heroVisible ? 1 : 0,
             transform: heroVisible ? "translateY(0)" : "translateY(-16px)",
             transition: "opacity 0.6s ease, transform 0.6s ease",
@@ -69,6 +69,7 @@ export default function EndeavoursPage() {
             <span style={{ fontSize: 11, letterSpacing: 2.5, fontWeight: 700, color: "#e86a2a" }}>
               E-CELL IIT PATNA
             </span>
+            <div style={{ width: 28, height: 2, background: "#e86a2a" }} />
           </div>
 
           {/* 3D Word-reveal heading */}
@@ -77,7 +78,7 @@ export default function EndeavoursPage() {
           {/* Sub */}
           <p style={{
             fontSize: 15, color: "#6a8fa0", lineHeight: 1.7,
-            maxWidth: 460, margin: "0 0 40px",
+            maxWidth: 520, margin: "0 auto 40px",
             opacity: heroVisible ? 1 : 0,
             transform: heroVisible ? "translateY(0)" : "translateY(20px)",
             transition: "opacity 0.7s ease 0.4s, transform 0.7s ease 0.4s",
@@ -87,7 +88,7 @@ export default function EndeavoursPage() {
           </p>
 
           {/* Featured card */}
-          <div style={{ opacity: heroVisible ? 1 : 0, transition: "opacity 0.7s ease 0.5s" }}>
+          <div style={{ opacity: heroVisible ? 1 : 0, transition: "opacity 0.7s ease 0.5s", width: "100%", textAlign: "left" }}>
             <FeaturedCard />
           </div>
         </div>
