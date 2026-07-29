@@ -52,13 +52,17 @@ interface MemberProps {
 }
 
 export default function TeamCard({ member }: { member: MemberProps }) {
+  const imageSrc = member.image || '/images/team/placeholder.webp';
+
   return (
     <div className="w-full max-w-70.5 bg-[#0F172A] rounded-xl overflow-hidden border border-slate-800 flex flex-col transition-all duration-300 ease-out transform hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(34,211,238,0.6)] group">
       
       <div className="w-full h-61 overflow-hidden relative bg-slate-900">
         <img 
-          src={member.image || "/images/team/placeholder.jpg"} 
+          src={imageSrc} 
           alt={member.name}
+          loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover transition-transform duration-500 ease-out"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-transparent to-transparent opacity-50" />
