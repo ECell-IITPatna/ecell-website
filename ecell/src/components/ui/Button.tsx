@@ -4,13 +4,13 @@ import React from 'react'
 const Button = ({ content, css }: { content: string; css: string }) => {
   const [buttonContent, setButtonContent] = React.useState(content);
   const onHoverPlayAudio = () => {
-    const hover_audio = new Audio("/audio/hover.wav");
-    hover_audio.preload = "auto";
-    hover_audio.currentTime = 0;
-    hover_audio.volume = 0.5;
-    hover_audio.play().catch((error) => {
-      console.error("Error playing hover audio:", error);
-    });
+    // const hover_audio = new Audio("/audio/hover.wav");
+    // hover_audio.preload = "auto";
+    // hover_audio.currentTime = 0;
+    // hover_audio.volume = 0.5;
+    // hover_audio.play().catch((error) => {
+    //   console.error("Error playing hover audio:", error);
+    // });
   }
 
   const onClickPlayAudio = () => {

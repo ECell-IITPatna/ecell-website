@@ -233,14 +233,14 @@ export default function AlumniCard({ alumni, className=""}: { alumni: alumni_typ
                             <div className="flex gap-4">
                                 <a
                                     href={alumni.linkedin}
-                                    className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-white transition-all duration-300 hover:border-[#3E7BFA] hover:bg-[#3E7BFA] hover:text-black hover:scale-105"
+                                    className={`items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-white transition-all duration-300 hover:border-[#3E7BFA] hover:bg-[#3E7BFA] hover:text-black hover:scale-105 ${alumni.linkedin ? 'flex' : 'hidden'}`}
                                 >
                                     <FaLinkedinIn />
                                     LinkedIn
                                 </a>
                                 <a
                                     href={`mailto:${alumni.email}`}
-                                    className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-white transition-all duration-300 hover:border-[#3E7BFA] hover:bg-[#3E7BFA] hover:text-black hover:scale-105"
+                                    className={`items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-white transition-all duration-300 hover:border-[#3E7BFA] hover:bg-[#3E7BFA] hover:text-black hover:scale-105 ${alumni.email ? 'flex' : 'hidden'}`}
                                 >
                                     <HiOutlineMail />
                                     Mail
