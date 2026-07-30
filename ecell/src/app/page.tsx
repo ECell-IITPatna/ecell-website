@@ -11,6 +11,7 @@ import Speaker from "./hompage/speaker/speaker";
 import SpeakerAnimation from "./hompage/speaker/speaker_animation";
 import StandoutAnimation from "./hompage/standout features/standout_animation";
 import Standout from "./hompage/standout features/standout";
+import Contact from "@/components/ui/Contact";
 
 export default function Home() {
   return (
@@ -39,6 +40,7 @@ export default function Home() {
         <Alumni />
       </AlumniAnimation>
 
+      <Contact/>
     </main>
   );
 } 

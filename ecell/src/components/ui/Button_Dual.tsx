@@ -6,13 +6,13 @@ const ButtonDual = ({ content1, content2, css1, css2 }: { content1: string; cont
   const [buttonContent1, setButtonContent1] = React.useState(content1);
   const [buttonContent2, setButtonContent2] = React.useState(content2);
   const onHoverPlayAudio = () => {
-    const hover_audio = new Audio("/audio/hover.wav");
-    hover_audio.preload = "auto";
-    hover_audio.currentTime = 0;
-    hover_audio.volume = 0.5;
-    hover_audio.play().catch((error) => {
-      console.error("Error playing hover audio:", error);
-    });
+    // const hover_audio = new Audio("/audio/hover.wav");
+    // hover_audio.preload = "auto";
+    // hover_audio.currentTime = 0;
+    // hover_audio.volume = 0.5;
+    // hover_audio.play().catch((error) => {
+    //   console.error("Error playing hover audio:", error);
+    // });
   }
 
   const onClickPlayAudio = () => {
