@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link';
 import AlumniCard from '@/components/ui/AlumniCard';
 import { alumniData } from '@/constants/alumini';
 import Button from '@/components/ui/Button';
@@ -15,7 +16,12 @@ const Alumni = () => {
         </div>
       </section>
       <div className="flex flex-col items-center justify-center py-10">
-          <Button content="Register As A Alumni" css="bg-[white] text-black font-clash text-lg mt-10" />
+        <Link href="/alumni-registration">
+          <Button 
+            content="Register As A Alumni" 
+            css="bg-[white] text-black font-clash text-lg mt-10 hover:bg-opacity-90 transition-all cursor-pointer" 
+          />
+        </Link>
       </div>
     </div>
   )
