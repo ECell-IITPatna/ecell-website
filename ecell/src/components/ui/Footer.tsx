@@ -1,4 +1,8 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
 
 function LinkedinIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -42,13 +46,25 @@ function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
+const WORDS = ['IMPACT', 'INNOVATE', 'INSPIRE'];
+
 export default function Footer() {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prevIndex) => (prevIndex + 1) % WORDS.length);
+    }, 2500);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <footer className="w-full bg-[#000000] text-slate-300 pt-20 pb-6 px-6 md:px-16 lg:px-24 border-t border-slate-900/60 relative z-20 font-clash select-none">
+    <footer className="w-full bg-[#000000] text-slate-300 pt-20 pb-6 px-6 md:px-16 lg:px-24 border-t border-slate-900/60 relative z-20 font-clash select-none overflow-hidden">
       
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-start pb-10">
         
-        {/* Left Side: Logo, Text, and Icons */}
+        {/* Left Side: Logo, Subtitle, and Socials */}
         <div className="md:col-span-5 flex flex-col items-center text-center space-y-3">
           <div className="h-32 w-auto flex items-center justify-center">
             <img 
@@ -68,11 +84,11 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Right Area containing Links & The "Made with love" credit */}
-        <div className="md:col-span-7 grid grid-cols-3 gap-8 w-full text-center md:text-left">
+        {/* Right Area: Links + Pure Animated Word */}
+        <div className="md:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8 w-full items-start">
           
-          {/* Column 1: E-Cell */}
-          <div className="flex flex-col items-center md:items-start space-y-3">
+          {/* Column 1: E-Cell Navigation Links */}
+          <div className="flex flex-col items-center md:items-start space-y-3 col-span-1">
             <h4 className="text-white text-base font-semibold tracking-wide">E-Cell</h4>
             <div className="flex flex-col items-center md:items-start space-y-1.5 text-sm text-slate-400 font-medium">
               <Link href="/" className="hover:text-white transition-colors">Home</Link>
@@ -85,25 +101,26 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 2: E-Summit */}
-          <div className="flex flex-col items-center md:items-start space-y-3">
-            <h4 className="text-white text-base font-semibold tracking-wide">E-Summit</h4>
-            <div className="flex flex-col items-center md:items-start space-y-1.5 text-sm text-slate-400 font-medium">
-              <Link href="#" className="hover:text-white transition-colors">Home</Link>
+          {/* Column 2: Classic Standalone 3-Word Animation */}
+          <div className="col-span-1 md:col-span-2 flex items-center justify-center h-full min-h-[180px] my-auto">
+            <div className="relative h-20 w-full flex justify-center overflow-hidden">
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={WORDS[index]}
+                  initial={{ y: 24, opacity: 0, filter: 'blur(4px)' }}
+                  animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
+                  exit={{ y: -24, opacity: 0, filter: 'blur(4px)' }}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  className="absolute font-serif font-light text-3xl sm:text-4xl lg:text-5xl tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-slate-100 via-slate-300 to-slate-500 uppercase"
+                >
+                  {WORDS[index]}
+                </motion.span>
+              </AnimatePresence>
             </div>
           </div>
 
-          {/* Column 3: Initiatives */}
-          <div className="flex flex-col items-center md:items-start space-y-3">
-            <h4 className="text-white text-base font-semibold tracking-wide">Initiatives</h4>
-            <div className="flex flex-col items-center md:items-start space-y-1.5 text-sm text-slate-400 font-medium">
-              <Link href="#" className="hover:text-white transition-colors">Startin</Link>
-              <Link href="#" className="hover:text-white transition-colors">Xplore</Link>
-            </div>
-          </div>
-
-          {/* Credit Section*/}
-          <div className="col-span-3 flex justify-center md:justify-end items-end pt-6 md:pt-4">
+          {/* Web Dev Credit Section */}
+          <div className="col-span-2 md:col-span-3 flex justify-center md:justify-end items-end pt-6 md:pt-4">
             <p className="text-sm font-medium text-slate-500">
               Made with 🤍 by Web Dev Wing E-Cell IIT Patna
             </p>
@@ -112,7 +129,7 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Footer Base*/}
+      {/* Copyright Footer Base */}
       <div className="max-w-7xl mx-auto flex justify-center items-center text-sm text-slate-400 pt-6 border-t border-slate-900/60">
         <p>© 2026 E-Cell IIT Patna. All Rights Reserved</p>
       </div>
