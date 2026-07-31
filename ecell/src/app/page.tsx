@@ -39,8 +39,6 @@ export default function Home() {
       <AlumniAnimation>
         <Alumni />
       </AlumniAnimation>
-
-      <Contact/>
     </main>
   );
 } 

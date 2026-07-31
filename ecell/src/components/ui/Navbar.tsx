@@ -14,11 +14,17 @@ export function Navbar() {
 
     const logo1 = useRef<HTMLImageElement>(null);
     const logo2 = useRef<HTMLImageElement>(null);
-    const timelineref = useRef<gsap.core.Timeline | null>(null);
     const sidebarRef = useRef<HTMLDivElement>(null);
     const timelineref2 = useRef<gsap.core.Timeline | null>(null);
 
     const handleClick = (id:string,url:string) => {
+        const click_audio = new Audio("/audio/secondary-hover.wav");
+        click_audio.preload= "auto";
+        click_audio.volume= 0.5;
+        click_audio.currentTime=0;
+        click_audio.play().catch((error) => {
+            console.error("Error playing click audio:", error);
+        });
         if (pathname === "/") {
             document.getElementById(id)?.scrollIntoView({
                 behavior: "smooth",
@@ -31,52 +37,19 @@ export function Navbar() {
     };
 
     useGSAP(() => {
-        const tl = gsap.timeline({ paused: true });
         const tl2 = gsap.timeline({ paused: true });
-        tl.to(".navbar", {
-            yPercent: -200,
-            duration: 0.5,
-            ease: "power2.inOut",
-
-        })
-        tl.to(logo1.current, {
-            top: "20px",
-            duration: 1,
-            ease: "back.inOut",
-        })
-        tl.to(logo1.current, {
-            rotation: 360,
-            duration: 0.7,
-        });
-
+        
         tl2.to(sidebarRef.current, {
             right: 0,
             duration: 1,
             ease: "power3.inOut",
         });
 
-        timelineref.current = tl;
         timelineref2.current = tl2;
 
     }, []);
     return (
         <div>
-            <Image
-                src="/images/logo.png"
-                alt="Logo"
-                width={100}
-                height={100}
-                className="logo1 fixed top-[-150%] left-5 z-50 cursor-pointer"
-                ref={logo1}
-                onClick={() => {
-                    if (timelineref.current?.progress() === 1) {
-                        timelineref.current?.reverse();
-                    } else {
-                        timelineref.current?.play();
-                    }
-                }}
-
-            />
 
             {/*Desktop Navigation*/}
             <nav className="navbar max-md:hidden z-50 fixed top-2 left-1/2 transform -translate-x-1/2 lg:w-[90%] w-[95%] flex items-center justify-around px-6 bg-[rgb(0,0,0)] backdrop-blur-md border border-white/10 rounded-xl">
@@ -92,14 +65,6 @@ export function Navbar() {
                                     key={index}
                                     className="logo2"
                                     ref={logo2}
-                                    onClick={() => {
-                                        if (timelineref.current?.progress() === 1) {
-                                            timelineref.current?.reverse();
-                                        } else {
-                                            timelineref.current?.play();
-                                        }
-                                    }}
-
                                 />
                             );
                         }
@@ -123,13 +88,6 @@ export function Navbar() {
                     height={80}
                     className="logo2"
                     ref={logo2}
-                    onClick={() => {
-                        if (timelineref.current?.progress() === 1) {
-                            timelineref.current?.reverse();
-                        } else {
-                            timelineref.current?.play();
-                        }
-                    }}
                 />
                 <button><Menu onClick={() => {
                     if (timelineref2.current?.progress() === 0) {

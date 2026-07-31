@@ -39,18 +39,18 @@ const StandoutAnimation = ({ children }: { children: React.ReactNode }) => {
 
         tl.to(".reactor",{
             scale:3,
-            duration:1,
+            duration:0.6,
             opacity:0.4,
         });
         tl.to(".glow",{
             scale:7,
             opacity:1,
-            duration:1,
+            duration:0.7,
             filter:"blur(140px)",
         },"<-0.1");
         tl.to(".overlay",{
             opacity:1,
-            duration:1,
+            duration:0.8,
         },"<0.1");
 
         ScrollTrigger.create({

@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import TiltingImageFrame from './TiltingImageFrame';
 
 const About = () => {
   return (
@@ -36,16 +37,14 @@ const About = () => {
             <div className="absolute -inset-4 bg-blue-500/10 rounded-[2.5rem] blur-3xl opacity-60 pointer-events-none" />
 
             {/* Main Image Wrapper */}
-            <div className="relative z-10 w-full aspect-4/3 sm:aspect-[1.4] overflow-hidden rounded-3xl border border-white/10 bg-slate-950/50 shadow-2xl shadow-blue-950/20">
-              <Image
-                src="/images/about/mission.png"
-                alt="E-Cell Mission & Vision"
-                fill
-                sizes="(max-width: 768px) 100vw, 500px"
-                className="object-cover opacity-90 transition-transform duration-700 hover:scale-105"
-                priority
-              />
-            </div>
+            <TiltingImageFrame
+              src="/images/about/mission.png"
+              alt="E-Cell Mission & Vision"
+              sizes="(max-width: 768px) 100vw, 500px"
+              priority
+              frameClassName="relative z-10 w-full aspect-4/3 sm:aspect-[1.4] overflow-hidden rounded-3xl border border-white/10 bg-slate-950/50 shadow-2xl shadow-blue-950/20 about-image-container"
+              imageClassName="object-cover opacity-90 transition-transform duration-700"
+            />
           </div>
 
           {/* Right Column: Mission & Vision Content */}
@@ -120,16 +119,14 @@ const About = () => {
           </div>
           <div className="about-image-container relative order-1 lg:order-2 flex justify-center items-center w-full max-w-lg mx-auto lg:mx-0">
             <div className="absolute -inset-4 bg-blue-500/10 rounded-[2.5rem] blur-3xl opacity-60 pointer-events-none" />
-            <div className="relative z-10 w-full aspect-1047/1159 overflow-hidden rounded-3xl border border-white/10 bg-slate-950/50 shadow-2xl shadow-blue-950/20">
-              <Image
-                src="/images/about/incubation_centre.png"
-                alt="Incubation Centre"
-                fill
-                sizes="(max-width: 768px) 100vw, 500px"
-                className="object-contain opacity-90 transition-transform duration-700 hover:scale-105"
-                priority
-              />
-            </div>
+            <TiltingImageFrame
+              src="/images/about/incubation_centre.png"
+              alt="Incubation Centre"
+              sizes="(max-width: 768px) 100vw, 500px"
+              priority
+              frameClassName="relative z-10 w-full aspect-1047/1159 overflow-hidden rounded-3xl border border-white/10 bg-slate-950/50 shadow-2xl shadow-blue-950/20"
+              imageClassName="object-contain opacity-90 transition-transform duration-700"
+            />
           </div>
         </div>
       </section>
