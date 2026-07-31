@@ -7,7 +7,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger);
 const AlumniAnimation = ({ children }: { children: React.ReactNode }) => {
   useGSAP(() => {
-    console.log("GSAP is running");
     const cards = gsap.utils.toArray('.alumni-cards');
 
     if (!cards) return;
@@ -40,7 +39,6 @@ const AlumniAnimation = ({ children }: { children: React.ReactNode }) => {
       }, i * 0.5);
 
       const rotationValue = i % 2 === 0 ? -2 : 2;
-      console.log(i, rotationValue);
       tl.to(card, {
         rotation: rotationValue,
         duration: 0.8,
