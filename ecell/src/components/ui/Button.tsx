@@ -1,8 +1,15 @@
 'use client'
 import React from 'react'
 
-const Button = ({ content, css }: { content: string; css: string }) => {
-  const [buttonContent, setButtonContent] = React.useState(content);
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  content: string;
+  css: string;
+}
+
+const Button = ({ content, css, onClick, disabled, type, ...rest }: ButtonProps) => {
+  // Store scramble text in state when hovering; null means show original 'content' prop
+  const [scrambleContent, setScrambleContent] = React.useState<string | null>(null);
+
   const onHoverPlayAudio = () => {
     // const hover_audio = new Audio("/audio/hover.wav");
     // hover_audio.preload = "auto";
@@ -22,22 +29,30 @@ const Button = ({ content, css }: { content: string; css: string }) => {
       console.error("Error playing click audio:", error);
     });
   }
+
   return (
-    <div className="p-[1px] rounded-sm">
-      <button className={`py-3 px-7 tracking-[0.2em] rounded-sm ${css}`}
+    <div className="p-[1px] rounded-sm flex justify-center">
+      <button 
+        type={type || "button"}
+        disabled={disabled}
+        {...rest}
+        className={`py-3 px-7 tracking-[0.2em] rounded-sm disabled:opacity-50 disabled:cursor-not-allowed ${css}`}
         style={{
           clipPath: "polygon(0 0, calc(100% - 20px) 0, 100% 50%, 100% 100%, 20px 100%, 0 50%)"
         }}
-        onClick={() => {
+        onClick={(e) => {
+          if (disabled) return;
           onClickPlayAudio();
+          if (onClick) onClick(e);
         }}
         onMouseEnter={() => {
+          if (disabled) return;
           const letters = 'ABCDEFGHIJKL3456@#$%^&*';
           const originalText = content;
           const substring = originalText.substring(1);
           let iterations = 0;
           const interval = setInterval(() => {
-            setButtonContent(originalText[0] + substring.split('').map((_, index) => {
+            setScrambleContent(originalText[0] + substring.split('').map((_, index) => {
               if (index < iterations) {
                 return substring[index];
               }
@@ -45,14 +60,14 @@ const Button = ({ content, css }: { content: string; css: string }) => {
             }).join(''));
             if (iterations >= substring.length) {
               clearInterval(interval);
-              setButtonContent(originalText);
+              setScrambleContent(null); // Reset back to original content prop
             }
             iterations += 1 / 3;
           }, 30);
           onHoverPlayAudio();
         }}
       >
-        {buttonContent}
+        {scrambleContent ?? content}
       </button>
     </div>
   )

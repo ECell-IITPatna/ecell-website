@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Contact from './Contact';
+import { motion, AnimatePresence } from 'framer-motion';
 
 function LinkedinIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -54,7 +55,7 @@ export default function Footer() {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prevIndex) => (prevIndex + 1) % WORDS.length);
-    }, 2500);
+    }, 2000);
 
     return () => clearInterval(interval);
   }, []);
@@ -62,33 +63,36 @@ export default function Footer() {
   return (
     <section className="border w-full bg-[#000000] text-slate-300 pt-5 px-6 font-clash flex flex-col items-center justify-center select-none">
       <Contact />
-      <footer className="border w-full bg-[#000000] text-slate-300 pt-20 pb-6 px-6 md:px-16 lg:px-24 border-t border-slate-900/60 relative z-20 font-clash select-none overflow-hidden">
-
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-start pb-10">
-
-          {/* Left Side: Logo, Subtitle, and Socials */}
+      <footer className="w-full bg-[#000000] text-slate-300 pt-20 pb-6 px-6 md:px-16 lg:px-24 border-t border-slate-900/60 relative z-20 font-clash select-none overflow-hidden">
+      
+        {/* 
+          Outer Grid
+        */}
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-10 gap-8 items-start pb-10">
+          
+          {/* Left Side: Logo, Subtitle, and Socials (Now takes md:col-span-5 instead of 5 out of 12) */}
           <div className="md:col-span-5 flex flex-col items-center text-center space-y-3">
             <div className="h-32 w-auto flex items-center justify-center">
-              <img
-                src="/images/logo.png"
-                alt="E-Cell IIT Patna Logo"
-                className="h-full w-auto object-contain"
+              <img 
+                src="/images/logo.png" 
+                alt="E-Cell IIT Patna Logo" 
+                className="h-full w-auto object-contain" 
               />
             </div>
-
+            
             <p className="text-m font-medium text-slate-300 tracking-wide">
               Where Innovation Begins
             </p>
-
+            
             <div className="flex items-center justify-center gap-4 pt-1">
-              <a href="#" className="hover:text-white transition-colors"><InstagramIcon /></a>
-              <a href="#" className="hover:text-white transition-colors"><LinkedinIcon /></a>
+              <a href="https://www.instagram.com/ecell_iitpatna?igsh=cG00YXI5aDBnaG42" className="hover:text-white transition-colors" target="_blank" rel="noopener noreferrer"><InstagramIcon /></a>
+              <a href="https://www.linkedin.com/school/ecell-iit-patna/" className="hover:text-white transition-colors" target="_blank" rel="noopener noreferrer"><LinkedinIcon /></a>
             </div>
           </div>
 
-          {/* Right Area: Links + Pure Animated Word */}
-          <div className="md:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8 w-full items-start">
-
+          {/* Right Area */}
+          <div className="md:col-span-5 grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8 w-full items-start">
+            
             {/* Column 1: E-Cell Navigation Links */}
             <div className="flex flex-col items-center md:items-start space-y-3 col-span-1">
               <h4 className="text-white text-base font-semibold tracking-wide">E-Cell</h4>
@@ -104,11 +108,20 @@ export default function Footer() {
             </div>
 
             {/* Column 2: Classic Standalone 3-Word Animation */}
-            <div className="col-span-1 md:col-span-2 flex items-center justify-center h-full min-h-[180px] my-auto">
+            <div className="col-span-1 md:col-span-2 flex items-center h-full min-h-[180px] my-auto">
               <div className="relative h-20 w-full flex justify-center overflow-hidden">
-                <span className="absolute font-serif font-light text-3xl sm:text-4xl lg:text-5xl tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-slate-100 via-slate-300 to-slate-500 uppercase transition-all duration-500 ease-out">
-                  {WORDS[index]}
-                </span>
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={WORDS[index]}
+                    initial={{ y: 24, opacity: 0, filter: 'blur(4px)' }}
+                    animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
+                    exit={{ y: -24, opacity: 0, filter: 'blur(4px)' }}
+                    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                    className="absolute font-serif font-light text-xl min-[400px]:text-3xl sm:text-4xl lg:text-5xl tracking-[0.15em] sm:tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-slate-100 via-slate-300 to-slate-500 uppercase whitespace-nowrap"
+                  >
+                    {WORDS[index]}
+                  </motion.span>
+                </AnimatePresence>
               </div>
             </div>
 
@@ -128,6 +141,5 @@ export default function Footer() {
         </div>
       </footer>
     </section>
-
   );
 }
