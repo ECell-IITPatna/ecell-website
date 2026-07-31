@@ -37,6 +37,8 @@ function PremiumGridCard({ item, isHero = false }: { item: LegacyItem; isHero?: 
     return () => observer.disconnect();
   }, []);
 
+  const hasContent = Boolean(item.category || item.title || item.description);
+
   return (
     <div
       ref={cardRef}
@@ -50,33 +52,42 @@ function PremiumGridCard({ item, isHero = false }: { item: LegacyItem; isHero?: 
         
         <img
           src={item.src}
-          alt={item.title}
+          alt={item.title || 'Legacy item'}
           className={`h-full w-full object-cover transition-all duration-[1000ms] ease-out ${
             isVisible ? 'opacity-95 scale-100 grayscale-0 contrast-100' : 'opacity-0 scale-105 grayscale-[0.8] contrast-[0.95]'
           } [@media(hover:hover)]:group-hover:scale-[1.03] [@media(hover:hover)]:group-hover:grayscale-0`}
         />
 
-        <div className="absolute inset-0 z-10 flex flex-col justify-end p-4 sm:p-6 md:p-8 bg-gradient-to-t from-black/80 via-black/20 to-transparent">
-          <div className="max-w-2xl space-y-1.5 sm:space-y-2.5 opacity-0 transform translate-y-3 transition-all duration-[600ms] [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-hover:translate-y-0 max-sm:!opacity-100 max-sm:!translate-y-0">
-            <div>
-              <span className="inline-block border border-white/10 bg-neutral-950/80 px-2 py-0.5 font-mono text-[8px] sm:text-[9px] uppercase tracking-[0.2em] text-neutral-300">
-                {item.category}
-              </span>
-            </div>
-            <div>
-              <h2 className={`font-light tracking-wide text-white ${
-                isHero ? 'text-lg sm:text-2xl md:text-4xl' : 'text-base sm:text-xl md:text-2xl'
-              }`}>
-                {item.title}
-              </h2>
-            </div>
-            <div>
-              <p className="pt-0.5 sm:pt-1 text-[11px] sm:text-xs font-light leading-relaxed text-neutral-400 line-clamp-2 sm:line-clamp-none">
-                {item.description}
-              </p>
+        {/* Only render overlay when at least one piece of text exists */}
+        {hasContent && (
+          <div className="absolute inset-0 z-10 flex flex-col justify-end p-4 sm:p-6 md:p-8 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none">
+            <div className="max-w-2xl space-y-1.5 sm:space-y-2.5 opacity-0 transform translate-y-3 transition-all duration-[600ms] [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-hover:translate-y-0 max-sm:!opacity-100 max-sm:!translate-y-0">
+              {item.category && (
+                <div>
+                  <span className="inline-block border border-white/10 bg-neutral-950/80 px-2 py-0.5 font-mono text-[8px] sm:text-[9px] uppercase tracking-[0.2em] text-neutral-300">
+                    {item.category}
+                  </span>
+                </div>
+              )}
+              {item.title && (
+                <div>
+                  <h2 className={`font-light tracking-wide text-white ${
+                    isHero ? 'text-lg sm:text-2xl md:text-4xl' : 'text-base sm:text-xl md:text-2xl'
+                  }`}>
+                    {item.title}
+                  </h2>
+                </div>
+              )}
+              {item.description && (
+                <div>
+                  <p className="pt-0.5 sm:pt-1 text-[11px] sm:text-xs font-light leading-relaxed text-neutral-400 line-clamp-2 sm:line-clamp-none">
+                    {item.description}
+                  </p>
+                </div>
+              )}
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
@@ -162,14 +173,12 @@ export default function LegacyDeck({ items }: LegacyDeckProps) {
           c.x - c.dx * tailLength, c.y - c.dy * tailLength
         );
         gradient.addColorStop(0, 'rgba(255, 255, 255, 1.0)');
-        gradient.addColorStop(1, 'rgba(14, 165, 233, 0)');            // Seamless dissipation into the background
+        gradient.addColorStop(1, 'rgba(14, 165, 233, 0)');
 
         ctx.strokeStyle = gradient;
         ctx.lineWidth = 2.0;
         ctx.beginPath();
         ctx.moveTo(c.x, c.y);
-        
-        // Match the trace vector to the extended 14.0 gradient multiplier
         ctx.lineTo(c.x - c.dx * tailLength, c.y - c.dy * tailLength);
         ctx.stroke();
 
@@ -194,8 +203,9 @@ export default function LegacyDeck({ items }: LegacyDeckProps) {
   const groupedByYear = useMemo(() => {
     const groups: { [key: string]: LegacyItem[] } = {};
     items.forEach((item) => {
-      if (!groups[item.year]) groups[item.year] = [];
-      groups[item.year].push(item);
+      const yearKey = item.year ? item.year.trim() : '';
+      if (!groups[yearKey]) groups[yearKey] = [];
+      groups[yearKey].push(item);
     });
     return Object.keys(groups)
       .sort((a, b) => b.localeCompare(a))
@@ -212,14 +222,17 @@ export default function LegacyDeck({ items }: LegacyDeckProps) {
 
       <div className="relative z-10 space-y-16 sm:space-y-24 max-w-7xl mx-auto">
         {groupedByYear.map(({ year, items: yearItems }) => (
-          <div key={year} className="space-y-8 sm:space-y-12">
+          <div key={year || 'unspecified'} className="space-y-8 sm:space-y-12">
             
-            <div className="flex items-center gap-4 pt-2 select-none pointer-events-none">
-              <span className="font-mono text-xs tracking-[0.3em] text-neutral-400 font-medium">
-                // {year}
-              </span>
-              <div className="h-px flex-1 bg-gradient-to-r from-white/10 via-white/[0.02] to-transparent" />
-            </div>
+            {/* Year Divider (Only rendered if a non-empty year exists) */}
+            {year && (
+              <div className="flex items-center gap-4 pt-2 select-none pointer-events-none">
+                <span className="font-mono text-xs tracking-[0.3em] text-neutral-400 font-medium">
+                  // {year}
+                </span>
+                <div className="h-px flex-1 bg-gradient-to-r from-white/10 via-white/[0.02] to-transparent" />
+              </div>
+            )}
 
             <div className="grid grid-cols-1 gap-y-12 gap-x-6 sm:gap-x-12 sm:gap-y-16 md:grid-cols-12">
               {yearItems.map((item, index) => {

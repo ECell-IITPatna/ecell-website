@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import Button from '../../components/ui/Button';
 
 export default function AlumniRegistrationPage() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -346,13 +347,12 @@ export default function AlumniRegistrationPage() {
               />
             </div>
 
-            <button
+            <Button
               type="submit"
               disabled={isSubmitting}
-              className="w-full mt-4 py-3.5 px-6 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-clash font-semibold text-sm tracking-wide shadow-lg transition-all cursor-pointer disabled:opacity-50"
-            >
-              {isSubmitting ? 'Registering...' : 'Register as Alumni'}
-            </button>
+              content={isSubmitting ? 'REGISTERING...' : 'REGISTER AS ALUMNI'}
+              css="bg-white text-black font-aldrich text-md md:text-lg"
+            />
           </form>
         )}
       </div>
