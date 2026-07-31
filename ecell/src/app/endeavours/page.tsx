@@ -53,32 +53,36 @@ export default function EndeavoursPage() {
       {/* Floating ambient orbs */}
       <FloatingOrbs />
 
-      {/* Content */}
-      <div className="endeavours-content-container" style={{ position: "relative", zIndex: 2, maxWidth: 900, margin: "0 auto", padding: "clamp(40px, 8vw, 60px) clamp(16px, 4vw, 28px) clamp(40px, 8vw, 80px)" }}>
+      {/* Content Container */}
+      <div 
+        className="endeavours-content-container" 
+        style={{ 
+          position: "relative", 
+          zIndex: 2, 
+          maxWidth: 900, 
+          margin: "0 auto", 
+          padding: "clamp(120px, 14vw, 140px) clamp(16px, 4vw, 28px) clamp(40px, 8vw, 80px)" 
+        }}
+      >
 
         {/* ── HERO ─────────────────────────────────────── */}
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
-          {/* E-CELL label */}
-          <div style={{
-            display: "flex", alignItems: "center", justifyContent: "center", gap: 10, marginBottom: 20,
-            opacity: heroVisible ? 1 : 0,
-            transform: heroVisible ? "translateY(0)" : "translateY(-16px)",
-            transition: "opacity 0.6s ease, transform 0.6s ease",
-          }}>
-            <div style={{ width: 28, height: 2, background: "#e86a2a" }} />
-            <span style={{ fontSize: 11, letterSpacing: 2.5, fontWeight: 700, color: "#e86a2a" }}>
-              E-CELL IIT PATNA
-            </span>
-            <div style={{ width: 28, height: 2, background: "#e86a2a" }} />
-          </div>
 
-          {/* 3D Word-reveal heading */}
-          <AnimatedTitle text="Our Endeavours" visible={heroVisible} delay={0.1} />
+          <h1 
+            style={{
+              opacity: heroVisible ? 1 : 0,
+              transform: heroVisible ? "translateY(0)" : "translateY(10px)",
+              transition: "opacity 0.7s ease 0.15s, transform 0.7s ease 0.15s",
+            }}
+            className="text-4xl sm:text-6xl md:text-7xl font-extralight tracking-[0.2em] text-white uppercase"
+          >
+            OUR <span className="font-serif italic font-normal text-purple-300 tracking-normal lower-case">Endeavours</span>
+          </h1>
 
-          {/* Sub */}
+          {/* Subtitle */}
           <p style={{
             fontSize: 15, color: "#6a8fa0", lineHeight: 1.7,
-            maxWidth: 520, margin: "0 auto 40px",
+            maxWidth: 520, margin: "16px auto 48px",
             opacity: heroVisible ? 1 : 0,
             transform: heroVisible ? "translateY(0)" : "translateY(20px)",
             transition: "opacity 0.7s ease 0.4s, transform 0.7s ease 0.4s",
@@ -87,7 +91,7 @@ export default function EndeavoursPage() {
             everything E-Cell builds to fuel the entrepreneurial spirit at IIT Patna.
           </p>
 
-          {/* Featured card */}
+          {/* Featured Card Wrapper */}
           <div style={{ opacity: heroVisible ? 1 : 0, transition: "opacity 0.7s ease 0.5s", width: "100%", textAlign: "left" }}>
             <FeaturedCard />
           </div>
@@ -117,10 +121,6 @@ export default function EndeavoursPage() {
           </div>
         </div>
 
-        {/* Footer */}
-        <div style={{ textAlign: "center", marginTop: 80, fontSize: 12, color: "#2a4a60", letterSpacing: 0.5 }}>
-          © 2026 Entrepreneurship Cell, IIT Patna
-        </div>
       </div>
 
       {/* All keyframe animations */}

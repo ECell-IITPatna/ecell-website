@@ -22,146 +22,150 @@ export function FeaturedCard() {
 
   if (closed) return null;
 
-  const rotX = hovered ? (mousePos.y - 0.5) * -8 : 0;
-  const rotY = hovered ? (mousePos.x - 0.5) * 8 : 0;
+  const rotX = hovered ? (mousePos.y - 0.5) * -6 : 0;
+  const rotY = hovered ? (mousePos.x - 0.5) * 6 : 0;
+
+  // Read status or default to UPCOMING EVENT
+  const statusText = FEATURED.status || "UPCOMING EVENT";
+  const isLive =
+    statusText.toLowerCase().includes("current") ||
+    statusText.toLowerCase().includes("live");
 
   return (
-    <div
-      ref={ref}
-      style={{ perspective: 1000, perspectiveOrigin: "50% 50%" }}
-    >
+    <div ref={ref} style={{ perspective: 1000 }}>
       <div
         ref={cardRef}
         onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => { setHovered(false); setMousePos({ x: 0.5, y: 0.5 }); }}
+        onMouseLeave={() => {
+          setHovered(false);
+          setMousePos({ x: 0.5, y: 0.5 });
+        }}
         onMouseMove={handleMouseMove}
+        className="relative overflow-hidden rounded-2xl select-none p-5 sm:p-7 md:p-8"
         style={{
-          background: "linear-gradient(135deg, #0f2027 0%, #1a2a3a 40%, #0d1f2e 100%)",
-          border: `1px solid rgba(100,160,200,${hovered ? 0.35 : 0.18})`,
-          borderRadius: 16,
-          padding: "clamp(20px, 5vw, 32px) clamp(20px, 5vw, 36px)",
-          position: "relative",
-          backdropFilter: "blur(12px)",
+          background: "rgba(10, 20, 32, 0.55)",
+          border: `1px solid rgba(255, 255, 255, ${hovered ? 0.18 : 0.08})`,
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
           boxShadow: hovered
-            ? "0 24px 60px rgba(0,0,0,0.7), 0 0 40px rgba(40,100,200,0.15), inset 0 1px 0 rgba(255,255,255,0.08)"
-            : "0 8px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)",
+            ? "0 30px 80px rgba(0,0,0,0.8), 0 0 50px rgba(56,189,248,0.12), inset 0 1px 0 rgba(255,255,255,0.1)"
+            : "0 10px 40px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05)",
           opacity: inView ? 1 : 0,
           transform: inView
-            ? `translateY(0) rotateX(${rotX}deg) rotateY(${rotY}deg) translateZ(${hovered ? 12 : 0}px)`
-            : "translateY(40px)",
+            ? `translateY(0) rotateX(${rotX}deg) rotateY(${rotY}deg)`
+            : "translateY(30px)",
           transition: hovered
-            ? "box-shadow 0.3s ease, border-color 0.3s ease, transform 0.08s ease"
-            : "opacity 0.7s ease, transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s ease, border-color 0.3s ease",
+            ? "box-shadow 0.3s ease, border-color 0.3s ease, transform 0.1s ease-out"
+            : "opacity 0.7s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s ease, border-color 0.3s ease",
           transformStyle: "preserve-3d",
-          willChange: "transform",
         }}
       >
-        {/* Dynamic light reflection */}
+        {/* Ambient Radial Light Effect */}
         <div
           style={{
             position: "absolute",
             inset: 0,
             borderRadius: 16,
             background: hovered
-              ? `radial-gradient(circle at ${mousePos.x * 100}% ${mousePos.y * 100}%, rgba(100,180,255,0.07) 0%, transparent 60%)`
+              ? `radial-gradient(circle 350px at ${mousePos.x * 100}% ${mousePos.y * 100}%, rgba(56,189,248,0.08) 0%, transparent 80%)`
               : "none",
             pointerEvents: "none",
             transition: "opacity 0.3s",
           }}
         />
 
-        {/* Aurora shimmer on border */}
-        <div
-          style={{
-            position: "absolute",
-            inset: -1,
-            borderRadius: 17,
-            background: hovered
-              ? `conic-gradient(from ${mousePos.x * 360}deg at ${mousePos.x * 100}% ${mousePos.y * 100}%, rgba(60,140,255,0.3), rgba(120,60,220,0.2), rgba(40,120,200,0.3), transparent 60%)`
-              : "none",
-            WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-            WebkitMaskComposite: "xor",
-            maskComposite: "exclude",
-            padding: 1,
-            pointerEvents: "none",
-            opacity: hovered ? 1 : 0,
-            transition: "opacity 0.3s",
-          }}
-        />
-
-        {/* Close */}
+        {/* Close Button - Kept safely above content in z-index */}
         <button
           onClick={() => setClosed(true)}
-          style={{
-            position: "absolute", top: 16, right: 16,
-            width: 28, height: 28, borderRadius: "50%",
-            border: "1px solid rgba(255,255,255,0.2)",
-            background: "rgba(255,255,255,0.07)",
-            color: "#aaa", cursor: "pointer",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            fontSize: 14, lineHeight: 1, zIndex: 2,
-          }}
+          aria-label="Dismiss card"
+          className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 w-7 h-7 rounded-full flex items-center justify-center text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-colors z-30 text-xs cursor-pointer"
         >
-          ×
+          ✕
         </button>
 
-        {/* Tag */}
-        <div style={{ fontSize: 10, letterSpacing: 2, color: "#7ab3d4", fontWeight: 600, marginBottom: 16 }}>
-          {FEATURED.tag}
-        </div>
+        {/* Grid Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-stretch relative z-10 pt-2 sm:pt-0">
+          
+          {/* Left Column: Icon, Event Status, Title, Description, Stats */}
+          <div className="md:col-span-7 flex flex-col justify-between">
+            <div>
+              {/* Event Icon & Dynamic Status Badge */}
+              <div className="flex items-center gap-3 mb-3 sm:mb-4 pr-8 sm:pr-0">
+                <div className="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-400/20 flex items-center justify-center text-sky-400 text-xl font-mono shadow-[0_0_15px_rgba(56,189,248,0.15)] shrink-0">
+                  {FEATURED.icon}
+                </div>
 
-        <div className="featured-card-content" style={{ display: "flex", gap: "clamp(24px, 5vw, 40px)", flexWrap: "wrap" }}>
-          {/* Left */}
-          <div style={{ flex: "1 1 240px" }}>
-            <div style={{
-              width: 48, height: 48, borderRadius: 12,
-              background: "rgba(60,130,200,0.25)",
-              display: "flex", alignItems: "center", justifyContent: "center",
-              fontSize: 22, marginBottom: 16,
-              border: "1px solid rgba(100,180,255,0.15)",
-              transform: `translateZ(${hovered ? 20 : 0}px)`,
-              transition: "transform 0.08s ease",
-            }}>
-              {FEATURED.icon}
+                {/* Event Status Pill */}
+                <div className="flex items-center gap-2 bg-slate-900/60 border border-sky-500/20 px-3 py-1.5 rounded-full backdrop-blur-md">
+                  <span className="relative flex h-2 w-2">
+                    <span
+                      className={`animate-ping absolute inline-flex h-full w-full rounded-full ${
+                        isLive ? "bg-emerald-400" : "bg-sky-400"
+                      } opacity-75`}
+                    />
+                    <span
+                      className={`relative inline-flex rounded-full h-2 w-2 ${
+                        isLive ? "bg-emerald-500" : "bg-sky-500"
+                      }`}
+                    />
+                  </span>
+                  <span
+                    className={`text-[10px] font-mono font-bold tracking-[0.15em] uppercase ${
+                      isLive ? "text-emerald-400" : "text-sky-400"
+                    }`}
+                  >
+                    {statusText}
+                  </span>
+                </div>
+              </div>
+
+              {/* Title */}
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight my-2">
+                {FEATURED.title}
+              </h2>
+
+              {/* Description */}
+              <p className="text-xs sm:text-sm text-slate-300 font-normal leading-relaxed max-w-md my-2 sm:my-3">
+                {FEATURED.description}
+              </p>
             </div>
-            <h2 style={{ fontSize: "clamp(22px, 5vw, 28px)", fontWeight: 700, color: "#e8f4ff", margin: "0 0 12px" }}>
-              {FEATURED.title}
-            </h2>
-            <p style={{ fontSize: 14, color: "#8aabb8", lineHeight: 1.7, margin: 0 }}>
-              {FEATURED.description}
-            </p>
-            <div className="featured-stats-container" style={{ display: "flex", gap: 0, marginTop: 32 }}>
-              {FEATURED.stats.map((s, i) => (
-                <div key={i} className="featured-stat-item" style={{
-                  flex: 1,
-                  borderLeft: i > 0 ? "1px solid rgba(255,255,255,0.1)" : "none",
-                  paddingLeft: i > 0 ? 24 : 0,
-                }}>
-                  <div style={{ fontSize: 26, fontWeight: 800, color: "#e0efff", letterSpacing: -1 }}>
-                    {s.value}
-                  </div>
-                  <div style={{ fontSize: 10, letterSpacing: 1.5, color: "#5a8aa0", fontWeight: 600, marginTop: 4 }}>
-                    {s.label.toUpperCase()}
-                  </div>
+
+            {/* Stats Metrics Block */}
+            <div className="pt-4 sm:pt-6 mt-4 border-t border-white/10 grid grid-cols-3 gap-2 sm:gap-4">
+              {FEATURED.stats.map((stat, idx) => (
+                <div key={idx} className="flex flex-col">
+                  <span className="text-lg sm:text-2xl font-black text-white tracking-tight">
+                    {stat.value}
+                  </span>
+                  <span className="text-[9px] sm:text-[10px] font-mono tracking-wider text-slate-400 uppercase mt-0.5">
+                    {stat.label}
+                  </span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Right */}
-          <div style={{ flex: "1 1 180px", minWidth: 180 }}>
-            <div style={{ fontSize: 13, fontWeight: 600, color: "#c0d8e8", marginBottom: 14 }}>
-              Key Highlights
+          {/* Right Column: Highlights Box (Cleared top spacing so close button doesn't touch) */}
+          <div className="md:col-span-5 bg-slate-950/40 rounded-xl border border-white/5 p-4 sm:p-5 flex flex-col justify-between mt-2 md:mt-6">
+            <div>
+              <span className="font-mono text-[10px] tracking-[0.2em] text-slate-400 uppercase font-semibold block mb-3 sm:mb-4">
+                // KEY HIGHLIGHTS
+              </span>
+
+              <ul className="space-y-2.5 sm:space-y-3">
+                {FEATURED.highlights.map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-start gap-2.5 sm:gap-3 text-xs sm:text-sm text-slate-300"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky-400 mt-1.5 shrink-0 shadow-[0_0_8px_rgba(56,189,248,0.8)]" />
+                    <span className="leading-tight">{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: 10 }}>
-              {FEATURED.highlights.map((h) => (
-                <li key={h} style={{ display: "flex", alignItems: "center", gap: 8, color: "#8aabb8", fontSize: 13 }}>
-                  <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#4a9ebe", flexShrink: 0 }} />
-                  {h}
-                </li>
-              ))}
-            </ul>
           </div>
+
         </div>
       </div>
     </div>
