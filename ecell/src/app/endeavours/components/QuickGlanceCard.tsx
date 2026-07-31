@@ -40,7 +40,6 @@ export function QuickGlanceCard({
 }) {
   const { ref, inView } = useInView(0.08);
   const [hovered, setHovered] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -65,29 +64,24 @@ export function QuickGlanceCard({
     <div
       ref={ref}
       style={{ perspective: 1000, perspectiveOrigin: "50% 50%" }}
-      className="w-full"
+      className="w-full h-full"
     >
       <div
         ref={cardRef}
-        onClick={() => setIsExpanded((prev) => !prev)}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => {
           setHovered(false);
           setMousePos({ x: 0.5, y: 0.5 });
         }}
         onMouseMove={handleMouseMove}
-        className="relative overflow-hidden rounded-2xl p-5 sm:p-6 cursor-pointer select-none transition-all duration-300"
+        className="relative overflow-hidden rounded-2xl p-5 sm:p-6 select-none transition-all duration-300 h-full flex flex-col justify-between"
         style={{
           background: hovered
             ? "rgba(12, 24, 38, 0.75)"
-            : isExpanded
-            ? "rgba(10, 20, 32, 0.65)"
             : "rgba(8, 16, 26, 0.5)",
           border: `1px solid ${
             hovered
               ? "rgba(56, 189, 248, 0.25)"
-              : isExpanded
-              ? "rgba(56, 189, 248, 0.18)"
               : "rgba(255, 255, 255, 0.07)"
           }`,
           backdropFilter: "blur(16px)",
@@ -133,50 +127,49 @@ export function QuickGlanceCard({
           }}
         />
 
-        {/* Card Header: Icon & Category Badge */}
-        <div className="flex items-start justify-between gap-3 mb-4 relative z-10">
-          <div
-            className="w-10 h-10 rounded-xl flex items-center justify-center text-lg shrink-0 border transition-transform duration-300"
-            style={{
-              backgroundColor: `${card.iconBg}22`,
-              borderColor: `${card.iconBg}44`,
-              transform: `translateZ(${hovered ? 16 : 0}px)`,
-            }}
-          >
-            {card.icon}
+        {/* Top Content Area */}
+        <div>
+          {/* Card Header: Icon & Category Badge */}
+          <div className="flex items-start justify-between gap-3 mb-4 relative z-10">
+            <div
+              className="w-10 h-10 rounded-xl flex items-center justify-center text-lg shrink-0 border transition-transform duration-300"
+              style={{
+                backgroundColor: `${card.iconBg}22`,
+                borderColor: `${card.iconBg}44`,
+                transform: `translateZ(${hovered ? 16 : 0}px)`,
+              }}
+            >
+              {card.icon}
+            </div>
+
+            <span
+              className="text-[9px] font-mono font-bold tracking-widest uppercase rounded-md px-2.5 py-1 border transition-colors shrink-0"
+              style={{
+                color: badgeStyle.text,
+                borderColor: badgeStyle.border,
+                backgroundColor: badgeStyle.bg,
+              }}
+            >
+              {card.badge}
+            </span>
           </div>
 
-          <span
-            className="text-[9px] font-mono font-bold tracking-widest uppercase rounded-md px-2.5 py-1 border transition-colors shrink-0"
-            style={{
-              color: badgeStyle.text,
-              borderColor: badgeStyle.border,
-              backgroundColor: badgeStyle.bg,
-            }}
+          {/* Title */}
+          <h3
+            className="text-lg font-extrabold text-white tracking-tight mb-2 transition-transform duration-300"
+            style={{ transform: `translateZ(${hovered ? 8 : 0}px)` }}
           >
-            {card.badge}
-          </span>
+            {card.title}
+          </h3>
+
+          {/* Description Body - Unrestricted Full Text */}
+          <p className="text-xs sm:text-sm text-slate-300 font-normal leading-relaxed mb-6">
+            {card.description}
+          </p>
         </div>
 
-        {/* Title */}
-        <h3
-          className="text-lg font-extrabold text-white tracking-tight mb-2 transition-transform duration-300"
-          style={{ transform: `translateZ(${hovered ? 8 : 0}px)` }}
-        >
-          {card.title}
-        </h3>
-
-        {/* Description Body */}
-        <p
-          className={`text-xs sm:text-sm text-slate-300 font-normal leading-relaxed mb-4 transition-all duration-300 ${
-            isExpanded ? "block" : "line-clamp-3"
-          }`}
-        >
-          {card.description}
-        </p>
-
-        {/* Card Footer: Tags & Read More Pill */}
-        <div className="flex items-center justify-between gap-2 pt-2 border-t border-white/5 relative z-10">
+        {/* Card Footer: Tags */}
+        <div className="flex items-center justify-between gap-2 pt-3 border-t border-white/5 relative z-10 mt-auto">
           <div className="flex items-center gap-1.5 flex-wrap">
             {(card.tags ?? []).map((tag) => (
               <span
@@ -186,17 +179,6 @@ export function QuickGlanceCard({
                 {tag}
               </span>
             ))}
-          </div>
-
-          <div
-            className={`text-[11px] font-mono font-semibold flex items-center gap-1 transition-all duration-300 shrink-0 ${
-              hovered || isExpanded
-                ? "text-sky-400 translate-x-0.5"
-                : "text-slate-400"
-            }`}
-          >
-            <span>{isExpanded ? "Less" : "More"}</span>
-            <span className="text-xs">{isExpanded ? "↑" : "→"}</span>
           </div>
         </div>
       </div>

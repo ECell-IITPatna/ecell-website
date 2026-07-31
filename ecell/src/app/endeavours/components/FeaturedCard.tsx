@@ -74,15 +74,6 @@ export function FeaturedCard() {
           }}
         />
 
-        {/* Close Button - Kept safely above content in z-index */}
-        <button
-          onClick={() => setClosed(true)}
-          aria-label="Dismiss card"
-          className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 w-7 h-7 rounded-full flex items-center justify-center text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-colors z-30 text-xs cursor-pointer"
-        >
-          ✕
-        </button>
-
         {/* Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-stretch relative z-10 pt-2 sm:pt-0">
           
