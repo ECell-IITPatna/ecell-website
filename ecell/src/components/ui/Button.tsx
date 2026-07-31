@@ -31,45 +31,43 @@ const Button = ({ content, css, onClick, disabled, type, ...rest }: ButtonProps)
   }
 
   return (
-    <div className="p-[1px] rounded-sm flex justify-center">
-      <button 
-        type={type || "button"}
-        disabled={disabled}
-        {...rest}
-        className={`py-3 px-7 tracking-[0.2em] rounded-sm disabled:opacity-50 disabled:cursor-not-allowed ${css}`}
-        style={{
-          clipPath: "polygon(0 0, calc(100% - 20px) 0, 100% 50%, 100% 100%, 20px 100%, 0 50%)"
-        }}
-        onClick={(e) => {
-          if (disabled) return;
-          onClickPlayAudio();
-          if (onClick) onClick(e);
-        }}
-        onMouseEnter={() => {
-          if (disabled) return;
-          const letters = 'ABCDEFGHIJKL3456@#$%^&*';
-          const originalText = content;
-          const substring = originalText.substring(1);
-          let iterations = 0;
-          const interval = setInterval(() => {
-            setScrambleContent(originalText[0] + substring.split('').map((_, index) => {
-              if (index < iterations) {
-                return substring[index];
-              }
-              return letters[Math.floor(Math.random() * letters.length)];
-            }).join(''));
-            if (iterations >= substring.length) {
-              clearInterval(interval);
-              setScrambleContent(null); // Reset back to original content prop
+    <button
+      type={type || "button"}
+      disabled={disabled}
+      {...rest}
+      className={`py-3 px-7 tracking-[0.2em] rounded-sm disabled:opacity-50 disabled:cursor-not-allowed ${css}`}
+      style={{
+        clipPath: "polygon(0 0, calc(100% - 20px) 0, 100% 50%, 100% 100%, 20px 100%, 0 50%)"
+      }}
+      onClick={(e) => {
+        if (disabled) return;
+        onClickPlayAudio();
+        if (onClick) onClick(e);
+      }}
+      onMouseEnter={() => {
+        if (disabled) return;
+        const letters = 'ABCDEFGHIJKL3456@#$%^&*';
+        const originalText = content;
+        const substring = originalText.substring(1);
+        let iterations = 0;
+        const interval = setInterval(() => {
+          setScrambleContent(originalText[0] + substring.split('').map((_, index) => {
+            if (index < iterations) {
+              return substring[index];
             }
-            iterations += 1 / 3;
-          }, 30);
-          onHoverPlayAudio();
-        }}
-      >
-        {scrambleContent ?? content}
-      </button>
-    </div>
+            return letters[Math.floor(Math.random() * letters.length)];
+          }).join(''));
+          if (iterations >= substring.length) {
+            clearInterval(interval);
+            setScrambleContent(null); // Reset back to original content prop
+          }
+          iterations += 1 / 3;
+        }, 30);
+        onHoverPlayAudio();
+      }}
+    >
+      {scrambleContent ?? content}
+    </button>
   )
 }
 

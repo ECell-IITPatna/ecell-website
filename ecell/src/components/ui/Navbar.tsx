@@ -4,24 +4,28 @@ import Image from "next/image";
 import { navbarDetails, sidebarDetails } from "@/constants/navbarDetails";
 import gsap from "gsap/all";
 import { useGSAP } from "@gsap/react";
-import { useRef } from "react";
+import { useRef ,useEffect} from "react";
 import { Menu, X } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export function Navbar() {
     const pathname = usePathname();
     const router = useRouter();
 
-    const logo1 = useRef<HTMLImageElement>(null);
+    const rocket_floating = useRef<HTMLImageElement>(null);
     const logo2 = useRef<HTMLImageElement>(null);
     const sidebarRef = useRef<HTMLDivElement>(null);
     const timelineref2 = useRef<gsap.core.Timeline | null>(null);
+    const timelineref1 = useRef<gsap.core.Timeline | null>(null);
 
-    const handleClick = (id:string,url:string) => {
+    const handleClick = (id: string, url: string) => {
         const click_audio = new Audio("/audio/secondary-hover.wav");
-        click_audio.preload= "auto";
-        click_audio.volume= 0.5;
-        click_audio.currentTime=0;
+        click_audio.preload = "auto";
+        click_audio.volume = 0.5;
+        click_audio.currentTime = 0;
         click_audio.play().catch((error) => {
             console.error("Error playing click audio:", error);
         });
@@ -37,19 +41,89 @@ export function Navbar() {
     };
 
     useGSAP(() => {
+        const tl1 = gsap.timeline({ paused: true });
         const tl2 = gsap.timeline({ paused: true });
-        
+
         tl2.to(sidebarRef.current, {
             right: 0,
             duration: 1,
             ease: "power3.inOut",
         });
 
+        timelineref1.current = tl1;
         timelineref2.current = tl2;
 
+        
+        gsap.set(rocket_floating.current, { x: 0, y: 0 });
+        tl1.to(rocket_floating.current, {
+            x:80,
+            y:-80,
+            duration:0.8,
+            ease:"power2.inOut",
+        })
+        tl1.set(rocket_floating.current, { x: -160, y: 160 });
+        tl1.to(rocket_floating.current, {
+            x:0,
+            y:0,
+            duration:0.8,
+            ease:"power2.inOut",
+        })
+        
+        const floatingNavbar = document.querySelector(".floating-navbar-container");
+        const enter =()=>{tl1.play(0);}
+        floatingNavbar?.addEventListener("mouseenter", enter);
     }, []);
+
+    useEffect(() => {
+        
+        if (pathname !== "/") {
+            ScrollTrigger.getAll().forEach(st => st.kill());
+            return;
+        }
+
+        const init = () => {
+            const hero = document.querySelector(".hero");
+
+            if (!hero) {
+                return;
+            }
+            gsap.set(".floating-navbar-container", { y: 150 });
+            ScrollTrigger.create({
+                trigger: hero,
+                start: "bottom top",
+                onLeave: () => {
+                    gsap.to(".navbar", { y: -150 });
+                    gsap.to(".floating-navbar-container", { y: 0 });
+                },
+                onEnterBack: () => {
+                    gsap.to(".navbar", { y: 0 });
+                    gsap.to(".floating-navbar-container", { y: 150 });
+                },
+            });
+
+            ScrollTrigger.refresh();
+        };
+
+        requestAnimationFrame(init);
+
+        return () => {
+            ScrollTrigger.getAll().forEach(st => st.kill());
+        };
+    }, [pathname]);
+
+    
     return (
         <div>
+            <div className="floating-navbar-container fixed bottom-5 right-5 bg-[#eeeeee20] z-50 rounded-2xl overflow-hidden">
+                <Image
+                    src="/images/navbar-floating-rocket.png"
+                    alt="Logo"
+                    width={70}
+                    height={70}
+                    className="rocket-image"
+                    ref={rocket_floating}
+                />
+            </div>
 
             {/*Desktop Navigation*/}
             <nav className="navbar max-md:hidden z-50 fixed top-2 left-1/2 transform -translate-x-1/2 lg:w-[90%] w-[95%] flex items-center justify-around px-6 bg-[rgb(0,0,0)] backdrop-blur-md border border-white/10 rounded-xl">
@@ -70,9 +144,9 @@ export function Navbar() {
                         }
                         return (
                             <Link key={index} href={item.href} className="text-white md:text-md font-bold font-clash links"
-                                  onClick={() => { handleClick(item.id || "", item.href) }} 
+                                onClick={() => { handleClick(item.id || "", item.href) }}
                             >
-                                {item.name}                                      
+                                {item.name}
                             </Link>
                         );
                     })
