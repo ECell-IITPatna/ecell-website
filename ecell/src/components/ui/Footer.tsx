@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Contact from './Contact';
 import { motion, AnimatePresence } from 'framer-motion';
+import { sidebarDetails } from '../../constants/navbarDetails'; // Adjust import path if needed (e.g., '../data/navbarDetails')
 
 function LinkedinIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -65,12 +66,10 @@ export default function Footer() {
       <Contact />
       <footer className="w-full bg-[#000000] text-slate-300 pt-20 pb-6 px-6 md:px-16 lg:px-24 border-t border-slate-900/60 relative z-20 font-clash select-none overflow-hidden">
       
-        {/* 
-          Outer Grid
-        */}
+        {/* Outer Grid */}
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-10 gap-8 items-start pb-10">
           
-          {/* Left Side: Logo, Subtitle, and Socials (Now takes md:col-span-5 instead of 5 out of 12) */}
+          {/* Left Side: Logo, Subtitle, and Socials */}
           <div className="md:col-span-5 flex flex-col items-center text-center space-y-3">
             <div className="h-32 w-auto flex items-center justify-center">
               <img 
@@ -85,29 +84,47 @@ export default function Footer() {
             </p>
             
             <div className="flex items-center justify-center gap-4 pt-1">
-              <a href="https://www.instagram.com/ecell_iitpatna?igsh=cG00YXI5aDBnaG42" className="hover:text-white transition-colors" target="_blank" rel="noopener noreferrer"><InstagramIcon /></a>
-              <a href="https://www.linkedin.com/school/ecell-iit-patna/" className="hover:text-white transition-colors" target="_blank" rel="noopener noreferrer"><LinkedinIcon /></a>
+              <a 
+                href="https://www.instagram.com/ecell_iitpatna?igsh=cG00YXI5aDBnaG42" 
+                className="hover:text-white transition-colors" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+              >
+                <InstagramIcon />
+              </a>
+              <a 
+                href="https://www.linkedin.com/school/ecell-iit-patna/" 
+                className="hover:text-white transition-colors" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+              >
+                <LinkedinIcon />
+              </a>
             </div>
           </div>
 
           {/* Right Area */}
           <div className="md:col-span-5 grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8 w-full items-start">
             
-            {/* Column 1: E-Cell Navigation Links */}
+            {/* Column 1: Dynamic E-Cell Navigation Links */}
             <div className="flex flex-col items-center md:items-start space-y-3 col-span-1">
-              <h4 className="text-white text-base font-semibold tracking-wide">E-Cell</h4>
+              <h4 className="text-white text-base font-semibold tracking-wide">Navigation</h4>
               <div className="flex flex-col items-center md:items-start space-y-1.5 text-sm text-slate-400 font-medium">
-                <Link href="/" className="hover:text-white transition-colors">Home</Link>
-                <Link href="/about" className="hover:text-white transition-colors">About Us</Link>
-                <Link href="/team" className="hover:text-white transition-colors">Team</Link>
-                <Link href="/speakers" className="hover:text-white transition-colors">Speakers</Link>
-                <Link href="/alumni" className="hover:text-white transition-colors">Alumni</Link>
-                <Link href="/contact" className="hover:text-white transition-colors">Contact Us</Link>
-                <Link href="/legacy" className="hover:text-white transition-colors">Legacy Page</Link>
+                {sidebarDetails.map((link) => (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    className="hover:text-white transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                ))}
               </div>
             </div>
 
-            {/* Column 2: Classic Standalone 3-Word Animation */}
+            {/* Column 2: Dynamic 3-Word Animated Tagline */}
             <div className="col-span-1 md:col-span-2 flex items-center h-full min-h-[180px] my-auto">
               <div className="relative h-20 w-full flex justify-center overflow-hidden">
                 <AnimatePresence mode="wait">
@@ -137,7 +154,7 @@ export default function Footer() {
 
         {/* Copyright Footer Base */}
         <div className="max-w-7xl mx-auto flex justify-center items-center text-sm text-slate-400 pt-6 border-t border-slate-900/60">
-          <p>© 2026 E-Cell IIT Patna. All Rights Reserved</p>
+          <p>© {new Date().getFullYear()} E-Cell IIT Patna. All Rights Reserved</p>
         </div>
       </footer>
     </section>
