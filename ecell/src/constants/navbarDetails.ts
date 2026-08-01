@@ -5,7 +5,7 @@ export const navbarDetails = [
     { name: "Logo", href: "/" },
     { name: "Endeavours", href: "/endeavours" },
     { name: "Team", href: "/team" },
-    { name: "Contact", href: "/" },
+    { name: "Contact", href: "/contact" },
 ];
 
 export const sidebarDetails = [
@@ -14,5 +14,5 @@ export const sidebarDetails = [
     { name: "Our Alumini", href: "/#alumni", id: "alumni" },
     { name: "Endeavours", href: "/endeavours" },
     { name: "Team", href: "/team" },
-    { name: "Contact", href: "/" },
+    { name: "Contact", href: "/contact" },
 ];
