@@ -4,10 +4,11 @@ import Image from "next/image";
 import { navbarDetails, sidebarDetails } from "@/constants/navbarDetails";
 import gsap from "gsap/all";
 import { useGSAP } from "@gsap/react";
-import { useRef ,useEffect} from "react";
+import { useRef, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Button from "./Button";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,6 +21,8 @@ export function Navbar() {
     const sidebarRef = useRef<HTMLDivElement>(null);
     const timelineref2 = useRef<gsap.core.Timeline | null>(null);
     const timelineref1 = useRef<gsap.core.Timeline | null>(null);
+    const timelineref3 = useRef<gsap.core.Timeline | null>(null);
+    const timelineref4 = useRef<gsap.core.Timeline | null>(null);
 
     const handleClick = (id: string, url: string) => {
         const click_audio = new Audio("/audio/secondary-hover.wav");
@@ -43,6 +46,8 @@ export function Navbar() {
     useGSAP(() => {
         const tl1 = gsap.timeline({ paused: true });
         const tl2 = gsap.timeline({ paused: true });
+        const tl3 = gsap.timeline({ paused: true });
+        const tl4 = gsap.timeline({ paused: true });
 
         tl2.to(sidebarRef.current, {
             right: 0,
@@ -52,30 +57,65 @@ export function Navbar() {
 
         timelineref1.current = tl1;
         timelineref2.current = tl2;
+        timelineref3.current = tl3;
+        timelineref4.current = tl4;
 
-        
+
         gsap.set(rocket_floating.current, { x: 0, y: 0 });
         tl1.to(rocket_floating.current, {
-            x:80,
-            y:-80,
-            duration:0.8,
-            ease:"power2.inOut",
+            x: 80,
+            y: -80,
+            duration: 0.5,
+            ease: "power2.inOut",
         })
         tl1.set(rocket_floating.current, { x: -160, y: 160 });
         tl1.to(rocket_floating.current, {
-            x:0,
-            y:0,
-            duration:0.8,
-            ease:"power2.inOut",
+            x: 0,
+            y: 0,
+            duration: 0.5,
+            ease: "power2.inOut",
         })
-        
+
         const floatingNavbar = document.querySelector(".floating-navbar-container");
-        const enter =()=>{tl1.play(0);}
+        const enter = () => { tl1.play(0); }
         floatingNavbar?.addEventListener("mouseenter", enter);
+
+        tl3.to(".floating-navbar-sidebar", {
+            height: "85vh",
+            duration: 0.4,
+        })
+        tl3.to(".floating-navbar-sidebar", {
+            width: "20vw",
+            minWidth: "200px",
+            duration: 0.4,
+        })
+        tl3.to(".floating-sidebar-links", {
+            opacity: 1,
+            duration: 0.3,
+            stagger: 0.05,
+        })
+
+        tl4.to(".navbar-overlay", {
+            opacity: 1,
+            duration: 0.4,
+        })
+        tl4.to(".floating-navbar-contact", {
+            width: "40vw",
+            duration: 0.5,
+            height: "85vh",
+            padding: "10px",
+            minWidth: "250px",
+        }, "-=0.2");
+        tl4.to(".contact-element", {
+            opacity: 1,
+            duration: 0.3,
+            stagger: 0.08,
+        }, "-=0.5");
+
     }, []);
 
     useEffect(() => {
-        
+
         if (pathname !== "/") {
             ScrollTrigger.getAll().forEach(st => st.kill());
             return;
@@ -87,17 +127,17 @@ export function Navbar() {
             if (!hero) {
                 return;
             }
-            gsap.set(".floating-navbar-container", { y: 150 });
+            gsap.set([".floating-navbar-container", ".floating-navbar-sidebar"], { yPercent: 150 });
             ScrollTrigger.create({
                 trigger: hero,
                 start: "bottom top",
                 onLeave: () => {
                     gsap.to(".navbar", { y: -150 });
-                    gsap.to(".floating-navbar-container", { y: 0 });
+                    gsap.to([".floating-navbar-container", ".floating-navbar-sidebar"], { yPercent: 0 });
                 },
                 onEnterBack: () => {
                     gsap.to(".navbar", { y: 0 });
-                    gsap.to(".floating-navbar-container", { y: 150 });
+                    gsap.to([".floating-navbar-container", ".floating-navbar-sidebar"], { yPercent: 150 });
                 },
             });
 
@@ -111,10 +151,41 @@ export function Navbar() {
         };
     }, [pathname]);
 
-    
+
     return (
-        <div>
-            <div className="floating-navbar-container fixed bottom-5 right-5 bg-[#eeeeee20] z-50 rounded-2xl overflow-hidden">
+        <div className="relative">
+            <div className="navbar-overlay fixed top-0 left-0 w-full h-full bg-[#000000a8] z-49 opacity-0 pointer-events-none" />
+
+            <div className="floating-navbar-sidebar fixed bottom-5 right-5 bg-[#98d2feb4] z-50 rounded-2xl overflow-hidden w-17 h-17 flex justify-between p-5">
+                <div className="flex flex-col gap-4 w-full h-full">
+                    {sidebarDetails.map((item, index) => {
+                        return (
+                            <div key={index}>
+                                <Link key={index} href={item.href}
+                                    className="text-white text-2xl font-bold font-clash floating-sidebar-links border-t-2 border-b-2 border-transparent hover:border-white hover:text-3xl transition duration-300 px-2 opacity-0"
+                                    onClick={() => {
+                                        if (timelineref3.current?.progress() === 1) {
+                                            timelineref3.current?.reverse();
+                                        }
+
+                                        if (item.name === "Contact") {
+                                            if (timelineref4.current?.progress() === 0) {
+                                                timelineref4.current?.play(0);
+                                            }
+                                            else {
+                                                timelineref4.current?.reverse();
+                                            }
+                                        }
+                                    }}
+                                >
+                                    {item.name}
+                                </Link>
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
+            <div className="floating-navbar-container fixed bottom-5 right-5 bg-transparent z-50 rounded-2xl overflow-hidden w-17 h-17 flex items-center justify-center">
                 <Image
                     src="/images/navbar-floating-rocket.png"
                     alt="Logo"
@@ -122,8 +193,38 @@ export function Navbar() {
                     height={70}
                     className="rocket-image"
                     ref={rocket_floating}
+                    onClick={() => {
+                        if (timelineref3.current?.progress() === 0) {
+                            timelineref3.current?.play(0);
+                        }
+                        else {
+                            timelineref3.current?.reverse();
+                        }
+                    }}
                 />
             </div>
+            <div className="floating-navbar-contact fixed bottom-5 right-5 bg-[#98d2fe] z-50 rounded-2xl overflow-hidden w-0 h-0 flex flex-col justify-start gap-2">
+                <div className="flex justify-end contact-element opacity-0">
+                    <div className="rounded-full  p-3 bg-[#323232] w-fit">
+                        <X className=" "
+                            size={30}
+                            onClick={() => {
+                                if (timelineref4.current?.progress() === 1) {
+                                    timelineref4.current?.reverse();
+                                }
+                            }}
+                        />
+                    </div>
+                </div>
+                <h1 className="contact-element text-black font-clash text-3xl md:text-[3.5vw] font-bold opacity-0">Get in touch</h1>
+                <p className="text-black contact-element opacity-0">Whether you have a startup idea, a collaboration in mind, or simply want to learn more about entrepreneurship, we're always excited to connect with passionate innovators.</p>
+                <div className="contact-element h-[1.5px] w-full bg-[#81818176] opacity-0"></div>
+                <p className="contact-element text-black opacity-0">For all Enquiries</p>
+                <h1 className="contact-element text-xl md:text-[2.5vw] hover:text-[#1050b0d3] transition-all duration-300 opacity-0">ecell_email@example.com</h1>
+                <p className="contact-element text-black opacity-0">Contact Number</p>
+                <h1 className="contact-element text-xl md:text-[2.5vw] hover:text-[#1050b0d3] transition-all duration-300 opacity-0">+91 1234567890</h1>
+            </div>
+
 
             {/*Desktop Navigation*/}
             <nav className="navbar max-md:hidden z-50 fixed top-2 left-1/2 transform -translate-x-1/2 lg:w-[90%] w-[95%] flex items-center justify-around px-6 bg-[rgb(0,0,0)] backdrop-blur-md border border-white/10 rounded-xl">
