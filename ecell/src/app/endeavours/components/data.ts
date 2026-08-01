@@ -1,4 +1,5 @@
 export const FEATURED = {
+  status: "UPCOMING EVENT",
   tag: "# INITIATIVE",
   icon: "💡",
   title: "Xplore",
@@ -17,7 +18,22 @@ export const FEATURED = {
   ],
 };
 
-export const CARDS = [
+export type EndeavourCardInput = {
+  id: number;
+  icon: string;
+  iconBg: string;
+  badge: string;
+  badgeColor: string;
+  title: string;
+  description: string;
+  tags?: readonly string[];
+};
+
+type EndeavourCard = Omit<EndeavourCardInput, "tags"> & {
+  tags: readonly string[];
+};
+
+const rawCards: readonly EndeavourCardInput[] = [
   {
     id: 1,
     icon: "🚀",
@@ -27,7 +43,6 @@ export const CARDS = [
     title: "Startup Expo",
     description:
       "The Startup Expo at E-Summit IIT Patna is a curated showcase where startups can exhibit their products, ideas, and traction before investors, mentors, and fellow entrepreneurs. The Expo fosters visibility, validation, and networking opportunities to accelerate growth.",
-    tags: ["#8yr Celebration", "#Founding"],
   },
   {
     id: 2,
@@ -38,7 +53,6 @@ export const CARDS = [
     title: "E-Summit",
     description:
       "E-Summit 2025, the flagship entrepreneurial event of IIT Patna, is a vibrant platform that brings together innovators, investors, startups, and industry leaders to foster entrepreneurship and business growth.",
-    tags: ["#Partnerships", "#Networking"],
   },
   {
     id: 3,
@@ -49,7 +63,6 @@ export const CARDS = [
     title: "Startin'",
     description:
       "A campus startup expo where students pitch, validate, and market their ideas through live stalls and demos. Startin' gives first-time founders a safe arena to test their vision in front of peers and mentors.",
-    tags: ["#Founders Built"],
   },
   {
     id: 4,
@@ -60,9 +73,13 @@ export const CARDS = [
     title: "Xplore",
     description:
       "Xplore is the freshers' introduction to E-Cell IIT Patna. Here the seed to innovate and create jobs is planted. This is the new student initiative to find, challenge, engage, and grow with the entrepreneurial ecosystem of the institute.",
-    tags: ["#Freshers", "#Foundation"],
   },
-];
+] satisfies readonly EndeavourCardInput[];
+
+export const CARDS: readonly EndeavourCard[] = rawCards.map((card) => ({
+  ...card,
+  tags: card.tags ?? [],
+}));
 
 export function generateStars(count: number) {
   return Array.from({ length: count }, (_, i) => ({

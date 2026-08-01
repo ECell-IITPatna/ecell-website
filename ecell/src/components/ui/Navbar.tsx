@@ -227,7 +227,7 @@ export function Navbar() {
 
 
             {/*Desktop Navigation*/}
-            <nav className="navbar max-md:hidden z-50 fixed top-2 left-1/2 transform -translate-x-1/2 lg:w-[90%] w-[95%] flex items-center justify-around px-6 bg-[rgb(0,0,0)] backdrop-blur-md border border-white/10 rounded-xl">
+            <nav className="navbar max-md:hidden z-75 fixed top-2 left-1/2 transform -translate-x-1/2 lg:w-[90%] w-[95%] flex items-center justify-around px-6 bg-[rgb(0,0,0)] backdrop-blur-md border border-white/10 rounded-xl">
                 {
                     navbarDetails.map((item, index) => {
                         if (item.name === "Logo") {
