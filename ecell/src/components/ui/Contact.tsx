@@ -27,7 +27,6 @@ export default function Contact() {
       }
     );
   }, []);
-<<<<<<< HEAD
   return (
     <section className="relative border contact-section w-full bg-[url('/images/contact-us-bg.png')] bg-cover bg-center bg-no-repeat px-5 py-20 h-[60vh] rounded-2xl m-5 overflow-hidden">
       <h1 className="text-3xl md:text-[4vw] text-white md:w-[50%] mb-10">Take your Thoughts to the Next Level</h1>
@@ -46,12 +45,4 @@ export default function Contact() {
       />
     </section>
   )
-=======
-    return(
-      <section className="border z-50 contact-section w-full bg-[url('/images/contact-us-bg.png')] bg-cover bg-center bg-no-repeat px-5 py-20 h-[60vh] rounded-2xl m-5">
-        <h1 className="text-3xl md:text-[4vw] text-white md:w-[50%] mb-10">Take your Thoughts to the Next Level</h1>
-        <Button content="Get in Touch" css="bg-white text-black font-aldrich text-md md:text-lg" />
-      </section>
-    )
->>>>>>> 7be4aab47d7adb8a5f513b63ca33b077d252be4b
 }
