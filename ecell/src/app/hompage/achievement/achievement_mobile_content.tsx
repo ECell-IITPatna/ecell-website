@@ -17,6 +17,7 @@ const AchievementMobileContent = () => {
 
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-20 w-full h-full lg:hidden" >
+      <h1 className="text-4xl md:text-6xl lg:text-8xl font-clash font-semibold header bg-clip-text text-transparent">Our Achievements</h1>
       <div ref={emblaRef} className="overflow-hidden w-screen lg:hidden bg-[url('/images/achievements/bg.png')] bg-cover bg-no-repeat bg-right">
         <div className=" w-screen h-full py-20 flex flex-row  gap-4">
           {achievements.map((achievement) => (
