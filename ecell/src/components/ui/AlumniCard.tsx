@@ -18,8 +18,8 @@ export default function AlumniCard({ alumni, className=""}: { alumni: alumni_typ
     return (
         <>
             {/* Mobile Version */}
-            <div className={`lg:hidden ${className}`}>
-                <div className="relative h-[500px] w-[360px] overflow-hidden rounded-[32px] bg-neutral-900 shadow-[0_25px_80px_rgba(0,0,0,0.5)] transition-all duration-500 hover:-translate-y-2">
+            <div className={`lg:hidden w-full flex justify-center ${className}`}>
+                <div className="group relative h-[480px] w-full max-w-[340px] sm:max-w-[360px] overflow-hidden rounded-[32px] bg-neutral-900 shadow-[0_25px_80px_rgba(0,0,0,0.5)] transition-all duration-500 hover:-translate-y-2">
 
                     {/* Alumni Image */}
                     <Image
@@ -83,76 +83,80 @@ export default function AlumniCard({ alumni, className=""}: { alumni: alumni_typ
                         top-5
                         z-20
                         flex
-                        translate-y-5
                         flex-col
                         gap-3
-                        opacity-0
                         transition-all
                         duration-500
-                        group-hover:translate-y-0
-                        group-hover:opacity-100
                       "
                     >
-                        <a
-                            href={alumni.linkedin}
-                            className="rounded-full bg-black p-3 text-white transition hover:scale-110 hover:bg-violet-600"
-                        >
-                            <FaLinkedinIn size={18} />
-                        </a>
+                        {alumni.linkedin && (
+                            <a
+                                href={alumni.linkedin}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="rounded-full bg-black p-3 text-white transition hover:scale-110 hover:bg-violet-600"
+                            >
+                                <FaLinkedinIn size={18} />
+                            </a>
+                        )}
 
-                        <a
-                            href={alumni.email}
-                            className="rounded-full bg-black p-3 text-white transition hover:scale-110 hover:bg-violet-600"
-                        >
-                            <Mail size={18} />
-                        </a>
+                        {alumni.email && (
+                            <a
+                                href={alumni.email.startsWith("mailto:") ? alumni.email : `mailto:${alumni.email}`}
+                                className="rounded-full bg-black p-3 text-white transition hover:scale-110 hover:bg-violet-600"
+                            >
+                                <Mail size={18} />
+                            </a>
+                        )}
                     </div>
 
                     {/* Circular Alumni Text */}
-                    <div
-                        className="
-                        absolute
-                        -left-12
-                        -top-12
-                        h-36
-                        w-36
-                        rounded-full
-                        border
-                        border-white/20
-                        opacity-0
-                        transition-all
-                        duration-700
-                        group-hover:opacity-100
-                        group-hover:rotate-180
-                      "
-                    >
-                        <svg
-                            viewBox="0 0 100 100"
-                            className="h-full w-full"
+                    {alumni.tag && (
+                        <div
+                            className="
+                            absolute
+                            -left-12
+                            -top-12
+                            h-36
+                            w-36
+                            rounded-full
+                            border
+                            border-white/20
+                            opacity-0
+                            transition-all
+                            duration-700
+                            lg:group-hover:opacity-100
+                            lg:group-hover:rotate-180
+                          "
                         >
-                            <defs>
-                                <path
-                                    id="circle"
-                                    d="
-                                    M50,50
-                                    m-35,0
-                                    a35,35 0 1,1 70,0
-                                    a35,35 0 1,1 -70,0
-                                  "
-                                />
-                            </defs>
-
-                            <text
-                                fill="white"
-                                fontSize="7"
-                                letterSpacing="2"
+                            <svg
+                                viewBox="0 0 100 100"
+                                className="h-full w-full"
                             >
-                                <textPath href="#circle">
-                                    {alumni.tag} • {alumni.tag} • {alumni.tag}
-                                </textPath>
-                            </text>
-                        </svg>
-                    </div>
+                                <defs>
+                                    <path
+                                        id="circle"
+                                        d="
+                                        M50,50
+                                        m-35,0
+                                        a35,35 0 1,1 70,0
+                                        a35,35 0 1,1 -70,0
+                                      "
+                                    />
+                                </defs>
+
+                                <text
+                                    fill="white"
+                                    fontSize="7"
+                                    letterSpacing="2"
+                                >
+                                    <textPath href="#circle">
+                                        {alumni.tag} • {alumni.tag} • {alumni.tag}
+                                    </textPath>
+                                </text>
+                            </svg>
+                        </div>
+                    )}
 
                     {/* Alumni Info */}
                     <div
@@ -166,17 +170,21 @@ export default function AlumniCard({ alumni, className=""}: { alumni: alumni_typ
                         group-hover:-translate-y-3
                       "
                     >
-                        <p className="mb-2 text-sm uppercase tracking-[0.3em] text-violet-300">
-                            {alumni.tag}
-                        </p>
+                        {alumni.tag && (
+                            <p className="mb-2 text-sm uppercase tracking-[0.3em] text-violet-300">
+                                {alumni.tag}
+                            </p>
+                        )}
 
-                        <h2 className="text-5xl font-black leading-none text-white">
+                        <h2 className="text-4xl sm:text-5xl font-black leading-none text-white">
                             {alumni.name}
                         </h2>
 
-                        <p className="mt-2 text-lg text-neutral-300">
-                            {alumni.designation} • {alumni.company}
-                        </p>
+                        {(alumni.designation || alumni.company) && (
+                            <p className="mt-2 text-lg text-neutral-300">
+                                {alumni.designation} {alumni.designation && alumni.company ? '•' : ''} {alumni.company}
+                            </p>
+                        )}
                     </div>
 
                     {/* Decorative Glow */}
@@ -199,8 +207,8 @@ export default function AlumniCard({ alumni, className=""}: { alumni: alumni_typ
                 </div>
             </div>
             {/* Desktop Version */}
-            <div className={`${className} max-lg:hidden`}>
-                <div className={`relative flex h-[500px] min-w-[900px] max-w-[1000px] w-[70%] overflow-hidden rounded-[36px] border border-white/10 bg-[#0A0E14] shadow-[0_40px_100px_rgba(0,0,0,0.55)] transition-all duration-500 hover:-translate-y-2 hover:border-[#3E7BFA]/40 hover:shadow-[0_50px_120px_rgba(62,123,250,0.15)] `}>
+            <div className={`${className} max-lg:hidden flex justify-center w-full`}>
+                <div className="group relative flex h-[500px] min-w-[900px] max-w-[1000px] w-[70%] overflow-hidden rounded-[36px] border border-white/10 bg-[#0A0E14] shadow-[0_40px_100px_rgba(0,0,0,0.55)] transition-all duration-500 hover:-translate-y-2 hover:border-[#3E7BFA]/40 hover:shadow-[0_50px_120px_rgba(62,123,250,0.15)]">
                     {/* Glow */}
                     <div className="absolute right-[-120px] top-[-120px] h-[350px] w-[350px] rounded-full bg-[#3E7BFA]/10 blur-[140px] transition-opacity duration-500 group-hover:opacity-70" />
 
@@ -210,7 +218,7 @@ export default function AlumniCard({ alumni, className=""}: { alumni: alumni_typ
                             src={alumni.image}
                             alt={alumni.name}
                             fill
-                            className="h-full w-full object-cover grayscale transition-transform duration-700 group-hover:scale-105"
+                            className="h-full w-full object-cover grayscale transition-transform duration-700 group-hover:scale-105 group-hover:grayscale-0"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
                     </div>
@@ -219,32 +227,44 @@ export default function AlumniCard({ alumni, className=""}: { alumni: alumni_typ
                     <div className="flex flex-1 gap-2 flex-col justify-between p-10">
                         
                         <div className="flex flex-col gap-2">
-                            <p className="tracking-[0.45em] text-[#5B9CFF] uppercase text-xs">{alumni.tag}</p>
-                            <h1 className="lg:3xl xl:text-4xl font-black text-white leading-none">{alumni.name}</h1>
-                            <p className="lg:text-md xl:text-lg text-neutral-300">
-                                {alumni.designation} • {alumni.company}
-                            </p>
+                            {alumni.tag && <p className="tracking-[0.45em] text-[#5B9CFF] uppercase text-xs">{alumni.tag}</p>}
+                            <h1 className="lg:text-3xl xl:text-4xl font-black text-white leading-none">{alumni.name}</h1>
+                            {(alumni.designation || alumni.company) && (
+                                <p className="lg:text-md xl:text-lg text-neutral-300">
+                                    {alumni.designation} {alumni.designation && alumni.company ? '•' : ''} {alumni.company}
+                                </p>
+                            )}
                             <div className="h-px w-24 bg-[#3E7BFA]" />
-                            <h3 className="text-2xl font-semibold text-white">About</h3>
-                            <p className="max-w-xl text-md leading-8 text-neutral-400">{alumni.about}</p>
+                            {alumni.about && (
+                                <>
+                                    <h3 className="text-2xl font-semibold text-white">About</h3>
+                                    <p className="max-w-xl text-md leading-8 text-neutral-400">{alumni.about}</p>
+                                </>
+                            )}
                         </div>
 
                         <div className="flex items-center justify-between">
                             <div className="flex gap-4">
-                                <a
-                                    href={alumni.linkedin}
-                                    className={`items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-white transition-all duration-300 hover:border-[#3E7BFA] hover:bg-[#3E7BFA] hover:text-black hover:scale-105 ${alumni.linkedin ? 'flex' : 'hidden'}`}
-                                >
-                                    <FaLinkedinIn />
-                                    LinkedIn
-                                </a>
-                                <a
-                                    href={`mailto:${alumni.email}`}
-                                    className={`items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-white transition-all duration-300 hover:border-[#3E7BFA] hover:bg-[#3E7BFA] hover:text-black hover:scale-105 ${alumni.email ? 'flex' : 'hidden'}`}
-                                >
-                                    <HiOutlineMail />
-                                    Mail
-                                </a>
+                                {alumni.linkedin && (
+                                    <a
+                                        href={alumni.linkedin}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-white transition-all duration-300 hover:border-[#3E7BFA] hover:bg-[#3E7BFA] hover:text-black hover:scale-105"
+                                    >
+                                        <FaLinkedinIn />
+                                        LinkedIn
+                                    </a>
+                                )}
+                                {alumni.email && (
+                                    <a
+                                        href={alumni.email.startsWith("mailto:") ? alumni.email : `mailto:${alumni.email}`}
+                                        className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-white transition-all duration-300 hover:border-[#3E7BFA] hover:bg-[#3E7BFA] hover:text-black hover:scale-105"
+                                    >
+                                        <HiOutlineMail />
+                                        Mail
+                                    </a>
+                                )}
                             </div>
                             <p className="text-sm uppercase tracking-[0.3em] text-neutral-500">E-Cell 2026</p>
                         </div>

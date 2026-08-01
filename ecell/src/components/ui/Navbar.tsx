@@ -217,7 +217,7 @@ export function Navbar() {
                     </div>
                 </div>
                 <h1 className="contact-element text-black font-clash text-3xl md:text-[3.5vw] font-bold opacity-0">Get in touch</h1>
-                <p className="text-black contact-element opacity-0">Whether you have a startup idea, a collaboration in mind, or simply want to learn more about entrepreneurship, we're always excited to connect with passionate innovators.</p>
+                <p className="text-black contact-element opacity-0">Whether you have a startup idea, a collaboration in mind, or simply want to learn more about entrepreneurship, we&apos;re always excited to connect with passionate innovators.</p>
                 <div className="contact-element h-[1.5px] w-full bg-[#81818176] opacity-0"></div>
                 <p className="contact-element text-black opacity-0">For all Enquiries</p>
                 <h1 className="contact-element text-xl md:text-[2.5vw] hover:text-[#1050b0d3] transition-all duration-300 opacity-0">ecell_email@example.com</h1>

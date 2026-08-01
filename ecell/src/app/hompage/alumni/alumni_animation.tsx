@@ -21,7 +21,7 @@ const AlumniAnimation = ({ children }: { children: React.ReactNode }) => {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: '.main-section',
-        start: 'top 15%',
+        start: 'top top',
         end: `+=${cards.length * 400}`,
         scrub: 2,
         pin: true,
@@ -38,7 +38,7 @@ const AlumniAnimation = ({ children }: { children: React.ReactNode }) => {
         ease: 'power2.out',
       }, i * 0.5);
 
-      const rotationValue = i % 2 === 0 ? -2 : 2;
+      const rotationValue = i % 2 === 0 ? 5 : -5;
       tl.to(card, {
         rotation: rotationValue,
         duration: 0.8,

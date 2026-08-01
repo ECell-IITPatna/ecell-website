@@ -15,7 +15,7 @@ const AchievementCards = ({ achievement, className = "" }: AchievementCardsProps
   return (
     <div className={`${className}`}>
       <div className="flex flex-col justify-center items-center w-full h-fit">
-        <h1 className={`text-6xl text-white w-full py-5`}>
+        <h1 className={`text-4xl md:text-6xl text-white w-full py-5`}>
           {achievement.title}
         </h1>
       </div>
