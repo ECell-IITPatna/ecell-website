@@ -145,8 +145,8 @@ export default function Footer() {
             </div>
 
             {/* Web Dev Credit Section */}
-            <div className="col-span-2 md:col-span-3 flex justify-center md:justify-end items-end pt-6 md:pt-4">
-              <p className="text-sm font-medium text-slate-500">
+            <div className="col-span-2 md:col-span-3 flex justify-center md:justify-end items-center pt-6 md:pt-4 w-full">
+              <p className="text-sm font-medium text-slate-500 text-center md:text-right w-full max-w-[280px] sm:max-w-none mx-auto md:mx-0">
                 Made with 🤍 by Web Dev Wing E-Cell IIT Patna
               </p>
             </div>
