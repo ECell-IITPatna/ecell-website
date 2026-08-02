@@ -60,8 +60,8 @@ export default function DevSidebar({ isOpen, onClose }: DevSidebarProps) {
     <>
       {/* Backdrop */}
       <div 
-        className={`fixed inset-0 bg-transparent z-[60] transition-opacity duration-300 ${
-          isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        className={`fixed inset-0 bg-transparent z-[95] transition-opacity duration-300 ${
+          isOpen ? 'pointer-events-auto' : 'pointer-events-none'
         }`}
         onClick={onClose}
         onWheel={(event) => event.preventDefault()}
@@ -70,7 +70,7 @@ export default function DevSidebar({ isOpen, onClose }: DevSidebarProps) {
 
       {/* The Sliding Drawer */}
       <div 
-        className={`fixed top-0 left-0 h-screen w-[340px] sm:w-[400px] bg-[#070b19] border-r border-slate-800/80 z-[70] shadow-[5px_0_30px_rgba(0,0,0,0.6)] flex flex-col transition-transform duration-500 ease-in-out transform ${
+        className={`fixed top-0 left-0 h-screen w-[340px] sm:w-[400px] bg-[#070b19] border-r border-slate-800/80 z-[100] shadow-[5px_0_30px_rgba(0,0,0,0.8)] flex flex-col transition-transform duration-500 ease-in-out transform ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
