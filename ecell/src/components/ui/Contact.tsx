@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useRef } from 'react';
+import Link from 'next/link';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import Button from './Button';
@@ -30,7 +31,9 @@ export default function Contact() {
   return (
     <section className="relative border contact-section w-full bg-[url('/images/contact-us-bg.png')] bg-cover bg-center bg-no-repeat px-5 py-20 h-[60vh] rounded-2xl m-5 overflow-hidden">
       <h1 className="text-3xl md:text-[4vw] text-white md:w-[50%] mb-10">Take your Thoughts to the Next Level</h1>
-      <Button content="Get in Touch" css="bg-white text-black font-aldrich text-md md:text-lg" />
+      <Link href="/contact">
+        <Button content="Get in Touch" css="bg-white text-black font-aldrich text-md md:text-lg" />
+      </Link>
       <div
         className="absolute -bottom-10 right-10 w-[420px] h-[320px] pointer-events-none opacity-40"
         style={{

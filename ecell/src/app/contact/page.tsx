@@ -8,7 +8,7 @@ import Button from "@/components/ui/Button";
 // Centralized Contact Data Configuration
 const CONTACT_DATA = {
   email: "entrepreneurship@iitp.ac.in",
-  phones: ["+91 70602 43777", "+91 62042 50124"],
+  phones: ["+91 8920647827", "+91 8595771250"],
   address: {
     line1: "E-Cell Office, IIT Patna",
     line2: "Bihta, Patna, Bihar, India – 801103",
@@ -269,7 +269,7 @@ export default function ContactPage() {
 
         {/* Outer Grid Panels */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 items-stretch">
-          
+
           {/* Left Panel: Contact Form */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
@@ -299,7 +299,7 @@ export default function ContactPage() {
                   <p className="text-xs sm:text-sm text-slate-300 mt-1 mb-6">
                     Thank you for reaching out. We will respond as soon as possible.
                   </p>
-                  
+
                   <Button
                     content="SEND ANOTHER MESSAGE"
                     css="bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-xs font-mono"

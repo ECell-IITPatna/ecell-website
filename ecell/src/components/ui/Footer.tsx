@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import Contact from './Contact';
 import { motion, AnimatePresence } from 'framer-motion';
 import { sidebarDetails } from '../../constants/navbarDetails'; // Adjust import path if needed (e.g., '../data/navbarDetails')
@@ -51,6 +52,7 @@ function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
 const WORDS = ['IMPACT', 'INNOVATE', 'INSPIRE'];
 
 export default function Footer() {
+  const pathname = usePathname();
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -63,7 +65,7 @@ export default function Footer() {
 
   return (
     <section className="w-full bg-[#000000] text-slate-300 pt-5 px-6 font-clash flex flex-col items-center justify-center select-none">
-      <Contact />
+      {pathname !== '/contact' && <Contact />}
       <footer className="w-full bg-[#000000] text-slate-300 pt-20 pb-6 px-6 md:px-16 lg:px-24 border-t border-slate-900/60 relative z-20 font-clash select-none overflow-hidden">
       
         {/* Outer Grid */}

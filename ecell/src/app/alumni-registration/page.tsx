@@ -8,18 +8,29 @@ export default function AlumniRegistrationPage() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const [formData, setFormData] = useState({
-    fullName: '',
-    contactNumber: '',
+    name: '',
+    phone: '',
     email: '',
-    department: '',
-    graduationYear: '',
-    organization: '',
+    branch: '',
+    year: '',
+    startup: '',
     role: '',
     linkedIn: '',
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+
+  // Auto-hide toast after 5 seconds
+  useEffect(() => {
+    if (toast) {
+      const timer = setTimeout(() => {
+        setToast(null);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [toast]);
 
   // Twinkling Star & Space Canvas Background Logic
   useEffect(() => {
@@ -167,18 +178,77 @@ export default function AlumniRegistrationPage() {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => {
+
+    try {
+      const payload = {
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+        branch: formData.branch || null,
+        year: formData.year ? parseInt(formData.year) : null,
+        startup: formData.startup,
+        role: formData.role,
+        linkedin: formData.linkedIn,
+      };
+
+      const result = await fetch('/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await result.json();
+
+      if (data.status === 200) {
+        setToast({ message: data.message || "Registration Successful!", type: 'success' });
+        setSubmitted(true);
+      } else {
+        setToast({ message: data.message || "Failed to register.", type: 'error' });
+      }
+    } catch (error) {
+      console.error("Submission error:", error);
+      setToast({ message: "Network error. Please try again later.", type: 'error' });
+    } finally {
       setIsSubmitting(false);
-      setSubmitted(true);
-    }, 1200);
+    }
   };
 
   return (
     <main className="min-h-screen bg-[#030712] text-white relative flex flex-col items-center justify-center pt-32 py-15 px-4 overflow-x-hidden">
-      
+
+      {/* Toast Notification */}
+      {toast && (
+        <div
+          className={`fixed top-6 right-6 z-50 flex items-center gap-3 px-5 py-4 rounded-xl backdrop-blur-md border shadow-2xl animate-slide-in ${toast.type === 'success'
+              ? 'bg-emerald-950/75 border-emerald-500/30 text-emerald-100 shadow-[0_0_15px_rgba(16,185,129,0.15)]'
+              : 'bg-rose-950/75 border-rose-500/30 text-rose-100 shadow-[0_0_15px_rgba(244,63,94,0.15)]'
+            }`}
+        >
+          {toast.type === 'success' ? (
+            <div className="w-5 h-5 rounded-full bg-emerald-500/20 border border-emerald-500/50 flex items-center justify-center text-emerald-400 font-bold text-xs">
+              ✓
+            </div>
+          ) : (
+            <div className="w-5 h-5 rounded-full bg-rose-500/20 border border-rose-500/50 flex items-center justify-center text-rose-400 font-bold text-xs">
+              ✕
+            </div>
+          )}
+          <span className="text-sm font-medium tracking-wide font-inter">{toast.message}</span>
+          <button
+            type="button"
+            onClick={() => setToast(null)}
+            className="ml-4 text-xs opacity-60 hover:opacity-100 transition-opacity cursor-pointer font-bold"
+          >
+            ✕
+          </button>
+        </div>
+      )}
+
       {/* CANVAS BACKGROUND LAYER */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
@@ -187,7 +257,7 @@ export default function AlumniRegistrationPage() {
       {/* Header Section */}
       <div className="relative z-10 text-center max-w-2xl mb-10">
         <Link
-          href="/#alumni"
+          href="/"
           className="inline-block text-sm text-slate-400 hover:text-white mb-4 transition-colors font-clash"
         >
           ← Back to Main Page
@@ -196,7 +266,7 @@ export default function AlumniRegistrationPage() {
           Alumni Registration
         </h1>
         <p className="mt-4 text-slate-400 text-sm sm:text-base leading-relaxed">
-          Join our thriving alumni network and stay connected with E-Cell IIT Patna. 
+          Join our thriving alumni network and stay connected with E-Cell IIT Patna.
           Receive updates on events, mentor current students, and collaborate with fellow innovators.
         </p>
       </div>
@@ -213,7 +283,7 @@ export default function AlumniRegistrationPage() {
               Thank you for registering. Your details have been submitted successfully.
             </p>
             <Link
-              href="/#alumni"
+              href="/"
               className="inline-block mt-6 px-6 py-2.5 rounded-lg bg-white text-black font-clash text-sm font-semibold hover:bg-slate-200 transition-colors"
             >
               Return to Website
@@ -229,8 +299,8 @@ export default function AlumniRegistrationPage() {
                 <input
                   required
                   type="text"
-                  name="fullName"
-                  value={formData.fullName}
+                  name="name"
+                  value={formData.name}
                   onChange={handleChange}
                   placeholder="Your full name"
                   className="w-full bg-slate-900/80 border border-slate-800 rounded-lg px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
@@ -244,8 +314,8 @@ export default function AlumniRegistrationPage() {
                 <input
                   required
                   type="tel"
-                  name="contactNumber"
-                  value={formData.contactNumber}
+                  name="phone"
+                  value={formData.phone}
                   onChange={handleChange}
                   placeholder="Your phone number"
                   className="w-full bg-slate-900/80 border border-slate-800 rounded-lg px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
@@ -271,13 +341,12 @@ export default function AlumniRegistrationPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
                 <label className="block text-xs font-clash uppercase tracking-wider text-slate-300 mb-2">
-                  Department / Branch <span className="text-blue-400">*</span>
+                  Department / Branch
                 </label>
                 <input
-                  required
                   type="text"
-                  name="department"
-                  value={formData.department}
+                  name="branch"
+                  value={formData.branch}
                   onChange={handleChange}
                   placeholder="e.g. Computer Science"
                   className="w-full bg-slate-900/80 border border-slate-800 rounded-lg px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
@@ -286,13 +355,12 @@ export default function AlumniRegistrationPage() {
 
               <div>
                 <label className="block text-xs font-clash uppercase tracking-wider text-slate-300 mb-2">
-                  Year of Graduation <span className="text-blue-400">*</span>
+                  Year of Graduation
                 </label>
                 <input
-                  required
-                  type="text"
-                  name="graduationYear"
-                  value={formData.graduationYear}
+                  type="number"
+                  name="year"
+                  value={formData.year}
                   onChange={handleChange}
                   placeholder="e.g. 2022"
                   className="w-full bg-slate-900/80 border border-slate-800 rounded-lg px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
@@ -308,8 +376,8 @@ export default function AlumniRegistrationPage() {
                 <input
                   required
                   type="text"
-                  name="organization"
-                  value={formData.organization}
+                  name="startup"
+                  value={formData.startup}
                   onChange={handleChange}
                   placeholder="Where you currently work"
                   className="w-full bg-slate-900/80 border border-slate-800 rounded-lg px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
