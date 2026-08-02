@@ -220,9 +220,10 @@ export function Navbar() {
                 <p className="text-black contact-element opacity-0">Whether you have a startup idea, a collaboration in mind, or simply want to learn more about entrepreneurship, we&apos;re always excited to connect with passionate innovators.</p>
                 <div className="contact-element h-[1.5px] w-full bg-[#81818176] opacity-0"></div>
                 <p className="contact-element text-black opacity-0">For all Enquiries</p>
-                <h1 className="contact-element text-xl md:text-[2.5vw] hover:text-[#1050b0d3] transition-all duration-300 opacity-0">ecell_email@example.com</h1>
+                <h1 className="contact-element text-xl md:text-[2.5vw] hover:text-[#1050b0d3] transition-all duration-300 opacity-0">entrepreneurship@iitp.ac.in</h1>
                 <p className="contact-element text-black opacity-0">Contact Number</p>
-                <h1 className="contact-element text-xl md:text-[2.5vw] hover:text-[#1050b0d3] transition-all duration-300 opacity-0">+91 1234567890</h1>
+                <h1 className="contact-element text-xl md:text-[2.5vw] hover:text-[#1050b0d3] transition-all duration-300 opacity-0">+91 8920647827</h1>
+                <h1 className="contact-element text-xl md:text-[2.5vw] hover:text-[#1050b0d3] transition-all duration-300 opacity-0">+91 8595771250</h1>
             </div>
 
             {/* Desktop Navigation */}
