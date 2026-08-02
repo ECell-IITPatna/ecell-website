@@ -118,6 +118,7 @@ export function Navbar() {
 
         if (pathname !== "/") {
             ScrollTrigger.getAll().forEach(st => st.kill());
+            gsap.set(".navbar", { y: 0 });
             return;
         }
 
@@ -154,9 +155,9 @@ export function Navbar() {
 
     return (
         <div className="relative">
-            <div className="navbar-overlay fixed top-0 left-0 w-full h-full bg-[#000000a8] z-49 opacity-0 pointer-events-none" />
+            <div className={`navbar-overlay fixed top-0 left-0 w-full h-full bg-[#000000a8] z-49 opacity-0 pointer-events-none ${pathname !== '/' ? 'hidden' : ''}`} />
 
-            <div className="floating-navbar-sidebar fixed bottom-5 right-5 bg-[#98d2feb4] z-50 rounded-2xl overflow-hidden w-17 h-17 flex justify-between p-5">
+            <div className={`floating-navbar-sidebar fixed bottom-5 right-5 bg-[#98d2feb4] z-50 rounded-2xl overflow-hidden w-17 h-17 flex justify-between p-5 ${pathname !== '/' ? 'hidden' : ''}`}>
                 <div className="flex flex-col gap-4 w-full h-full">
                     {sidebarDetails.map((item, index) => {
                         return (
@@ -185,7 +186,7 @@ export function Navbar() {
                     })}
                 </div>
             </div>
-            <div className="floating-navbar-container fixed bottom-5 right-5 bg-transparent z-50 rounded-2xl overflow-hidden w-17 h-17 flex items-center justify-center">
+            <div className={`floating-navbar-container fixed bottom-5 right-5 bg-transparent z-50 rounded-2xl overflow-hidden w-17 h-17 flex items-center justify-center ${pathname !== '/' ? 'hidden' : ''}`}>
                 <Image
                     src="/images/navbar-floating-rocket.png"
                     alt="Logo"
@@ -203,7 +204,7 @@ export function Navbar() {
                     }}
                 />
             </div>
-            <div className="floating-navbar-contact fixed bottom-5 right-5 bg-[#98d2fe] z-50 rounded-2xl overflow-hidden w-0 h-0 flex flex-col justify-start gap-2">
+            <div className={`floating-navbar-contact fixed bottom-5 right-5 bg-[#98d2fe] z-50 rounded-2xl overflow-hidden w-0 h-0 flex flex-col justify-start gap-2 ${pathname !== '/' ? 'hidden' : ''}`}>
                 <div className="flex justify-end contact-element opacity-0">
                     <div className="rounded-full  p-3 bg-[#323232] w-fit">
                         <X className=" "
@@ -224,6 +225,19 @@ export function Navbar() {
                 <p className="contact-element text-black opacity-0">Contact Number</p>
                 <h1 className="contact-element text-xl md:text-[2.5vw] hover:text-[#1050b0d3] transition-all duration-300 opacity-0">+91 8920647827</h1>
                 <h1 className="contact-element text-xl md:text-[2.5vw] hover:text-[#1050b0d3] transition-all duration-300 opacity-0">+91 8595771250</h1>
+                <div className="contact-element flex items-center gap-2 mt-4 opacity-0 w-full">
+                    <span className="text-black font-clash text-lg font-medium">or</span>
+                    <Link href="/contact" onClick={() => {
+                        if (timelineref4.current?.progress() === 1) {
+                            timelineref4.current?.reverse();
+                        }
+                    }}>
+                        <Button 
+                            content="Contact here" 
+                            css="bg-black text-white font-clash text-sm py-2 px-5" 
+                        />
+                    </Link>
+                </div>
             </div>
 
 

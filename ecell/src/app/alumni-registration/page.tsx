@@ -192,7 +192,6 @@ export default function AlumniRegistrationPage() {
         startup: formData.startup,
         role: formData.role,
         linkedin: formData.linkedIn,
-        send_email: "PENDING",
       };
 
       const result = await fetch('/api/register', {
@@ -221,15 +220,14 @@ export default function AlumniRegistrationPage() {
 
   return (
     <main className="min-h-screen bg-[#030712] text-white relative flex flex-col items-center justify-center pt-32 py-15 px-4 overflow-x-hidden">
-      
+
       {/* Toast Notification */}
       {toast && (
-        <div 
-          className={`fixed top-6 right-6 z-50 flex items-center gap-3 px-5 py-4 rounded-xl backdrop-blur-md border shadow-2xl animate-slide-in ${
-            toast.type === 'success' 
-              ? 'bg-emerald-950/75 border-emerald-500/30 text-emerald-100 shadow-[0_0_15px_rgba(16,185,129,0.15)]' 
+        <div
+          className={`fixed top-6 right-6 z-50 flex items-center gap-3 px-5 py-4 rounded-xl backdrop-blur-md border shadow-2xl animate-slide-in ${toast.type === 'success'
+              ? 'bg-emerald-950/75 border-emerald-500/30 text-emerald-100 shadow-[0_0_15px_rgba(16,185,129,0.15)]'
               : 'bg-rose-950/75 border-rose-500/30 text-rose-100 shadow-[0_0_15px_rgba(244,63,94,0.15)]'
-          }`}
+            }`}
         >
           {toast.type === 'success' ? (
             <div className="w-5 h-5 rounded-full bg-emerald-500/20 border border-emerald-500/50 flex items-center justify-center text-emerald-400 font-bold text-xs">
@@ -241,7 +239,7 @@ export default function AlumniRegistrationPage() {
             </div>
           )}
           <span className="text-sm font-medium tracking-wide font-inter">{toast.message}</span>
-          <button 
+          <button
             type="button"
             onClick={() => setToast(null)}
             className="ml-4 text-xs opacity-60 hover:opacity-100 transition-opacity cursor-pointer font-bold"
@@ -259,7 +257,7 @@ export default function AlumniRegistrationPage() {
       {/* Header Section */}
       <div className="relative z-10 text-center max-w-2xl mb-10">
         <Link
-          href="/#alumni"
+          href="/"
           className="inline-block text-sm text-slate-400 hover:text-white mb-4 transition-colors font-clash"
         >
           ← Back to Main Page
@@ -268,7 +266,7 @@ export default function AlumniRegistrationPage() {
           Alumni Registration
         </h1>
         <p className="mt-4 text-slate-400 text-sm sm:text-base leading-relaxed">
-          Join our thriving alumni network and stay connected with E-Cell IIT Patna. 
+          Join our thriving alumni network and stay connected with E-Cell IIT Patna.
           Receive updates on events, mentor current students, and collaborate with fellow innovators.
         </p>
       </div>
@@ -285,7 +283,7 @@ export default function AlumniRegistrationPage() {
               Thank you for registering. Your details have been submitted successfully.
             </p>
             <Link
-              href="/#alumni"
+              href="/"
               className="inline-block mt-6 px-6 py-2.5 rounded-lg bg-white text-black font-clash text-sm font-semibold hover:bg-slate-200 transition-colors"
             >
               Return to Website
@@ -343,7 +341,7 @@ export default function AlumniRegistrationPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
                 <label className="block text-xs font-clash uppercase tracking-wider text-slate-300 mb-2">
-                  Department / Branch 
+                  Department / Branch
                 </label>
                 <input
                   type="text"
@@ -357,7 +355,7 @@ export default function AlumniRegistrationPage() {
 
               <div>
                 <label className="block text-xs font-clash uppercase tracking-wider text-slate-300 mb-2">
-                  Year of Graduation 
+                  Year of Graduation
                 </label>
                 <input
                   type="number"

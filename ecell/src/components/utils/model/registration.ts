@@ -8,7 +8,6 @@ export interface Registration {
     startup: string;
     role: string;
     linkedin: string;
-    send_email:"PENDING"|"SENT"|"FAILED",
 };
 
 const registrationSchema = new mongoose.Schema<Registration>({
@@ -20,7 +19,6 @@ const registrationSchema = new mongoose.Schema<Registration>({
     startup: { type: String, required: true },
     role: { type: String, required: true },
     linkedin: { type: String, required: true , unique: true},
-    send_email: { type: String, enum: ["PENDING", "SENT", "FAILED"], default: "PENDING" },
 }, { timestamps: true });
 
 export const RegistrationModel = mongoose.models.Registration || mongoose.model<Registration>("Registration", registrationSchema);
