@@ -1,4 +1,5 @@
 'use client';
+
 import Link from "next/link";
 import Image from "next/image";
 import { navbarDetails, sidebarDetails } from "@/constants/navbarDetails";
@@ -8,7 +9,6 @@ import { useRef, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Button from "./Button";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -60,45 +60,44 @@ export function Navbar() {
         timelineref3.current = tl3;
         timelineref4.current = tl4;
 
-
         gsap.set(rocket_floating.current, { x: 0, y: 0 });
         tl1.to(rocket_floating.current, {
             x: 80,
             y: -80,
             duration: 0.5,
             ease: "power2.inOut",
-        })
+        });
         tl1.set(rocket_floating.current, { x: -160, y: 160 });
         tl1.to(rocket_floating.current, {
             x: 0,
             y: 0,
             duration: 0.5,
             ease: "power2.inOut",
-        })
+        });
 
         const floatingNavbar = document.querySelector(".floating-navbar-container");
-        const enter = () => { tl1.play(0); }
+        const enter = () => { tl1.play(0); };
         floatingNavbar?.addEventListener("mouseenter", enter);
 
         tl3.to(".floating-navbar-sidebar", {
             height: "85vh",
             duration: 0.4,
-        })
+        });
         tl3.to(".floating-navbar-sidebar", {
             width: "20vw",
             minWidth: "200px",
             duration: 0.4,
-        })
+        });
         tl3.to(".floating-sidebar-links", {
             opacity: 1,
             duration: 0.3,
             stagger: 0.05,
-        })
+        });
 
         tl4.to(".navbar-overlay", {
             opacity: 1,
             duration: 0.4,
-        })
+        });
         tl4.to(".floating-navbar-contact", {
             width: "40vw",
             duration: 0.5,
@@ -115,10 +114,8 @@ export function Navbar() {
     }, []);
 
     useEffect(() => {
-
         if (pathname !== "/") {
             ScrollTrigger.getAll().forEach(st => st.kill());
-            gsap.set(".navbar", { y: 0 });
             return;
         }
 
@@ -152,12 +149,13 @@ export function Navbar() {
         };
     }, [pathname]);
 
-
     return (
         <div className="relative">
-            <div className={`navbar-overlay fixed top-0 left-0 w-full h-full bg-[#000000a8] z-49 opacity-0 pointer-events-none ${pathname !== '/' ? 'hidden' : ''}`} />
+            {/* Background Overlay */}
+            <div className="navbar-overlay fixed top-0 left-0 w-full h-full bg-[#000000a8] z-[65] opacity-0 pointer-events-none" />
 
-            <div className={`floating-navbar-sidebar fixed bottom-5 right-5 bg-[#98d2feb4] z-50 rounded-2xl overflow-hidden w-17 h-17 flex justify-between p-5 ${pathname !== '/' ? 'hidden' : ''}`}>
+            {/* Floating Navigation Elements */}
+            <div className="floating-navbar-sidebar fixed bottom-5 right-5 bg-[#98d2feb4] z-[70] rounded-2xl overflow-hidden w-17 h-17 flex justify-between p-5">
                 <div className="flex flex-col gap-4 w-full h-full">
                     {sidebarDetails.map((item, index) => {
                         return (
@@ -186,13 +184,14 @@ export function Navbar() {
                     })}
                 </div>
             </div>
-            <div className={`floating-navbar-container fixed bottom-5 right-5 bg-transparent z-50 rounded-2xl overflow-hidden w-17 h-17 flex items-center justify-center ${pathname !== '/' ? 'hidden' : ''}`}>
+
+            <div className="floating-navbar-container fixed bottom-5 right-5 bg-transparent z-[70] rounded-2xl overflow-hidden w-17 h-17 flex items-center justify-center">
                 <Image
                     src="/images/navbar-floating-rocket.png"
                     alt="Logo"
                     width={70}
                     height={70}
-                    className="rocket-image"
+                    className="rocket-image cursor-pointer"
                     ref={rocket_floating}
                     onClick={() => {
                         if (timelineref3.current?.progress() === 0) {
@@ -204,11 +203,11 @@ export function Navbar() {
                     }}
                 />
             </div>
-            <div className={`floating-navbar-contact fixed bottom-5 right-5 bg-[#98d2fe] z-50 rounded-2xl overflow-hidden w-0 h-0 flex flex-col justify-start gap-2 ${pathname !== '/' ? 'hidden' : ''}`}>
+
+            <div className="floating-navbar-contact fixed bottom-5 right-5 bg-[#98d2fe] z-[70] rounded-2xl overflow-hidden w-0 h-0 flex flex-col justify-start gap-2">
                 <div className="flex justify-end contact-element opacity-0">
-                    <div className="rounded-full  p-3 bg-[#323232] w-fit">
-                        <X className=" "
-                            size={30}
+                    <div className="rounded-full p-3 bg-[#323232] w-fit cursor-pointer">
+                        <X size={30}
                             onClick={() => {
                                 if (timelineref4.current?.progress() === 1) {
                                     timelineref4.current?.reverse();
@@ -221,28 +220,13 @@ export function Navbar() {
                 <p className="text-black contact-element opacity-0">Whether you have a startup idea, a collaboration in mind, or simply want to learn more about entrepreneurship, we&apos;re always excited to connect with passionate innovators.</p>
                 <div className="contact-element h-[1.5px] w-full bg-[#81818176] opacity-0"></div>
                 <p className="contact-element text-black opacity-0">For all Enquiries</p>
-                <h1 className="contact-element text-xl md:text-[2.5vw] hover:text-[#1050b0d3] transition-all duration-300 opacity-0">entrepreneurship@iitp.ac.in</h1>
+                <h1 className="contact-element text-xl md:text-[2.5vw] hover:text-[#1050b0d3] transition-all duration-300 opacity-0">ecell_email@example.com</h1>
                 <p className="contact-element text-black opacity-0">Contact Number</p>
-                <h1 className="contact-element text-xl md:text-[2.5vw] hover:text-[#1050b0d3] transition-all duration-300 opacity-0">+91 8920647827</h1>
-                <h1 className="contact-element text-xl md:text-[2.5vw] hover:text-[#1050b0d3] transition-all duration-300 opacity-0">+91 8595771250</h1>
-                <div className="contact-element flex items-center gap-2 mt-4 opacity-0 w-full">
-                    <span className="text-black font-clash text-lg font-medium">or</span>
-                    <Link href="/contact" onClick={() => {
-                        if (timelineref4.current?.progress() === 1) {
-                            timelineref4.current?.reverse();
-                        }
-                    }}>
-                        <Button 
-                            content="Contact here" 
-                            css="bg-black text-white font-clash text-sm py-2 px-5" 
-                        />
-                    </Link>
-                </div>
+                <h1 className="contact-element text-xl md:text-[2.5vw] hover:text-[#1050b0d3] transition-all duration-300 opacity-0">+91 1234567890</h1>
             </div>
 
-
-            {/*Desktop Navigation*/}
-            <nav className="navbar max-md:hidden z-75 fixed top-2 left-1/2 transform -translate-x-1/2 lg:w-[90%] w-[95%] flex items-center justify-around px-6 bg-[rgb(0,0,0)] backdrop-blur-md border border-white/10 rounded-xl">
+            {/* Desktop Navigation */}
+            <nav className="navbar max-md:hidden z-[80] fixed top-2 left-1/2 transform -translate-x-1/2 lg:w-[90%] w-[95%] flex items-center justify-around px-6 bg-[rgb(0,0,0)] backdrop-blur-md border border-white/10 rounded-xl">
                 {
                     navbarDetails.map((item, index) => {
                         if (item.name === "Logo") {
@@ -270,7 +254,7 @@ export function Navbar() {
             </nav>
 
             {/* Mobile Navigation */}
-            <nav className="navbar max-md:flex z-50 fixed top-5 left-1/2 transform -translate-x-1/2 lg:w-[90%] w-[95%] items-center justify-between px-6 bg-[rgb(0,0,0)] backdrop-blur-md border border-white/10 rounded-xl hidden">
+            <nav className="navbar max-md:flex z-[80] fixed top-5 left-1/2 transform -translate-x-1/2 lg:w-[90%] w-[95%] items-center justify-between px-6 bg-[rgb(0,0,0)] backdrop-blur-md border border-white/10 rounded-xl hidden">
                 <Image
                     src="/images/logo.png"
                     alt="Logo"
@@ -287,9 +271,9 @@ export function Navbar() {
             </nav>
 
             {/* Sidebar for Mobile Navigation */}
-            <div className="z-50 max-md:flex flex-col gap-4 fixed h-screen top-0 -right-full w-screen bg-black p-4 hidden" ref={sidebarRef}>
+            <div className="z-[85] max-md:flex flex-col gap-4 fixed h-screen top-0 -right-full w-screen bg-black p-4 hidden" ref={sidebarRef}>
                 <div className="flex justify-end p-2">
-                    <X className=" border border-white-40 rounded-full"
+                    <X className="border border-white/40 rounded-full cursor-pointer"
                         size={30}
                         onClick={() => {
                             if (timelineref2.current?.progress() === 1) {
