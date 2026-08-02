@@ -23,6 +23,7 @@ export function Navbar() {
     const timelineref1 = useRef<gsap.core.Timeline | null>(null);
     const timelineref3 = useRef<gsap.core.Timeline | null>(null);
     const timelineref4 = useRef<gsap.core.Timeline | null>(null);
+    const navbarScrollTriggerRef = useRef<any>(null);
 
     const handleClick = (id: string, url: string) => {
         const click_audio = new Audio("/audio/secondary-hover.wav");
@@ -115,7 +116,23 @@ export function Navbar() {
 
     useEffect(() => {
         if (pathname !== "/") {
-            ScrollTrigger.getAll().forEach(st => st.kill());
+            if (navbarScrollTriggerRef.current) {
+                navbarScrollTriggerRef.current.kill();
+                navbarScrollTriggerRef.current = null;
+            }
+
+            gsap.killTweensOf(".navbar");
+            gsap.killTweensOf([".floating-navbar-container", ".floating-navbar-sidebar", ".floating-navbar-contact", ".navbar-overlay"]);
+
+            if (timelineref1.current) timelineref1.current.progress(0).pause();
+            if (timelineref2.current) timelineref2.current.progress(0).pause();
+            if (timelineref3.current) timelineref3.current.progress(0).pause();
+            if (timelineref4.current) timelineref4.current.progress(0).pause();
+
+            gsap.set(".navbar", { y: 0, clearProps: "transform" });
+            gsap.set([".floating-navbar-container", ".floating-navbar-sidebar"], { yPercent: 150 });
+            gsap.set(".navbar-overlay", { opacity: 0 });
+            gsap.set(".floating-navbar-contact", { width: 0, height: 0, padding: 0 });
             return;
         }
 
@@ -126,7 +143,7 @@ export function Navbar() {
                 return;
             }
             gsap.set([".floating-navbar-container", ".floating-navbar-sidebar"], { yPercent: 150 });
-            ScrollTrigger.create({
+            navbarScrollTriggerRef.current = ScrollTrigger.create({
                 trigger: hero,
                 start: "bottom top",
                 onLeave: () => {
@@ -145,7 +162,10 @@ export function Navbar() {
         requestAnimationFrame(init);
 
         return () => {
-            ScrollTrigger.getAll().forEach(st => st.kill());
+            if (navbarScrollTriggerRef.current) {
+                navbarScrollTriggerRef.current.kill();
+                navbarScrollTriggerRef.current = null;
+            }
         };
     }, [pathname]);
 
@@ -162,12 +182,13 @@ export function Navbar() {
                             <div key={index}>
                                 <Link key={index} href={item.href}
                                     className="text-white text-2xl font-bold font-clash floating-sidebar-links border-t-2 border-b-2 border-transparent hover:border-white hover:text-3xl transition duration-300 px-2 opacity-0"
-                                    onClick={() => {
-                                        if (timelineref3.current?.progress() === 1) {
-                                            timelineref3.current?.reverse();
+                                    onClick={(e) => {
+                                        if (timelineref3.current) {
+                                            timelineref3.current.reverse();
                                         }
 
                                         if (item.name === "Contact") {
+                                            e.preventDefault();
                                             if (timelineref4.current?.progress() === 0) {
                                                 timelineref4.current?.play(0);
                                             }
@@ -291,8 +312,8 @@ export function Navbar() {
                                 <Link key={index} href={item.href}
                                     className="text-white text-2xl font-bold font-clash links border-t-2 border-b-2 border-transparent hover:border-white hover:text-3xl transition duration-300 px-2"
                                     onClick={() => {
-                                        if (timelineref2.current?.progress() === 1) {
-                                            timelineref2.current?.reverse();
+                                        if (timelineref2.current) {
+                                            timelineref2.current.reverse();
                                         }
                                     }}
                                 >
