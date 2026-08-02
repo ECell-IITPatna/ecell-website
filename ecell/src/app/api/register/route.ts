@@ -1,5 +1,6 @@
 import connectDB from "@/components/utils/connectDB";
 import {RegistrationModel} from "@/components/utils/model/registration";
+import { addJobs } from "@/components/utils/redis_queue/queue";
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 import {cookies} from "next/headers";
@@ -17,6 +18,10 @@ export async function POST(request: NextRequest) {
         await connectDB();
         const newRegistration = new RegistrationModel(registrationData);
         await newRegistration.save();
+        
+        // Add email notification/confirmation job to queue
+        await addJobs("REGISTRATION", registrationData);
+
         cookieStore.set("registered", "true", {path:"/", httpOnly:true, sameSite:"strict",secure:true});
         return NextResponse.json({message:"Registration Successful, We Will Get Back to You Soon", status:200}, { status: 200 });
     }catch(error: any){

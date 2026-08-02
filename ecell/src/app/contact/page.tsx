@@ -70,6 +70,7 @@ export default function ContactPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -218,15 +219,34 @@ export default function ContactPage() {
     };
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError(null);
 
-    setTimeout(() => {
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.status === 200) {
+        setIsSubmitted(true);
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        setError(data.message || "Failed to send message. Please try again.");
+      }
+    } catch (err) {
+      console.error("Error submitting contact form:", err);
+      setError("A network error occurred. Please try again later.");
+    } finally {
       setIsSubmitting(false);
-      setIsSubmitted(true);
-      setFormData({ name: "", email: "", subject: "", message: "" });
-    }, 1200);
+    }
   };
 
   const handleChange = (
@@ -367,6 +387,12 @@ export default function ContactPage() {
                       className="w-full bg-slate-950/70 border border-cyan-500/20 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition-colors resize-none"
                     />
                   </div>
+
+                  {error && (
+                    <div className="text-xs font-mono uppercase text-rose-400 border border-rose-500/20 bg-rose-950/20 rounded-xl px-4 py-3">
+                      {error}
+                    </div>
+                  )}
 
                   <div className="pt-2">
                     <Button

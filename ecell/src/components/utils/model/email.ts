@@ -5,7 +5,8 @@ export interface Email {
     text:string;
     send_status:"PENDING"|"SENT"|"FAILED";
     senderEmail:string;
-    job:"REGISTRATION"|"CONTACT";
+    job:"REGISTRATION"|"CONTACT"|"REGISTRATION_ECELL"|"REGISTRATION_USER"|"CONTACT_ECELL"|"CONTACT_USER";
+    error_message?:string;
 };
 
 const emailSchema = new mongoose.Schema<Email>({
@@ -15,6 +16,7 @@ const emailSchema = new mongoose.Schema<Email>({
     send_status: { type: String, required: true },
     senderEmail: { type: String, required: true },
     job: { type: String, required: true},
+    error_message: { type: String, required: false },
 }, { timestamps: true });
 
 export const EmailModel = mongoose.models.Email || mongoose.model<Email>("Email", emailSchema);
