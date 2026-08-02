@@ -23,6 +23,7 @@ export function Navbar() {
     const timelineref1 = useRef<gsap.core.Timeline | null>(null);
     const timelineref3 = useRef<gsap.core.Timeline | null>(null);
     const timelineref4 = useRef<gsap.core.Timeline | null>(null);
+    const navbarScrollTriggerRef = useRef<any>(null);
 
     const handleClick = (id: string, url: string) => {
         const click_audio = new Audio("/audio/secondary-hover.wav");
@@ -115,7 +116,10 @@ export function Navbar() {
 
     useEffect(() => {
         if (pathname !== "/") {
-            ScrollTrigger.getAll().forEach(st => st.kill());
+            if (navbarScrollTriggerRef.current) {
+                navbarScrollTriggerRef.current.kill();
+                navbarScrollTriggerRef.current = null;
+            }
 
             gsap.killTweensOf(".navbar");
             gsap.killTweensOf([".floating-navbar-container", ".floating-navbar-sidebar", ".floating-navbar-contact", ".navbar-overlay"]);
@@ -139,7 +143,7 @@ export function Navbar() {
                 return;
             }
             gsap.set([".floating-navbar-container", ".floating-navbar-sidebar"], { yPercent: 150 });
-            ScrollTrigger.create({
+            navbarScrollTriggerRef.current = ScrollTrigger.create({
                 trigger: hero,
                 start: "bottom top",
                 onLeave: () => {
@@ -158,7 +162,10 @@ export function Navbar() {
         requestAnimationFrame(init);
 
         return () => {
-            ScrollTrigger.getAll().forEach(st => st.kill());
+            if (navbarScrollTriggerRef.current) {
+                navbarScrollTriggerRef.current.kill();
+                navbarScrollTriggerRef.current = null;
+            }
         };
     }, [pathname]);
 

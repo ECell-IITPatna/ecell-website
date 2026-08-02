@@ -6,18 +6,21 @@ import { useGSAP } from '@gsap/react';
 import Button from './Button';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/all';
+import { usePathname } from 'next/navigation';
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 export default function Contact() {
+  const pathname = usePathname();
+
   useGSAP(() => {
+    const splitText = new SplitText('.contact-section h1', { type: 'lines' });
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: '.contact-section',
         start: 'top 60%',
       }
     });
-    const splitText = new SplitText('.contact-section h1', { type: 'lines' });
     tl.from(splitText.lines,
       {
         opacity: 0,
@@ -27,7 +30,18 @@ export default function Contact() {
         stagger: 0.05,
       }
     );
-  }, []);
+
+    // Refresh ScrollTrigger to calculate positions on the new page layout
+    ScrollTrigger.refresh();
+
+    return () => {
+      if (tl.scrollTrigger) {
+        tl.scrollTrigger.kill();
+      }
+      tl.kill();
+      splitText.revert();
+    };
+  }, [pathname]);
   return (
     <section className="relative border contact-section w-full bg-[url('/images/contact-us-bg.png')] bg-cover bg-center bg-no-repeat px-5 py-20 h-[60vh] rounded-2xl m-5 overflow-hidden">
       <h1 className="text-3xl md:text-[4vw] text-white md:w-[50%] mb-10">Take your Thoughts to the Next Level</h1>
