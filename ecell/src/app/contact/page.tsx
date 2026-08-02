@@ -259,7 +259,7 @@ export default function ContactPage() {
     "bg-[#0b101d]/80 backdrop-blur-xl border border-cyan-500/20 rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-10 shadow-2xl flex flex-col justify-between hover:border-cyan-500/40 transition-colors duration-300";
 
   return (
-    <main className="min-h-screen bg-[#030712] text-slate-100 pt-24 sm:pt-32 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden flex flex-col justify-between">
+    <main className="min-h-screen bg-[#030712] text-slate-100 pt-32 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden flex flex-col justify-between">
       {/* BACKGROUND CANVAS LAYER */}
       <div className="fixed inset-0 pointer-events-none z-0">
         <canvas ref={canvasRef} className="w-full h-full" />
