@@ -1,7 +1,7 @@
 import ButtonDual from "@/components/ui/Button_Dual";
 export default function Hero() {
   return (
-    <section className="hero relative h-screen w-full mx-auto rounded-xl bg-black max-sm:bg-[url('/images/hero/bg-mobile.png')] bg-cover bg-top max-sm:backdrop-blur-lg">
+    <section className="hero relative h-screen w-full mx-auto rounded-xl bg-black max-sm:bg-[url('/images/hero/bg-mobile.webp')] bg-cover bg-top max-sm:backdrop-blur-lg">
       <video
         muted
         autoPlay

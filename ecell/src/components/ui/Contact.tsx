@@ -43,7 +43,7 @@ export default function Contact() {
     };
   }, [pathname]);
   return (
-    <section className="relative border contact-section w-full bg-[url('/images/contact-us-bg.png')] bg-cover bg-center bg-no-repeat px-5 py-20 h-[60vh] rounded-2xl m-5 overflow-hidden">
+    <section className="relative border contact-section w-full bg-[url('/images/contact-us-bg.webp')] bg-cover bg-center bg-no-repeat px-5 py-20 h-[60vh] rounded-2xl m-5 overflow-hidden">
       <h1 className="text-3xl md:text-[4vw] text-white md:w-[50%] mb-10">Take your Thoughts to the Next Level</h1>
       <Link href="/contact">
         <Button content="Get in Touch" css="bg-white text-black font-aldrich text-md md:text-lg" />

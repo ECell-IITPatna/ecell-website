@@ -84,7 +84,7 @@ const About = () => {
             {/*List*/}
             <div className="flex flex-col space-y-4 mt-6">
               <div className="flex flex-row items-center gap-4 w-full">
-                <h1 className="text-6xl font-micro font-extrabold text-[#40403f8e]">01</h1>
+                <span className="text-6xl font-micro font-extrabold text-slate-500">01</span>
                 <p
                   className=" font-bold overflow-hidden w-[300px] rounded-xl border border-slate-700 bg-[#0F172A] px-5 py-3 text-white  text-md relative before:absolute before:left-0 before:top-0 before:h-full before:w-1.5 before:rounded-r-full before:bg-blue-500"
                 >
@@ -92,7 +92,7 @@ const About = () => {
                 </p>
               </div>
               <div className="flex flex-row items-center gap-4 w-full">
-                <h1 className="text-6xl font-micro font-extrabold text-[#40403f8e]">02</h1>
+                <span className="text-6xl font-micro font-extrabold text-slate-500">02</span>
                 <p
                   className=" font-bold overflow-hidden w-[300px] rounded-xl border border-slate-700 bg-[#0F172A] px-5 py-3 text-white  text-md relative before:absolute before:left-0 before:top-0 before:h-full before:w-1.5 before:rounded-r-full before:bg-blue-500"
                 >
@@ -100,7 +100,7 @@ const About = () => {
                 </p>
               </div>
               <div className="flex flex-row items-center gap-4 w-full">
-                <h1 className="text-6xl font-micro font-extrabold text-[#40403f8e]">03</h1>
+                <span className="text-6xl font-micro font-extrabold text-slate-500">03</span>
                 <p
                   className=" font-bold overflow-hidden w-[300px] rounded-xl border border-slate-700 bg-[#0F172A] px-5 py-3 text-white  text-md relative before:absolute before:left-0 before:top-0 before:h-full before:w-1.5 before:rounded-r-full before:bg-blue-500"
                 >
@@ -108,7 +108,7 @@ const About = () => {
                 </p>
               </div>
               <div className="flex flex-row items-center gap-4 w-full">
-                <h1 className="text-6xl font-micro font-extrabold text-[#40403f8e]">04</h1>
+                <span className="text-6xl font-micro font-extrabold text-slate-500">04</span>
                 <p
                   className=" font-bold overflow-hidden w-[300px] rounded-xl border border-slate-700 bg-[#0F172A] px-5 py-3 text-white  text-md relative before:absolute before:left-0 before:top-0 before:h-full before:w-1.5 before:rounded-r-full before:bg-blue-500"
                 >

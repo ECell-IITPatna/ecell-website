@@ -209,7 +209,7 @@ export function Navbar() {
             <div className="floating-navbar-container fixed bottom-5 right-5 bg-transparent z-[70] rounded-2xl overflow-hidden w-17 h-17 flex items-center justify-center">
                 <Image
                     src="/images/navbar-floating-rocket.png"
-                    alt="Logo"
+                    alt="Floating Menu"
                     width={70}
                     height={70}
                     className="rocket-image cursor-pointer"
@@ -229,6 +229,8 @@ export function Navbar() {
                 <div className="flex justify-end contact-element opacity-0">
                     <div className="rounded-full p-3 bg-[#323232] w-fit cursor-pointer">
                         <X size={30}
+                            role="button"
+                            aria-label="Close contact menu"
                             onClick={() => {
                                 if (timelineref4.current?.progress() === 1) {
                                     timelineref4.current?.reverse();
@@ -285,11 +287,13 @@ export function Navbar() {
                     className="logo2"
                     ref={logo2}
                 />
-                <button><Menu onClick={() => {
-                    if (timelineref2.current?.progress() === 0) {
-                        timelineref2.current?.play();
-                    }
-                }} /></button>
+                <button aria-label="Open mobile menu">
+                    <Menu onClick={() => {
+                        if (timelineref2.current?.progress() === 0) {
+                            timelineref2.current?.play();
+                        }
+                    }} />
+                </button>
             </nav>
 
             {/* Sidebar for Mobile Navigation */}
@@ -297,6 +301,8 @@ export function Navbar() {
                 <div className="flex justify-end p-2">
                     <X className="border border-white/40 rounded-full cursor-pointer"
                         size={30}
+                        role="button"
+                        aria-label="Close mobile menu"
                         onClick={() => {
                             if (timelineref2.current?.progress() === 1) {
                                 timelineref2.current?.reverse();

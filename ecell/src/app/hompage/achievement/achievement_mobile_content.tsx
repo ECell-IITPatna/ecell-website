@@ -18,7 +18,7 @@ const AchievementMobileContent = () => {
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-20 w-full h-full lg:hidden" >
       <h1 className="text-4xl md:text-6xl lg:text-8xl font-clash font-semibold header bg-clip-text text-transparent">Our Achievements</h1>
-      <div ref={emblaRef} className="overflow-hidden w-screen lg:hidden bg-[url('/images/achievements/bg.png')] bg-cover bg-no-repeat bg-right">
+      <div ref={emblaRef} className="overflow-hidden w-screen lg:hidden bg-[url('/images/achievements/bg.webp')] bg-cover bg-no-repeat bg-right">
         <div className=" w-screen h-full py-20 flex flex-row  gap-4">
           {achievements.map((achievement) => (
             <AchievementCards achievement={{ title: achievement.title, description: achievement.number + " " + achievement.label, quote: achievement.quote }}
@@ -30,6 +30,7 @@ const AchievementMobileContent = () => {
       </div>
       <div className="flex gap-2">
         <button
+          aria-label="Previous achievement"
           className="group flex h-12 w-20 items-center justify-center border border-white/10 bg-[#0A0F1C] text-white transition-all duration-300 hover:border-white/20 hover:bg-[#121a2b]"
           onClick={scrollPrev}
         >
@@ -40,6 +41,7 @@ const AchievementMobileContent = () => {
         </button>
 
         <button
+          aria-label="Next achievement"
           className="group flex h-12 w-20 items-center justify-center border border-white/10 bg-black text-white transition-all duration-300 hover:border-white/20 hover:bg-[#121a2b]"
           onClick={scrollNext}
         >

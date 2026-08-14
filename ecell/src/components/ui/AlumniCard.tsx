@@ -14,6 +14,7 @@ type alumni_type = {
     email: string,
     about: string,
 }
+
 export default function AlumniCard({ alumni, className=""}: { alumni: alumni_type, className?: string }) {
     return (
         <>
@@ -26,6 +27,7 @@ export default function AlumniCard({ alumni, className=""}: { alumni: alumni_typ
                         src={alumni.image}
                         alt={alumni.name}
                         fill
+                        sizes="(max-width: 1024px) 100vw, 360px"
                         className="object-cover transition duration-700 group-hover:scale-110"
                     />
 
@@ -94,6 +96,7 @@ export default function AlumniCard({ alumni, className=""}: { alumni: alumni_typ
                                 href={alumni.linkedin}
                                 target="_blank"
                                 rel="noopener noreferrer"
+                                aria-label={`Visit ${alumni.name}'s LinkedIn profile`}
                                 className="rounded-full bg-black p-3 text-white transition hover:scale-110 hover:bg-violet-600"
                             >
                                 <FaLinkedinIn size={18} />
@@ -103,6 +106,7 @@ export default function AlumniCard({ alumni, className=""}: { alumni: alumni_typ
                         {alumni.email && (
                             <a
                                 href={alumni.email.startsWith("mailto:") ? alumni.email : `mailto:${alumni.email}`}
+                                aria-label={`Send an email to ${alumni.name}`}
                                 className="rounded-full bg-black p-3 text-white transition hover:scale-110 hover:bg-violet-600"
                             >
                                 <Mail size={18} />
@@ -218,6 +222,7 @@ export default function AlumniCard({ alumni, className=""}: { alumni: alumni_typ
                             src={alumni.image}
                             alt={alumni.name}
                             fill
+                            sizes="(max-width: 1200px) 100vw, 420px"
                             className="h-full w-full object-cover grayscale transition-transform duration-700 group-hover:scale-105 group-hover:grayscale-0"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
@@ -273,5 +278,4 @@ export default function AlumniCard({ alumni, className=""}: { alumni: alumni_typ
             </div>
         </>
     );
-
 }

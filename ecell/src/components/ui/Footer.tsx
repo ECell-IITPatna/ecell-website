@@ -112,7 +112,7 @@ export default function Footer() {
             
             {/* Column 1: Dynamic E-Cell Navigation Links */}
             <div className="flex flex-col items-center md:items-start space-y-3 col-span-1">
-              <h4 className="text-white text-base font-semibold tracking-wide">Navigation</h4>
+              <p className="text-white text-base font-semibold tracking-wide">Navigation</p>
               <div className="flex flex-col items-center md:items-start space-y-1.5 text-sm text-slate-400 font-medium">
                 {sidebarDetails.map((link) => (
                   <Link
@@ -146,7 +146,7 @@ export default function Footer() {
 
             {/* Web Dev Credit Section */}
             <div className="col-span-2 md:col-span-3 flex justify-center md:justify-end items-center pt-6 md:pt-4 w-full">
-              <p className="text-sm font-medium text-slate-500 text-center md:text-right w-full max-w-[280px] sm:max-w-none mx-auto md:mx-0">
+              <p className="text-sm font-medium text-slate-400 text-center md:text-right w-full max-w-[280px] sm:max-w-none mx-auto md:mx-0">
                 Made with 🤍 by Web Dev Wing E-Cell IIT Patna
               </p>
             </div>

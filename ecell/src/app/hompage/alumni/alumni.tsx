@@ -6,7 +6,7 @@ import Button from '@/components/ui/Button';
 const Alumni = () => {
   return (
     <div id="alumni">
-      <section className="flex flex-col items-center justify-center h-screen w-full py-10 main-section bg-[url('/images/alumni/bg.png')] bg-cover bg-right bg-no-repeat overflow-hidden">
+      <section className="flex flex-col items-center justify-center h-screen w-full py-10 main-section bg-[url('/images/alumni/bg.webp')] bg-cover bg-right bg-no-repeat overflow-hidden">
         <h1 className="text-5xl lg:text-7xl font-clash font-bold mb-10 text-white text-center">Our Alumni</h1>
         {/*Alumni Cards Container*/}
         <div className="h-[480px] sm:h-[500px] w-full max-w-[90vw] lg:max-w-[1000px] lg:min-w-[900px] relative alumni-cards-container flex items-center justify-center">
