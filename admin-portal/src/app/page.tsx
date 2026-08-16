@@ -644,10 +644,10 @@ export default function AdminPage() {
         {/* Tab Controls and Actions Panel */}
         <div className="glass-card rounded-2xl overflow-hidden border border-slate-800">
           {/* Main Tab buttons */}
-          <div className="flex border-b border-slate-800 bg-slate-950/40">
+          <div className="flex border-b border-slate-800 bg-slate-950/40 overflow-x-auto no-scrollbar scroll-smooth">
             <button
               onClick={() => setActiveTab("registrations")}
-              className={`flex items-center space-x-2 px-6 py-4 text-sm font-semibold tracking-wide border-b-2 transition cursor-pointer ${
+              className={`flex items-center space-x-2 px-6 py-4 text-sm font-semibold tracking-wide border-b-2 transition cursor-pointer shrink-0 whitespace-nowrap ${
                 activeTab === "registrations"
                   ? "border-indigo-500 text-indigo-400 bg-[#0d1424]/40"
                   : "border-transparent text-slate-400 hover:text-slate-200"
@@ -658,7 +658,7 @@ export default function AdminPage() {
             </button>
             <button
               onClick={() => setActiveTab("contacts")}
-              className={`flex items-center space-x-2 px-6 py-4 text-sm font-semibold tracking-wide border-b-2 transition cursor-pointer ${
+              className={`flex items-center space-x-2 px-6 py-4 text-sm font-semibold tracking-wide border-b-2 transition cursor-pointer shrink-0 whitespace-nowrap ${
                 activeTab === "contacts"
                   ? "border-indigo-500 text-indigo-400 bg-[#0d1424]/40"
                   : "border-transparent text-slate-400 hover:text-slate-200"
@@ -669,7 +669,7 @@ export default function AdminPage() {
             </button>
             <button
               onClick={() => setActiveTab("announcements")}
-              className={`flex items-center space-x-2 px-6 py-4 text-sm font-semibold tracking-wide border-b-2 transition cursor-pointer ${
+              className={`flex items-center space-x-2 px-6 py-4 text-sm font-semibold tracking-wide border-b-2 transition cursor-pointer shrink-0 whitespace-nowrap ${
                 activeTab === "announcements"
                   ? "border-indigo-500 text-indigo-400 bg-[#0d1424]/40"
                   : "border-transparent text-slate-400 hover:text-slate-200"

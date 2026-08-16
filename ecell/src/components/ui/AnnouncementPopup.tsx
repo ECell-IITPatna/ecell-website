@@ -75,7 +75,7 @@ export default function AnnouncementPopup({ isPreloaderLoading }: { isPreloaderL
         <div className="absolute bottom-[-20%] right-[-20%] w-[60%] h-[60%] bg-cyan-600/10 rounded-full filter blur-[80px] pointer-events-none" />
 
         {/* Modal Header */}
-        <div className="relative border-b border-slate-800 bg-[#0a0f1d]/50 px-6 py-5 flex items-center justify-between">
+        <div className="relative border-b border-slate-800 bg-[#0a0f1d]/50 px-4 sm:px-6 py-4 sm:py-5 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="relative">
               {/* Pulse glow effect around megaphone */}
@@ -85,14 +85,14 @@ export default function AnnouncementPopup({ isPreloaderLoading }: { isPreloaderL
               </div>
             </div>
             <div>
-              <h2 className="text-md font-bold tracking-wider font-clash text-white">Upcoming Announcements</h2>
-              <p className="text-[10px] text-slate-400 font-medium tracking-wide uppercase font-inter">What's new at E-Cell</p>
+              <h2 className="text-sm sm:text-md font-bold tracking-wider font-clash text-white">Upcoming Announcements</h2>
+              <p className="text-[9px] sm:text-[10px] text-slate-400 font-medium tracking-wide uppercase font-inter">What's new at E-Cell</p>
             </div>
           </div>
 
           <button
             onClick={handleClose}
-            className="text-slate-450 hover:text-white transition p-1.5 hover:bg-slate-800/50 rounded-lg cursor-pointer absolute right-4 top-4"
+            className="text-slate-450 hover:text-white transition p-1.5 hover:bg-slate-800/50 rounded-lg cursor-pointer absolute right-4 top-3.5"
           >
             <X className="h-4.5 w-4.5" />
           </button>
@@ -101,17 +101,17 @@ export default function AnnouncementPopup({ isPreloaderLoading }: { isPreloaderL
         {/* Modal Announcements Content Area */}
         <div 
           data-lenis-prevent
-          className="max-h-[350px] overflow-y-auto px-6 py-5 space-y-5 no-scrollbar relative"
+          className="max-h-[45vh] sm:max-h-[350px] overflow-y-auto px-4 sm:px-6 py-4 sm:py-5 space-y-4 no-scrollbar relative"
         >
           {announcements.map((ann) => (
             <div 
               key={ann._id} 
-              className="bg-[#0b1120]/40 border border-slate-800/50 rounded-xl p-4 space-y-2.5 transition hover:border-slate-700/60"
+              className="bg-[#0b1120]/40 border border-slate-800/50 rounded-xl p-3.5 sm:p-4 space-y-2 transition hover:border-slate-700/60"
             >
               <div className="flex justify-between items-start gap-3">
-                <h3 className="text-sm font-bold text-white tracking-wide leading-snug">{ann.headline}</h3>
-                <span className="text-[9px] text-slate-500 font-semibold uppercase tracking-wider shrink-0 flex items-center bg-[#070b14]/50 border border-slate-800/60 px-2 py-0.5 rounded-full">
-                  <Calendar className="h-2.5 w-2.5 mr-1 text-slate-600" />
+                <h3 className="text-xs sm:text-sm font-bold text-white tracking-wide leading-snug">{ann.headline}</h3>
+                <span className="text-[8px] sm:text-[9px] text-slate-500 font-semibold uppercase tracking-wider shrink-0 flex items-center bg-[#070b14]/50 border border-slate-800/60 px-2 py-0.5 rounded-full">
+                  <Calendar className="h-2.5 w-2.5 mr-1 text-slate-650" />
                   {new Date(ann.createdAt).toLocaleDateString(undefined, { month: "short", day: "numeric" })}
                 </span>
               </div>
@@ -123,10 +123,10 @@ export default function AnnouncementPopup({ isPreloaderLoading }: { isPreloaderL
         </div>
 
         {/* Modal Footer Action */}
-        <div className="bg-[#0a0f1d]/30 px-6 py-4 border-t border-slate-800/50 flex justify-end">
+        <div className="bg-[#0a0f1d]/30 px-4 sm:px-6 py-3 sm:py-4 border-t border-slate-800/50 flex justify-end">
           <button
             onClick={handleClose}
-            className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold cursor-pointer active:scale-95 transition shadow-lg shadow-indigo-650/20"
+            className="px-4 sm:px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold cursor-pointer active:scale-95 transition shadow-lg shadow-indigo-650/20"
           >
             Acknowledge & Close
           </button>
