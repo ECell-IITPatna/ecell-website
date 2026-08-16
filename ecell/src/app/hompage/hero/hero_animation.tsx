@@ -2,12 +2,16 @@
 import React, { useRef } from 'react'
 import {gsap,ScrollTrigger,SplitText} from "gsap/all";
 import {useGSAP} from "@gsap/react"
+import { usePreloader } from "@/components/ui/PreloaderProvider";
 
 gsap.registerPlugin(ScrollTrigger,SplitText);
 const HeroAnimation = ({children}: {children: React.ReactNode}) => {
   const containerref = useRef<HTMLDivElement>(null);
+  const { isLoading } = usePreloader();
   
   useGSAP(() => {
+    if (isLoading) return;
+
     const ctx = gsap.context(() => {
        const split_heading = new SplitText(".hero-heading",{type:"words,chars"});
        const split_para = new SplitText(".hero-para",{type:"words"});
@@ -27,7 +31,7 @@ const HeroAnimation = ({children}: {children: React.ReactNode}) => {
     },containerref);
 
     return () => ctx.revert();
-  },[]);
+  }, [isLoading]);
   return (
     <div ref={containerref}>
       {children}

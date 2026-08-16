@@ -4,11 +4,16 @@ import { useEffect } from "react";
 import Lenis from "lenis";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import { usePreloader } from "@/components/ui/PreloaderProvider";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function SmoothScroll() {
+  const { isLoading } = usePreloader();
+
   useEffect(() => {
+    if (isLoading) return;
+
     const lenis = new Lenis({
       duration: 1.2,
     });
@@ -26,7 +31,7 @@ export default function SmoothScroll() {
       gsap.ticker.remove(update);
       lenis.destroy();
     };
-  }, []);
+  }, [isLoading]);
 
   return null;
 }
