@@ -255,15 +255,16 @@ export function Navbar() {
                     navbarDetails.map((item, index) => {
                         if (item.name === "Logo") {
                             return (
-                                <Image
-                                    src="/images/logo.png"
-                                    alt="Logo"
-                                    width={75}
-                                    height={75}
-                                    key={index}
-                                    className="logo2"
-                                    ref={logo2}
-                                />
+                                <Link href="/" key={index} className="cursor-pointer">
+                                    <Image
+                                        src="/images/logo.png"
+                                        alt="Logo"
+                                        width={75}
+                                        height={75}
+                                        className="logo2"
+                                        ref={logo2}
+                                    />
+                                </Link>
                             );
                         }
                         return (
@@ -279,14 +280,16 @@ export function Navbar() {
 
             {/* Mobile Navigation */}
             <nav className="navbar max-md:flex z-[80] fixed top-5 left-1/2 transform -translate-x-1/2 lg:w-[90%] w-[95%] items-center justify-between px-6 bg-[rgb(0,0,0)] backdrop-blur-md border border-white/10 rounded-xl hidden">
-                <Image
-                    src="/images/logo.png"
-                    alt="Logo"
-                    width={80}
-                    height={80}
-                    className="logo2"
-                    ref={logo2}
-                />
+                <Link href="/" className="cursor-pointer">
+                    <Image
+                        src="/images/logo.png"
+                        alt="Logo"
+                        width={80}
+                        height={80}
+                        className="logo2"
+                        ref={logo2}
+                    />
+                </Link>
                 <button aria-label="Open mobile menu">
                     <Menu onClick={() => {
                         if (timelineref2.current?.progress() === 0) {
