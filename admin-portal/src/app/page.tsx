@@ -21,7 +21,8 @@ import {
   Calendar,
   X,
   Check,
-  Slash
+  Slash,
+  Megaphone
 } from "lucide-react";
 
 interface Contact {
@@ -48,6 +49,14 @@ interface Registration {
   createdAt: string;
 }
 
+interface Announcement {
+  _id: string;
+  headline: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 interface Toast {
   message: string;
   type: "success" | "error";
@@ -66,8 +75,9 @@ export default function AdminPage() {
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [registrations, setRegistrations] = useState<Registration[]>([]); // Holds Pending
   const [alumni, setAlumni] = useState<Registration[]>([]); // Holds Approved/Rejected
+  const [announcements, setAnnouncements] = useState<Announcement[]>([]);
   const [dataLoading, setDataLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState<"registrations" | "contacts">("registrations");
+  const [activeTab, setActiveTab] = useState<"registrations" | "contacts" | "announcements">("registrations");
   
   // Alumni Sub-tab by status
   const [alumniStatusTab, setAlumniStatusTab] = useState<"PENDING" | "APPROVED" | "REJECTED">("PENDING");
@@ -76,6 +86,16 @@ export default function AdminPage() {
   // Search & Filter
   const [alumniSearch, setAlumniSearch] = useState("");
   const [contactSearch, setContactSearch] = useState("");
+  const [announcementSearch, setAnnouncementSearch] = useState("");
+
+  // Announcement Modal / Form state
+  const [isAnnouncementModalOpen, setIsAnnouncementModalOpen] = useState(false);
+  const [editingAnnouncement, setEditingAnnouncement] = useState<Announcement | null>(null);
+  const [announcementForm, setAnnouncementForm] = useState({
+    headline: "",
+    content: ""
+  });
+  const [announcementFormLoading, setAnnouncementFormLoading] = useState(false);
 
   // Modal Editing state
   const [editingAlumni, setEditingAlumni] = useState<Registration | null>(null);
@@ -124,17 +144,20 @@ export default function AdminPage() {
   const fetchData = async () => {
     setDataLoading(true);
     try {
-      const [contactsRes, regsRes] = await Promise.all([
+      const [contactsRes, regsRes, announcementsRes] = await Promise.all([
         fetch("/api/contacts"),
-        fetch("/api/registrations")
+        fetch("/api/registrations"),
+        fetch("/api/announcements")
       ]);
 
-      if (contactsRes.ok && regsRes.ok) {
+      if (contactsRes.ok && regsRes.ok && announcementsRes.ok) {
         const contactsData = await contactsRes.json();
         const regsData = await regsRes.json();
+        const announcementsData = await announcementsRes.json();
         setContacts(contactsData.contacts || []);
         setRegistrations(regsData.registrations || []);
         setAlumni(regsData.alumni || []);
+        setAnnouncements(announcementsData.announcements || []);
       } else {
         showToast("Failed to fetch database contents", "error");
       }
@@ -318,6 +341,73 @@ export default function AdminPage() {
     }
   };
 
+  // Announcement Handlers
+  const handleOpenAddAnnouncement = () => {
+    setEditingAnnouncement(null);
+    setAnnouncementForm({ headline: "", content: "" });
+    setIsAnnouncementModalOpen(true);
+  };
+
+  const handleOpenEditAnnouncement = (ann: Announcement) => {
+    setEditingAnnouncement(ann);
+    setAnnouncementForm({ headline: ann.headline, content: ann.content });
+    setIsAnnouncementModalOpen(true);
+  };
+
+  const handleSaveAnnouncement = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setAnnouncementFormLoading(true);
+
+    const isEdit = !!editingAnnouncement;
+    const url = "/api/announcements";
+    const method = isEdit ? "PUT" : "POST";
+    const payload = isEdit 
+      ? { id: editingAnnouncement._id, ...announcementForm }
+      : announcementForm;
+
+    try {
+      const res = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        if (isEdit) {
+          setAnnouncements((prev) =>
+            prev.map((ann) => (ann._id === editingAnnouncement._id ? data.announcement : ann))
+          );
+          showToast("Announcement updated successfully", "success");
+        } else {
+          setAnnouncements((prev) => [data.announcement, ...prev]);
+          showToast("Announcement added successfully", "success");
+        }
+        setIsAnnouncementModalOpen(false);
+      } else {
+        showToast(data.error || "Failed to save announcement", "error");
+      }
+    } catch {
+      showToast("Network error while saving announcement", "error");
+    } finally {
+      setAnnouncementFormLoading(false);
+    }
+  };
+
+  const handleDeleteAnnouncement = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this announcement?")) return;
+    try {
+      const res = await fetch(`/api/announcements?id=${id}`, { method: "DELETE" });
+      if (res.ok) {
+        setAnnouncements((prev) => prev.filter((ann) => ann._id !== id));
+        showToast("Announcement deleted successfully", "success");
+      } else {
+        showToast("Failed to delete announcement", "error");
+      }
+    } catch {
+      showToast("Network error while deleting announcement", "error");
+    }
+  };
+
   // Filtering based on current active collection (registrations/pending or alumni/processed)
   const filteredAlumni = (alumniStatusTab === "PENDING" ? registrations : alumni).filter((r) => {
     const s = alumniSearch.toLowerCase();
@@ -332,6 +422,14 @@ export default function AdminPage() {
       r.startup.toLowerCase().includes(s) ||
       r.role.toLowerCase().includes(s) ||
       (r.branch && r.branch.toLowerCase().includes(s))
+    );
+  });
+
+  const filteredAnnouncements = announcements.filter((ann) => {
+    const s = announcementSearch.toLowerCase();
+    return (
+      ann.headline.toLowerCase().includes(s) ||
+      ann.content.toLowerCase().includes(s)
     );
   });
 
@@ -448,20 +546,6 @@ export default function AdminPage() {
               )}
             </button>
           </form>
-
-          <div className="mt-8 pt-6 border-t border-slate-800/40 text-center">
-            <span className="text-[10px] uppercase font-bold tracking-widest text-slate-500">
-              Demo Credentials
-            </span>
-            <div className="flex justify-center space-x-4 mt-2 text-xs text-slate-400 font-mono bg-slate-950/40 py-2 px-3 rounded-lg border border-slate-900">
-              <div>
-                <span className="text-slate-600">User:</span> admin_ecell@iitp.ac.in
-              </div>
-              <div>
-                <span className="text-slate-600">Pass:</span> admin123
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     );
@@ -495,7 +579,7 @@ export default function AdminPage() {
       <main className="flex-1 max-w-7xl w-full mx-auto p-6 md:p-8 space-y-8">
         {/* Statistics Grid */}
         <section className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-          <div className="lg:col-span-3 glass-card rounded-2xl p-6 relative overflow-hidden group">
+          <div className="lg:col-span-2 glass-card rounded-2xl p-6 relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-600/5 rounded-full translate-x-4 -translate-y-4" />
             <div className="flex items-center space-x-4 mb-4">
               <div className="h-10 w-10 rounded-lg bg-indigo-600/10 border border-indigo-500/20 flex items-center justify-center shrink-0">
@@ -539,6 +623,22 @@ export default function AdminPage() {
             </div>
             <p className="text-[10px] text-slate-550 font-semibold tracking-wide uppercase mt-4">Average response: 24h</p>
           </div>
+
+          <div className="glass-card rounded-2xl p-6 flex flex-col justify-between relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-600/5 rounded-full translate-x-4 -translate-y-4 group-hover:scale-125 transition" />
+            <div className="flex items-center space-x-4 mb-4">
+              <div className="h-10 w-10 rounded-lg bg-indigo-600/10 border border-indigo-500/20 flex items-center justify-center shrink-0">
+                <Megaphone className="h-5 w-5 text-indigo-400" />
+              </div>
+              <div>
+                <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">Announcements</p>
+                <h2 className="text-2xl font-black text-white mt-1">
+                  {dataLoading ? <Loader2 className="h-7 w-7 animate-spin text-slate-650 inline" /> : announcements.length}
+                </h2>
+              </div>
+            </div>
+            <p className="text-[10px] text-slate-550 font-semibold tracking-wide uppercase mt-4">Pops up on E-Cell Web</p>
+          </div>
         </section>
 
         {/* Tab Controls and Actions Panel */}
@@ -567,6 +667,17 @@ export default function AdminPage() {
               <Mail className="h-4 w-4" />
               <span>Contact Enquiries ({contacts.length})</span>
             </button>
+            <button
+              onClick={() => setActiveTab("announcements")}
+              className={`flex items-center space-x-2 px-6 py-4 text-sm font-semibold tracking-wide border-b-2 transition cursor-pointer ${
+                activeTab === "announcements"
+                  ? "border-indigo-500 text-indigo-400 bg-[#0d1424]/40"
+                  : "border-transparent text-slate-400 hover:text-slate-200"
+              }`}
+            >
+              <Megaphone className="h-4 w-4" />
+              <span>Announcements ({announcements.length})</span>
+            </button>
           </div>
 
           {/* Search bar inside tab display */}
@@ -583,7 +694,7 @@ export default function AdminPage() {
                   onChange={(e) => setAlumniSearch(e.target.value)}
                   className="w-full bg-[#080d16] border border-slate-800/80 rounded-xl py-2 pl-10 pr-4 text-xs text-white focus:outline-none focus:border-indigo-500 transition"
                 />
-              ) : (
+              ) : activeTab === "contacts" ? (
                 <input
                   type="text"
                   placeholder="Search enquiries by name, email, message..."
@@ -591,20 +702,39 @@ export default function AdminPage() {
                   onChange={(e) => setContactSearch(e.target.value)}
                   className="w-full bg-[#080d16] border border-slate-800/80 rounded-xl py-2 pl-10 pr-4 text-xs text-white focus:outline-none focus:border-indigo-500 transition"
                 />
+              ) : (
+                <input
+                  type="text"
+                  placeholder="Search announcements by headline or content..."
+                  value={announcementSearch}
+                  onChange={(e) => setAnnouncementSearch(e.target.value)}
+                  className="w-full bg-[#080d16] border border-slate-800/80 rounded-xl py-2 pl-10 pr-4 text-xs text-white focus:outline-none focus:border-indigo-500 transition"
+                />
               )}
             </div>
 
-            <button
-              onClick={fetchData}
-              disabled={dataLoading}
-              className="bg-[#080d16] hover:bg-[#0c1322] border border-slate-800 rounded-xl py-2 px-4 text-xs font-semibold cursor-pointer active:scale-95 transition flex items-center justify-center space-x-2"
-            >
-              {dataLoading ? (
-                <Loader2 className="h-3 w-3 animate-spin text-slate-400" />
-              ) : (
-                <span>Sync Data</span>
+            <div className="flex items-center space-x-2 shrink-0">
+              {activeTab === "announcements" && (
+                <button
+                  onClick={handleOpenAddAnnouncement}
+                  className="bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl py-2 px-4 text-xs font-semibold cursor-pointer active:scale-95 transition flex items-center justify-center space-x-2"
+                >
+                  <Megaphone className="h-3.5 w-3.5" />
+                  <span>New Announcement</span>
+                </button>
               )}
-            </button>
+              <button
+                onClick={fetchData}
+                disabled={dataLoading}
+                className="bg-[#080d16] hover:bg-[#0c1322] border border-slate-800 rounded-xl py-2 px-4 text-xs font-semibold cursor-pointer active:scale-95 transition flex items-center justify-center space-x-2"
+              >
+                {dataLoading ? (
+                  <Loader2 className="h-3 w-3 animate-spin text-slate-400" />
+                ) : (
+                  <span>Sync Data</span>
+                )}
+              </button>
+            </div>
           </div>
 
           {/* Table / List Area */}
@@ -858,6 +988,54 @@ export default function AdminPage() {
                 )}
               </div>
             )}
+            {!dataLoading && activeTab === "announcements" && (
+              <div>
+                {filteredAnnouncements.length === 0 ? (
+                  <div className="text-center py-16 text-slate-500 text-xs">
+                    No announcements found. Click "New Announcement" to create one.
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 gap-4">
+                    {filteredAnnouncements.map((ann) => (
+                      <div
+                        key={ann._id}
+                        className="bg-[#0a0f1d] border border-slate-800/60 rounded-xl p-5 hover:border-slate-700/80 transition shadow-md relative flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6"
+                      >
+                        <div className="space-y-3 flex-1 w-full">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <h3 className="text-sm font-bold text-white tracking-wide">{ann.headline}</h3>
+                            <span className="text-[10px] text-slate-500 flex items-center space-x-1 font-semibold uppercase tracking-wide">
+                              <Calendar className="h-3 w-3 text-slate-600 mr-1" />
+                              <span>{new Date(ann.createdAt).toLocaleDateString()}</span>
+                            </span>
+                          </div>
+                          <p className="text-xs text-slate-300 leading-relaxed font-medium bg-slate-950/30 p-3 rounded-lg border border-slate-900/60 whitespace-pre-wrap">
+                            {ann.content}
+                          </p>
+                        </div>
+
+                        <div className="flex items-center gap-3 shrink-0 self-end lg:self-center border-t lg:border-t-0 pt-4 lg:pt-0 border-slate-850 w-full lg:w-auto justify-end">
+                          <button
+                            onClick={() => handleOpenEditAnnouncement(ann)}
+                            className="bg-amber-950/40 hover:bg-amber-955 border border-amber-900/40 text-amber-400 p-2 rounded-lg text-xs font-semibold cursor-pointer active:scale-95 transition"
+                            title="Edit Announcement"
+                          >
+                            <Edit3 className="h-3.5 w-3.5" />
+                          </button>
+                          <button
+                            onClick={() => handleDeleteAnnouncement(ann._id)}
+                            className="bg-red-950/40 hover:bg-red-955 border border-red-900/40 text-red-400 p-2 rounded-lg text-xs font-semibold cursor-pointer active:scale-95 transition"
+                            title="Delete Announcement"
+                          >
+                            <Trash2 className="h-3.5 w-3.5" />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </main>
@@ -1008,6 +1186,81 @@ export default function AdminPage() {
                     <Loader2 className="h-3 w-3 animate-spin text-white" />
                   ) : (
                     <span>Save Changes</span>
+                  )}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+      {/* Create / Edit Announcement Modal Popup Overlay */}
+      {isAnnouncementModalOpen && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="w-full max-w-lg glass-card rounded-2xl overflow-hidden border border-slate-800">
+            {/* Modal header */}
+            <div className="flex items-center justify-between border-b border-slate-800 bg-[#0c1322] px-6 py-4">
+              <h3 className="text-sm font-bold text-white">
+                {editingAnnouncement ? "Edit Announcement" : "Create New Announcement"}
+              </h3>
+              <button
+                onClick={() => setIsAnnouncementModalOpen(false)}
+                className="text-slate-400 hover:text-white transition p-1 hover:bg-slate-850 rounded-lg cursor-pointer"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+
+            {/* Modal fields form */}
+            <form onSubmit={handleSaveAnnouncement} className="p-6 space-y-4">
+              <div>
+                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-505 mb-1">
+                  Headline
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Registrations Open for E-Summit 2026!"
+                  value={announcementForm.headline}
+                  onChange={(e) => setAnnouncementForm({ ...announcementForm, headline: e.target.value })}
+                  className="w-full bg-[#080d16] border border-slate-800 rounded-xl py-3 px-3.5 text-xs text-white focus:outline-none focus:border-indigo-500 placeholder-slate-600"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-505 mb-1">
+                  Content / Details
+                </label>
+                <textarea
+                  required
+                  rows={6}
+                  placeholder="Provide detailed description of the announcement..."
+                  value={announcementForm.content}
+                  onChange={(e) => setAnnouncementForm({ ...announcementForm, content: e.target.value })}
+                  className="w-full bg-[#080d16] border border-slate-800 rounded-xl py-3 px-3.5 text-xs text-white focus:outline-none focus:border-indigo-500 placeholder-slate-600 resize-none leading-relaxed"
+                />
+                <p className="text-[10px] text-slate-500 mt-1.5 leading-relaxed bg-[#0d1424]/40 p-2.5 rounded-lg border border-slate-900">
+                  💡 <strong>Supports Markdown:</strong> Use <code>**bold text**</code>, <code>*italic text*</code>, <code>[link text](https://example.com)</code>, and list bullets (<code>* item</code> or <code>- item</code>).
+                </p>
+              </div>
+
+              {/* Form Actions */}
+              <div className="flex justify-end space-x-3 pt-4 border-t border-slate-800/85">
+                <button
+                  type="button"
+                  onClick={() => setIsAnnouncementModalOpen(false)}
+                  className="bg-[#080d16] hover:bg-[#0c1322] border border-slate-800 rounded-xl py-2.5 px-4 text-xs font-semibold cursor-pointer active:scale-95 transition"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={announcementFormLoading}
+                  className="bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl py-2.5 px-5 text-xs font-semibold cursor-pointer active:scale-95 transition flex items-center space-x-2"
+                >
+                  {announcementFormLoading ? (
+                    <Loader2 className="h-3 w-3 animate-spin text-white" />
+                  ) : (
+                    <span>{editingAnnouncement ? "Save Changes" : "Publish Announcement"}</span>
                   )}
                 </button>
               </div>
