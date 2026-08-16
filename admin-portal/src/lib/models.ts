@@ -98,3 +98,21 @@ const alumniSchema = new mongoose.Schema<Alumni>(
 );
 
 export const AlumniModel = mongoose.models.Alumni || mongoose.model<Alumni>("Alumni", alumniSchema);
+
+// Announcement Interface & Schema
+export interface Announcement {
+  headline: string;
+  content: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+const announcementSchema = new mongoose.Schema<Announcement>(
+  {
+    headline: { type: String, required: true },
+    content: { type: String, required: true },
+  },
+  { timestamps: true }
+);
+
+export const AnnouncementModel = mongoose.models.Announcement || mongoose.model<Announcement>("Announcement", announcementSchema);

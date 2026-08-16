@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 import Preloader from "./Preloader";
+import AnnouncementPopup from "./AnnouncementPopup";
 
 interface PreloaderContextType {
   isLoading: boolean;
@@ -29,6 +30,7 @@ export const PreloaderProvider = ({ children }: { children: React.ReactNode }) =
   return (
     <PreloaderContext.Provider value={{ isLoading }}>
       <Preloader onComplete={() => setIsLoading(false)} />
+      <AnnouncementPopup isPreloaderLoading={isLoading} />
       {/* 
         Keep children in DOM so assets (videos/images) pre-load, 
         but hide visually and disable interactions while loading.
