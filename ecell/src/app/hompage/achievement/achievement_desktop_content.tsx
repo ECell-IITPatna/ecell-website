@@ -14,7 +14,7 @@ const AchievementDesktopContent = () => {
     
     return (
         <>
-            <section className="relative grid grid-cols-2 px-10 w-full h-fit achievement-section-2 bg-[url('/images/achievements/bg.png')] bg-cover bg-center bg-no-repeat max-lg:hidden">
+            <section className="relative grid grid-cols-2 px-10 w-full h-fit achievement-section-2 bg-[url('/images/achievements/bg.webp')] bg-cover bg-center bg-no-repeat max-lg:hidden">
                 <div className="flex flex-col justify-center items-center gap-4 w-full h-fit achievement-title-container">
                     {achievements.map((achievement) => (
                         <h1 className={`text-6xl text-white h-screen w-full flex justify-center items-center achievement-title-${achievement.id}`} key={achievement.id}>
