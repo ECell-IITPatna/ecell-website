@@ -175,7 +175,7 @@ export function Navbar() {
             <div className="navbar-overlay fixed top-0 left-0 w-full h-full bg-[#000000a8] z-[65] opacity-0 pointer-events-none" />
 
             {/* Floating Navigation Elements */}
-            <div className="floating-navbar-sidebar fixed bottom-5 right-5 bg-[#98d2feb4] z-[70] rounded-2xl overflow-hidden w-17 h-17 flex justify-between p-5">
+            <div className="floating-navbar-sidebar fixed bottom-5 right-5 bg-[#0f2c42b4] z-[70] rounded-2xl overflow-hidden w-17 h-17 flex justify-between p-5">
                 <div className="flex flex-col gap-4 w-full h-full">
                     {sidebarDetails.map((item, index) => {
                         return (
@@ -225,7 +225,7 @@ export function Navbar() {
                 />
             </div>
 
-            <div className="floating-navbar-contact fixed bottom-5 right-5 bg-[#98d2fe] z-[70] rounded-2xl overflow-hidden w-0 h-0 flex flex-col justify-start gap-2">
+            <div className="floating-navbar-contact fixed bottom-5 right-5 bg-[#024478] z-[70] rounded-2xl overflow-hidden w-0 h-0 flex flex-col justify-start gap-2">
                 <div className="flex justify-end contact-element opacity-0">
                     <div className="rounded-full p-3 bg-[#323232] w-fit cursor-pointer">
                         <X size={30}
@@ -239,14 +239,14 @@ export function Navbar() {
                         />
                     </div>
                 </div>
-                <h1 className="contact-element text-black font-clash text-3xl md:text-[3.5vw] font-bold opacity-0">Get in touch</h1>
-                <p className="text-black contact-element opacity-0">Whether you have a startup idea, a collaboration in mind, or simply want to learn more about entrepreneurship, we&apos;re always excited to connect with passionate innovators.</p>
+                <h1 className="contact-element text-white font-clash text-3xl md:text-[3.5vw] font-bold opacity-0">Get in touch</h1>
+                <p className="text-white contact-element opacity-0">Whether you have a startup idea, a collaboration in mind, or simply want to learn more about entrepreneurship, we&apos;re always excited to connect with passionate innovators.</p>
                 <div className="contact-element h-[1.5px] w-full bg-[#81818176] opacity-0"></div>
-                <p className="contact-element text-black opacity-0">For all Enquiries</p>
-                <h1 className="contact-element text-xl md:text-[2.5vw] hover:text-[#1050b0d3] transition-all duration-300 opacity-0">entrepreneurship@iitp.ac.in</h1>
-                <p className="contact-element text-black opacity-0">Contact Number</p>
+                <p className="contact-element text-white opacity-0">For all Enquiries</p>
+                <h1 className="contact-element text-xl md:text-[2.5vw] hover:text-[#385a8d] transition-all duration-300 opacity-0">entrepreneurship@iitp.ac.in</h1>
+                {/* <p className="contact-element text-[#6f6f70] opacity-0">Contact Number</p>
                 <h1 className="contact-element text-xl md:text-[2.5vw] hover:text-[#1050b0d3] transition-all duration-300 opacity-0">+91 8920647827</h1>
-                <h1 className="contact-element text-xl md:text-[2.5vw] hover:text-[#1050b0d3] transition-all duration-300 opacity-0">+91 8595771250</h1>
+                <h1 className="contact-element text-xl md:text-[2.5vw] hover:text-[#1050b0d3] transition-all duration-300 opacity-0">+91 8595771250</h1> */}
             </div>
 
             {/* Desktop Navigation */}
