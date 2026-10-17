@@ -1,8 +1,8 @@
 export const navbarDetails = [
+    { name: "Logo", href: "/" },
     { name: "Home", href: "/" },
     { name: "Legacy", href: "/legacy" },
     { name: "Our Alumini", href: "/#alumni", id: "alumni" },
-    { name: "Logo", href: "/" },
     { name: "Endeavours", href: "/endeavours" },
     { name: "Sponsors", href: "/sponsors" },
     { name: "Team", href: "/team" },
