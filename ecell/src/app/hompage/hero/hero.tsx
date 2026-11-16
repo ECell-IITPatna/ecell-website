@@ -17,7 +17,7 @@ export default function Hero() {
 
       <div className="overlay backdrop-blur-[1px] absolute top-0 left-0 w-full h-full"></div>
 
-      <header className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center space-y-4 flex flex-col items-center justify-center">
+      <header className="absolute top-[58%] sm:top-[57%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center space-y-4 flex flex-col items-center justify-center">
         <h1 className="hero-heading md:text-7xl sm:text-4xl text-3xl text-white font-clash font-extrabold">E-CELL IIT PATNA</h1>
         <p className="hero-para md:text-xl sm:text-lg text-md text-[#D0D0D0] font-inter">Join our vibrant alumni community and relive your E-Cell journey with fellow innovators and leaders.</p>
         <ButtonDual 

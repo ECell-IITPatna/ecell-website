@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Beau_Rivage, Syne } from "next/font/google";
 import { useEffect, useRef, useState } from "react";
 import { useMouse } from "@/app/endeavours/components/hooks";
 import { NebulaCanvas } from "@/app/endeavours/components/NebulaCanvas";
@@ -10,9 +9,6 @@ import { AuroraCurtain } from "@/app/endeavours/components/AuroraCurtain";
 import { FloatingOrbs } from "@/app/endeavours/components/FloatingOrbs";
 import { CometBackground } from "./components/CometBackground";
 import { SponsorPerkCard } from "./components/SponsorPerkCard";
-
-const beauRivage = Beau_Rivage({ weight: "400", subsets: ["latin"], display: "swap" });
-const syne = Syne({ subsets: ["latin"], weight: ["700", "800"], display: "swap" });
 
 const pastSponsorNames = [
   "StockGro",
@@ -87,7 +83,7 @@ export default function SponsorsPage() {
         {/* Hero */}
         <div className="mb-12 text-center sm:mb-16">
           <h1
-            className={`${beauRivage.className} text-slate-100 tracking-wide text-[2.75rem] leading-[1.05] break-words sm:text-6xl md:text-7xl lg:text-8xl`}
+            className="font-beau-rivage text-slate-100 tracking-wide text-[2.75rem] leading-[1.05] break-words sm:text-6xl md:text-7xl lg:text-8xl"
             style={{
               opacity: heroVisible ? 1 : 0,
               transform: heroVisible ? "translateY(0)" : "translateY(10px)",
@@ -116,7 +112,7 @@ export default function SponsorsPage() {
         <section className="mb-14 sm:mb-20">
           <div className="mx-auto mb-6 sm:mb-8 flex max-w-3xl items-center gap-4 sm:gap-6 px-2 sm:px-4">
             <div className="hidden h-px flex-grow bg-gradient-to-r from-transparent to-slate-800 sm:block" />
-            <h2 className={`${syne.className} text-center text-lg sm:text-xl md:text-2xl text-slate-200 tracking-widest uppercase whitespace-nowrap`}>
+            <h2 className="font-syne text-center text-lg sm:text-xl md:text-2xl text-slate-200 tracking-widest uppercase whitespace-nowrap">
               Our Sponsors
             </h2>
             <div className="hidden h-px flex-grow bg-gradient-to-l from-transparent to-slate-800 sm:block" />
@@ -133,7 +129,7 @@ export default function SponsorsPage() {
                 priority
               />
             </div>
-            <h3 className={`${syne.className} text-xl sm:text-2xl lg:text-3xl text-white font-bold`}>Wingfotech</h3>
+            <h3 className="font-syne text-xl sm:text-2xl lg:text-3xl text-white font-bold">Wingfotech</h3>
             <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm text-slate-400 italic">Fly with Technology</p>
           </div>
         </section>
@@ -165,7 +161,7 @@ export default function SponsorsPage() {
 
         {/* Why sponsor */}
         <section className="mb-14 sm:mb-20">
-          <h2 className={`${syne.className} text-lg sm:text-xl md:text-2xl text-slate-200 tracking-widest uppercase text-center mb-6 sm:mb-8 px-2`}>
+          <h2 className="font-syne text-lg sm:text-xl md:text-2xl text-slate-200 tracking-widest uppercase text-center mb-6 sm:mb-8 px-2">
             Why Partner With Us?
           </h2>
           <div
@@ -209,7 +205,7 @@ export default function SponsorsPage() {
             className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/55 to-black/70"
           />
           <div className="relative z-10 flex flex-col items-center px-5 py-12 sm:px-10 sm:py-16 lg:py-20">
-            <h2 className={`${syne.className} text-xl sm:text-2xl lg:text-3xl text-white font-bold mb-3`}>
+            <h2 className="font-syne text-xl sm:text-2xl lg:text-3xl text-white font-bold mb-3">
               Become a Sponsor
             </h2>
             <div

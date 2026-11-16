@@ -9,10 +9,12 @@ import { useRef, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useESummit } from "./esummit/ESummitContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export function Navbar() {
+    const { isBannerVisible } = useESummit();
     const pathname = usePathname();
     const router = useRouter();
 
@@ -122,6 +124,7 @@ export function Navbar() {
             }
 
             gsap.killTweensOf(".navbar");
+            gsap.killTweensOf(".esummit-banner-bar");
             gsap.killTweensOf([".floating-navbar-container", ".floating-navbar-sidebar", ".floating-navbar-contact", ".navbar-overlay"]);
 
             if (timelineref1.current) timelineref1.current.progress(0).pause();
@@ -130,6 +133,7 @@ export function Navbar() {
             if (timelineref4.current) timelineref4.current.progress(0).pause();
 
             gsap.set(".navbar", { y: 0, clearProps: "transform" });
+            gsap.set(".esummit-banner-bar", { y: 0, clearProps: "transform" });
             gsap.set([".floating-navbar-container", ".floating-navbar-sidebar"], { yPercent: 150 });
             gsap.set(".navbar-overlay", { opacity: 0 });
             gsap.set(".floating-navbar-contact", { width: 0, height: 0, padding: 0 });
@@ -148,10 +152,12 @@ export function Navbar() {
                 start: "bottom top",
                 onLeave: () => {
                     gsap.to(".navbar", { y: -150 });
+                    gsap.to(".esummit-banner-bar", { y: -250 });
                     gsap.to([".floating-navbar-container", ".floating-navbar-sidebar"], { yPercent: 0 });
                 },
                 onEnterBack: () => {
                     gsap.to(".navbar", { y: 0 });
+                    gsap.to(".esummit-banner-bar", { y: 0 });
                     gsap.to([".floating-navbar-container", ".floating-navbar-sidebar"], { yPercent: 150 });
                 },
             });

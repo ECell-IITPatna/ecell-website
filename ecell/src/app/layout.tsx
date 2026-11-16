@@ -7,6 +7,9 @@ import Footer from "@/components/ui/Footer";
 import SmoothScroller from "./SmoothScroller";
 import "lenis/dist/lenis.css";
 import { PreloaderProvider } from "@/components/ui/PreloaderProvider";
+import { ESummitProvider } from "@/components/ui/esummit/ESummitContext";
+import ESummitBanner from "@/components/ui/esummit/ESummitBanner";
+import ESummitModal from "@/components/ui/esummit/ESummitModal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -53,12 +56,16 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <PreloaderProvider>
-          <SmoothScroller />
-          <Navbar />
-          <div className="flex-grow">
-            {children}
-          </div>
-          <Footer />
+          <ESummitProvider>
+            <SmoothScroller />
+            <ESummitBanner />
+            <ESummitModal />
+            <Navbar />
+            <div className="flex-grow">
+              {children}
+            </div>
+            <Footer />
+          </ESummitProvider>
         </PreloaderProvider>
       </body>
     </html>
