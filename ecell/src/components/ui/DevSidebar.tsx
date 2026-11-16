@@ -7,7 +7,6 @@ import TeamCard from '@/components/ui/TeamCard';
 
 const syne = Syne({
   subsets: ['latin'],
-  weight: ['700', '800'],
   display: 'swap',
 });
 

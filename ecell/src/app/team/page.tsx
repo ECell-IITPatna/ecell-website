@@ -7,7 +7,7 @@ import { Beau_Rivage, Syne } from 'next/font/google';
 import { useState, useEffect, useRef } from 'react';
 
 const beauRivage = Beau_Rivage({ weight: '400', subsets: ['latin'], display: 'swap' });
-const syne = Syne({ subsets: ['latin'], weight: ['700', '800'], display: 'swap' });
+const syne = Syne({ subsets: ['latin'], display: 'swap' });
 
 export default function TeamPage() {
   const [isDevOpen, setIsDevOpen] = useState(false);

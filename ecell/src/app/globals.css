@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Syne:wght@700;800&display=swap');
 @import "tailwindcss";
 
 :root {
@@ -38,6 +39,12 @@ body {
 }
 .font-micro{
   font-family: var(--font-micro);
+}
+.font-syne {
+  font-family: 'Syne', var(--font-clash), sans-serif;
+}
+.font-beau-rivage {
+  font-family: 'Beau Rivage', cursive;
 }
 
 @keyframes slideIn {
